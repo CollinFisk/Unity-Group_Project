@@ -12,6 +12,7 @@ TagManager:
   - Ammo
   - MeleeEnemy
   - RangedEnemy
+  - Destroyable
   layers:
   - Default
   - TransparentFX
