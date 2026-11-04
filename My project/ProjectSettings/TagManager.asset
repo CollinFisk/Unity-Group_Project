@@ -5,6 +5,13 @@ TagManager:
   serializedVersion: 3
   tags:
   - Wall
+  - RangedWeapon
+  - MeleeWeapon
+  - Floor
+  - Health
+  - Ammo
+  - MeleeEnemy
+  - RangedEnemy
   layers:
   - Default
   - TransparentFX
@@ -41,6 +48,18 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Floor
+    uniqueID: 3365115995
+    locked: 0
+  - name: Below Player
+    uniqueID: 1883664317
+    locked: 0
+  - name: Player
+    uniqueID: 1039606145
+    locked: 0
+  - name: Above Player
+    uniqueID: 2685382903
     locked: 0
   m_RenderingLayers:
   - Default
