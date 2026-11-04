@@ -77,6 +77,7 @@ public class GameManager : MonoBehaviour
             {
                 weaponText.text = " ";
                 clipText.text = " ";
+                ammoText.text = " ";
             }
 
             if (player.pickupObj != null)
