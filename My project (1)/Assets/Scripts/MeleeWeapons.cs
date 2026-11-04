@@ -1,20 +1,31 @@
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 using static UnityEngine.Rendering.DebugUI.Table;
 
 public class MeleeWeapons : MonoBehaviour
 {
     public PlayerController player;
+    public GameObject attackZone;
 
     public bool canFire = false;
     public bool holdToAttack = true;
     public bool reloading = false;
     public string weaponName;
+    public int weaponDmg;
     public float rof;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+
+    }
+
+    void Update()
+    {
+        if (attackZone.activeSelf == true)
+        {
+            attackZone.SetActive(false);
+        }
     }
 
     public void equip(PlayerController p)
@@ -53,6 +64,7 @@ public class MeleeWeapons : MonoBehaviour
 
     IEnumerator cooldownFire()
     {
+        attackZone.SetActive(true);
         yield return new WaitForSeconds(rof);
         //player.weaponAnim.SetBool("isFiring", false);
         canFire = true;
