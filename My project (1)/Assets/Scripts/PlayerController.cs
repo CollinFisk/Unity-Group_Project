@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
     [Header("Player Settings")]
     public int health = 5;
     public int maxHealth = 5;
+    public int filledWeaponSlots = 0;
     public float speed = 5f;
     public bool attacking = false;
 
@@ -13,6 +14,7 @@ public class PlayerController : MonoBehaviour
     public Transform player;
     public MeleeWeapons currentMeleeWeapon;
     public RangedWeapons currentRangedWeapon;
+    public GameObject[] playerWeapons;
     public Interactions interactions;
     public Transform weaponSlot;
     public Transform interactObject;
@@ -117,6 +119,11 @@ public class PlayerController : MonoBehaviour
             currentMeleeWeapon = null;
             currentRangedWeapon = null;
         }
+    }
+
+    public void EquipNextWeapon()
+    {
+
     }
 
     public void Move(InputAction.CallbackContext context)

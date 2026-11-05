@@ -38,6 +38,7 @@ public class MeleeWeapons : MonoBehaviour
         player = p;
 
         player.currentMeleeWeapon = this;
+        player.GetComponent<PlayerController>().playerWeapons[player.filledWeaponSlots]
 
         transform.SetPositionAndRotation(player.weaponSlot.position, player.weaponSlot.rotation);
         transform.SetParent(player.weaponSlot);
