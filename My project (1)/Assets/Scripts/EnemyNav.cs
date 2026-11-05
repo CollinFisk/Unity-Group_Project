@@ -73,6 +73,11 @@ public class EnemyNav : MonoBehaviour
             destination.z = 0;
             Vector2 lookDir = destination - transform.position;
             rigidbody.MoveRotation(Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f);
+
+            if(distanceFromStop <= stoppingDistance)
+            {
+                rigidbody.linearVelocity = Vector2.zero;
+            }
         }
         else
         {
