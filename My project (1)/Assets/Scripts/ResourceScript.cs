@@ -1,5 +1,4 @@
 using Unity.VisualScripting;
-using UnityEditor.U2D.Aseprite;
 using UnityEngine;
 
 public class ResourceScript : MonoBehaviour

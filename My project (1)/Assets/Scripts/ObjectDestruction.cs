@@ -20,6 +20,7 @@ public class ObjectDestruction : MonoBehaviour
     void Start()
     {
         healthBar.GetComponent<Slider>().maxValue = objectHealth;
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
     }
 
     // Update is called once per frame

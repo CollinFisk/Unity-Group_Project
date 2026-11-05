@@ -28,6 +28,12 @@ public class PlayerController : MonoBehaviour
     private InputAction reloadAction;
     private InputAction dropAction;
 
+    [Header("Resources")]
+    public int wood;
+    public int metal;
+    public int components;
+    public int totalResources;
+    public int maxResources;
     void Awake()
     {
         player = transform;
@@ -51,12 +57,13 @@ public class PlayerController : MonoBehaviour
             interactAction = inputComponent.actions.FindAction("Interact");
             attackAction = inputComponent.actions.FindAction("Attack");
             reloadAction = inputComponent.actions.FindAction("Reload");
+            dropAction = inputComponent.actions.FindAction("Drop");
 
             if (moveAction != null) { moveAction.performed += Move; moveAction.canceled += Move; }
             if (interactAction != null) interactAction.performed += Interact;
             if (attackAction != null) { attackAction.performed += Attack; attackAction.canceled += Attack; }
             if (reloadAction != null) reloadAction.performed += Reload;
-            if (dropAction != null) reloadAction.performed += Reload;
+            if (dropAction != null) dropAction.performed += Drop;
 
         }
     }
@@ -67,6 +74,8 @@ public class PlayerController : MonoBehaviour
         if (interactAction != null) interactAction.performed -= Interact;
         if (attackAction != null) { attackAction.performed -= Attack; attackAction.canceled -= Attack; }
         if (reloadAction != null) reloadAction.performed -= Reload;
+        if (dropAction != null) dropAction.performed -= Drop;
+
     }
 
     void FixedUpdate()
@@ -186,5 +195,27 @@ public class PlayerController : MonoBehaviour
             health = maxHealth;
             Destroy(collision.gameObject);
         }
+        if (collision.gameObject.CompareTag("Resource"))
+        {
+            if(collision.gameObject.GetComponent<ResourceScript>().givesWood)
+            {
+                wood = +collision.gameObject.GetComponent<ResourceScript>().dropWorth;
+                Destroy(collision.gameObject);
+
+            }
+            if (collision.gameObject.GetComponent<ResourceScript>().givesMetal)
+            {
+                metal += collision.gameObject.GetComponent<ResourceScript>().dropWorth;
+                Destroy(collision.gameObject);
+
+            }
+            if (collision.gameObject.GetComponent<ResourceScript>().givesComponents)
+            {
+                components += collision.gameObject.GetComponent<ResourceScript>().dropWorth;
+                Destroy(collision.gameObject);
+
+            }
+        }
+
     }
 }
