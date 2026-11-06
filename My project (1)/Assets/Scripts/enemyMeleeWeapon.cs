@@ -6,6 +6,7 @@ using static UnityEngine.Rendering.DebugUI.Table;
 public class EnemyMeleeWeapon : MonoBehaviour
 {
     public MeleeEnemy enemy;
+    public AttackHitboxForMeleeEnemy hitbox;
     public GameObject attackZone;
 
     public bool canFire = false;
@@ -31,23 +32,28 @@ public class EnemyMeleeWeapon : MonoBehaviour
             //attackZone.SetActive(false);
         }
     }
-
-    public void hit()
+    IEnumerator Attack()
+    {
+        yield return new WaitForSeconds(1);
+        StartCoroutine("cooldownFire");
+    }
+    IEnumerator cooldownFire()
     {
         if (canFire)
         {
-            StartCoroutine("cooldownFire");
+            attackZone.SetActive(true);
+
+            yield return new WaitForSeconds(rof);
+
+            attackZone.SetActive(false);
+            canDmg = true;
+
+            yield return new WaitForSeconds(1);
+
+            if (canFire)
+            {
+                Attack();
+            }
         }
-    }
-
-    IEnumerator cooldownFire()
-    {
-        attackZone.SetActive(true);
-
-        yield return new WaitForSeconds(rof);
-
-        attackZone.SetActive(false);
-        canFire = true;
-        canDmg = true;
     }
 }
