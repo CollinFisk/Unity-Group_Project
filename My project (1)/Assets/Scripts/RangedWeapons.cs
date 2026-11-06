@@ -42,13 +42,17 @@ public class RangedWeapons : MonoBehaviour
             {
                 gameObject.SetActive(false);
             }
+            else
+            {
+                gameObject.SetActive(true);
+            }
         }
     }
 
     public void equip(PlayerController p)
     {
         player = p;
-
+        transform.gameObject.SetActive(true);
         player.currentRangedWeapon = this;
         if (player.GetComponent<PlayerController>().playerWeapons[0] != null)
         {

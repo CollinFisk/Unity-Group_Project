@@ -34,6 +34,8 @@ public class MeleeWeapons : MonoBehaviour
             {
                 gameObject.SetActive(false);
             }
+            else
+                gameObject.SetActive(true);
         }
 
     }
@@ -42,6 +44,7 @@ public class MeleeWeapons : MonoBehaviour
     {
         player = p;
         player.currentMeleeWeapon = this;
+        transform.gameObject.SetActive(true);
         if (player.GetComponent<PlayerController>().playerWeapons[0] != null)
         {
             for (var i = player.GetComponent<PlayerController>().playerWeapons.Length; i > 0; i--)

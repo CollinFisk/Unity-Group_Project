@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
     private InputAction attackAction;
     private InputAction reloadAction;
     private InputAction dropAction;
-    private InputAction equipNextWeapon;
+    private InputAction equipNextWeaponAction;
 
     [Header("Resources")]
     public int wood;
@@ -65,14 +65,14 @@ public class PlayerController : MonoBehaviour
             attackAction = inputComponent.actions.FindAction("Attack");
             reloadAction = inputComponent.actions.FindAction("Reload");
             dropAction = inputComponent.actions.FindAction("Drop");
-            equipNextWeapon = inputComponent.actions.FindAction("EquipNextWeapon");
+            equipNextWeaponAction = inputComponent.actions.FindAction("equipNextWeapon");
 
             if (moveAction != null) { moveAction.performed += Move; moveAction.canceled += Move; }
             if (interactAction != null) interactAction.performed += Interact;
             if (attackAction != null) { attackAction.performed += Attack; attackAction.canceled += Attack; }
             if (reloadAction != null) reloadAction.performed += Reload;
             if (dropAction != null) dropAction.performed += Drop;
-            if (equipNextWeapon != null) equipNextWeapon.performed += EquipNextWeapon;
+            if (equipNextWeaponAction != null) equipNextWeaponAction.performed += EquipNextWeapon;
 
         }
     }
@@ -84,6 +84,8 @@ public class PlayerController : MonoBehaviour
         if (attackAction != null) { attackAction.performed -= Attack; attackAction.canceled -= Attack; }
         if (reloadAction != null) reloadAction.performed -= Reload;
         if (dropAction != null) dropAction.performed -= Drop;
+        if (equipNextWeaponAction != null) equipNextWeaponAction.performed -= EquipNextWeapon;
+
 
     }
 
@@ -131,7 +133,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void EquipNextWeapon()
+    public void EquipNextWeapon(InputAction.CallbackContext context)
     {
         GameObject temp = playerWeapons[0];
         playerWeapons[0] = null;
