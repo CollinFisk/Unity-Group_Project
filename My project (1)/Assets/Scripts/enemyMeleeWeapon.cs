@@ -9,6 +9,7 @@ public class EnemyMeleeWeapon : MonoBehaviour
     public AttackHitboxForMeleeEnemy hitbox;
     public GameObject attackZone;
 
+    public bool firing = false;
     public bool canFire = false;
     public bool holdToAttack = true;
 
@@ -20,40 +21,28 @@ public class EnemyMeleeWeapon : MonoBehaviour
     public float knockbackForce;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void Start() 
     {
         enemy = GetComponentInParent<MeleeEnemy>();
     }
-
-    void Update()
-    {
-        if (attackZone.activeSelf == true)
-        {
-            //attackZone.SetActive(false);
-        }
-    }
     IEnumerator Attack()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(rof);
         StartCoroutine("cooldownFire");
     }
     IEnumerator cooldownFire()
     {
         if (canFire)
         {
+            firing = true;
             attackZone.SetActive(true);
 
-            yield return new WaitForSeconds(rof);
+            yield return new WaitForSeconds(0.1f);
 
             attackZone.SetActive(false);
-            canDmg = true;
 
-            yield return new WaitForSeconds(1);
-
-            if (canFire)
-            {
-                Attack();
-            }
+            firing = false;
+            Attack();
         }
     }
 }
