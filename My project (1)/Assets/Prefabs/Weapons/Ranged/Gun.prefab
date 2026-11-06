@@ -118,10 +118,13 @@ MonoBehaviour:
   projVelocity: 150
   reloadCooldown: 2
   rof: 0.75
+  maxDmg: 25
+  minDmg: 20
   clip: 10
   clipSize: 10
   ammo: 25
   maxAmmo: 50
+  knockbackForce: 500
 --- !u!70 &5899764387779398973
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

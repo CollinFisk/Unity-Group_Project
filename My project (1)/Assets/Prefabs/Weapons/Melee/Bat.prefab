@@ -193,8 +193,9 @@ MonoBehaviour:
   reloading: 0
   canDmg: 1
   weaponName: 
-  maxDmg: 35
+  maxDmg: 15
   minDmg: 5
+  weaponIndex: 0
   rof: 0.75
   knockbackForce: 1000
 --- !u!61 &750912441303430826

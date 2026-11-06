@@ -16,6 +16,7 @@ public class MeleeWeapons : MonoBehaviour
     public string weaponName;
     public int maxDmg;
     public int minDmg;
+    public int weaponIndex;
     public float rof;
     public float knockbackForce;
 
@@ -27,19 +28,33 @@ public class MeleeWeapons : MonoBehaviour
 
     void Update()
     {
-        if (attackZone.activeSelf == true)
+        if (player)
         {
-            //attackZone.SetActive(false);
+            if (player.playerWeapons[0] != gameObject)
+            {
+                gameObject.SetActive(false);
+            }
         }
+
     }
 
     public void equip(PlayerController p)
     {
         player = p;
-
         player.currentMeleeWeapon = this;
-        player.GetComponent<PlayerController>().playerWeapons[player.filledWeaponSlots] = this.gameObject;
-        player.filledWeaponSlots++;
+        if (player.GetComponent<PlayerController>().playerWeapons[0] != null)
+        {
+            for (var i = player.GetComponent<PlayerController>().playerWeapons.Length; i > 0; i--)
+            {
+                if (player.GetComponent<PlayerController>().playerWeapons[i-1] != null && i < player.GetComponent<PlayerController>().playerWeapons.Length)
+                {
+                    player.GetComponent<PlayerController>().playerWeapons[i] = player.GetComponent<PlayerController>().playerWeapons[i - 1];
+                    player.GetComponent<PlayerController>().playerWeapons[i - 1] = null;
+                }
+            }
+        }
+        player.GetComponent<PlayerController>().playerWeapons[0] = gameObject;
+        player.GetComponent<PlayerController>().filledWeaponSlots++;
 
         transform.SetPositionAndRotation(player.weaponSlot.position, player.weaponSlot.rotation);
         transform.SetParent(player.weaponSlot);
@@ -51,6 +66,22 @@ public class MeleeWeapons : MonoBehaviour
     public void unequip()
     {
         player.currentRangedWeapon = null;
+        player.GetComponent<PlayerController>().playerWeapons[0] = null;
+        for (var i = 1; i < player.GetComponent<PlayerController>().playerWeapons.Length; i++)
+        {
+            if (player.GetComponent<PlayerController>().playerWeapons[i] != null)
+            {
+                player.GetComponent<PlayerController>().playerWeapons[i - 1] = player.GetComponent<PlayerController>().playerWeapons[i];
+                player.GetComponent<PlayerController>().playerWeapons[i] = null;
+            }
+        }
+        
+        if(player.GetComponent<PlayerController>().playerWeapons[0] != null)
+        {
+            player.GetComponent<PlayerController>().playerWeapons[0].SetActive(true);
+        }
+
+        player.GetComponent<PlayerController>().filledWeaponSlots--;
 
         transform.SetParent(null);
 

@@ -35,13 +35,31 @@ public class ObjectDestruction : MonoBehaviour
             DropGoodies();
         }
     }
-    
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Projectile")
+        {
+            healthbarVisible = true;
+            objectHealth -= (int)(Random.Range(player.currentRangedWeapon.minDmg, player.currentRangedWeapon.maxDmg) * 0.75f);
+            gameObject.GetComponent<Rigidbody2D>().AddForce(collision.gameObject.transform.up * player.currentRangedWeapon.GetComponent<RangedWeapons>().knockbackForce * 0.5f);
+            Destroy(collision.gameObject);
+
+            if (healthbarVisible == true)
+            {
+                StopCoroutine("HealthVisible");
+            }
+
+            StartCoroutine("HealthVisible");
+        }
+    }
+
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.name == "AttackZone" && collision.GetComponentInParent<MeleeWeapons>().canDmg == true)
         {
             healthbarVisible = true;
-            objectHealth -= (int)Random.Range(player.currentMeleeWeapon.minDmg, player.currentMeleeWeapon.maxDmg);
+            objectHealth -= (int)(Random.Range(player.currentMeleeWeapon.minDmg, player.currentMeleeWeapon.maxDmg) * 2);
             gameObject.GetComponent<Rigidbody2D>().AddForce(collision.gameObject.transform.up * collision.GetComponentInParent<MeleeWeapons>().knockbackForce);
             collision.GetComponentInParent<MeleeWeapons>().canDmg = false;
 
@@ -51,7 +69,6 @@ public class ObjectDestruction : MonoBehaviour
             }
 
             StartCoroutine("HealthVisible");
-            
         }
     }
 

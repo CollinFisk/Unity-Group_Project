@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -32,6 +33,7 @@ public class PlayerController : MonoBehaviour
     private InputAction attackAction;
     private InputAction reloadAction;
     private InputAction dropAction;
+    private InputAction equipNextWeapon;
 
     [Header("Resources")]
     public int wood;
@@ -63,12 +65,14 @@ public class PlayerController : MonoBehaviour
             attackAction = inputComponent.actions.FindAction("Attack");
             reloadAction = inputComponent.actions.FindAction("Reload");
             dropAction = inputComponent.actions.FindAction("Drop");
+            equipNextWeapon = inputComponent.actions.FindAction("EquipNextWeapon");
 
             if (moveAction != null) { moveAction.performed += Move; moveAction.canceled += Move; }
             if (interactAction != null) interactAction.performed += Interact;
             if (attackAction != null) { attackAction.performed += Attack; attackAction.canceled += Attack; }
             if (reloadAction != null) reloadAction.performed += Reload;
             if (dropAction != null) dropAction.performed += Drop;
+            if (equipNextWeapon != null) equipNextWeapon.performed += EquipNextWeapon;
 
         }
     }
@@ -98,16 +102,19 @@ public class PlayerController : MonoBehaviour
         interactObject.position = transform.position;
         interactObject.rotation = transform.rotation;
 
-        if (weaponSlot.childCount > 0)
+        if (playerWeapons[0] != null)
         {
-            Transform activeWeapon = weaponSlot.GetChild(0);
+            Transform activeWeapon = playerWeapons[0].transform;
+            //Debug.Log(activeWeapon.gameObject);
             if (activeWeapon.CompareTag("MeleeWeapon"))
             {
+                //currentMeleeWeapon.gameObject.SetActive(true);
                 currentMeleeWeapon = activeWeapon.GetComponent<MeleeWeapons>();
                 currentRangedWeapon = null;
             }
             else if (activeWeapon.CompareTag("RangedWeapon"))
             {
+                //currentRangedWeapon.gameObject.SetActive(true);
                 currentRangedWeapon = activeWeapon.GetComponent<RangedWeapons>();
                 currentMeleeWeapon = null;
 
@@ -126,7 +133,17 @@ public class PlayerController : MonoBehaviour
 
     public void EquipNextWeapon()
     {
-
+        GameObject temp = playerWeapons[0];
+        playerWeapons[0] = null;
+        for (var i = 1; i < playerWeapons.Length; i++)
+        {
+            if (playerWeapons[i] != null)
+            {
+                playerWeapons[i - 1] = player.GetComponent<PlayerController>().playerWeapons[i];
+                playerWeapons[i] = null;
+            }
+        }
+        playerWeapons[filledWeaponSlots] = temp;
     }
 
     public void Move(InputAction.CallbackContext context)
@@ -138,7 +155,7 @@ public class PlayerController : MonoBehaviour
     {
         if (pickupObj != null && interactions.canInteract)
         {
-            if (pickupObj.CompareTag("MeleeWeapon"))
+            if (pickupObj.CompareTag("MeleeWeapon") && playerWeapons.Last() == null)
             {
                 var script = pickupObj.GetComponent<MeleeWeapons>();
                 if (script != null) script.equip(this);
@@ -160,11 +177,11 @@ public class PlayerController : MonoBehaviour
     }
     public void Drop(InputAction.CallbackContext context)
     {
-        if(currentMeleeWeapon)
+        if(currentMeleeWeapon && context.performed)
         {
             currentMeleeWeapon.unequip();
         }
-        if(currentRangedWeapon)
+        if(currentRangedWeapon && context.performed)
         {
             currentRangedWeapon.unequip();
         }
