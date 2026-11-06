@@ -4666,10 +4666,13 @@ MonoBehaviour:
   filledWeaponSlots: 0
   speed: 5
   attacking: 0
+  equippedWeapon: 0
   player: {fileID: 0}
   currentMeleeWeapon: {fileID: 0}
   currentRangedWeapon: {fileID: 0}
-  playerWeapons: []
+  playerWeapons:
+  - {fileID: 0}
+  - {fileID: 0}
   interactions: {fileID: 0}
   weaponSlot: {fileID: 0}
   interactObject: {fileID: 0}
