@@ -34,6 +34,8 @@ public class RangedWeapons : MonoBehaviour
         player = p;
 
         player.currentRangedWeapon = this;
+        player.GetComponent<PlayerController>().playerWeapons[player.filledWeaponSlots] = this.gameObject;
+        player.filledWeaponSlots++;
 
         transform.SetParent(player.weaponSlot);
         transform.SetPositionAndRotation(player.weaponSlot.position, player.weaponSlot.rotation);

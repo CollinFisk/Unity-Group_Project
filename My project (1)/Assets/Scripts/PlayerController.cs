@@ -10,6 +10,9 @@ public class PlayerController : MonoBehaviour
     public float speed = 5f;
     public bool attacking = false;
 
+    //This variable doesn't do anything right now I haven't finished it.
+    public int equippedWeapon;
+
     [Header("References")]
     public Transform player;
     public MeleeWeapons currentMeleeWeapon;
