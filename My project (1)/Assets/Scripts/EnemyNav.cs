@@ -3,8 +3,11 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 public class EnemyNav : MonoBehaviour
-{    PlayerController Player;
+{    
+    PlayerController Player;
     public Transform player;
+
+    public Transform collisionObject;
 
     Rigidbody2D rigidbody;
     private CircleCollider2D DetectionRadius;
@@ -15,10 +18,13 @@ public class EnemyNav : MonoBehaviour
     public bool canAttack;
     public bool isAttacking;
     public bool beingADumbass;
+    public float GetAwayFromMeDumbAss;
     public bool patrol;
     public bool stopping;
 
     public float speed;
+    public float baseSpeed;
+
     public float attackSpeed;
     public float detectionRadius;
     public float stoppingDistance;
@@ -29,6 +35,7 @@ public class EnemyNav : MonoBehaviour
     public float PatrolRadiusHighY;
 
     public Vector3 destination;
+    Vector2 pushDumbAssAwayStrength;
     public Transform destinationPoint;
     public LayerMask wallLayer;
     void Start()
@@ -103,6 +110,25 @@ public class EnemyNav : MonoBehaviour
 
             if (stopping && beingADumbass)
             {
+                pushDumbAssAwayStrength = collisionObject.position - transform.position;
+                if (player.transform.position.y > transform.position.y)
+                {
+                    rigidbody.AddForce(speed * transform.up);
+                }
+                if (player.transform.position.y < transform.position.y)
+                {
+                    rigidbody.AddForce(speed * -transform.up);
+                }
+                if (player.transform.position.x > transform.position.x)
+                {
+                    rigidbody.AddForce(speed * transform.right);
+                }
+                if (player.transform.position.x < transform.position.x)
+                {
+                    rigidbody.AddForce(speed * -transform.right);
+                }
+
+
                 rigidbody.linearVelocity = speed * transform.up;
 
                 Vector2 lookDir = destination - transform.position;
@@ -141,6 +167,11 @@ public class EnemyNav : MonoBehaviour
         {
             isFollowing = true;
         }
+        if (other.gameObject.CompareTag("Projectile"))
+        {
+            destinationPoint.position = other.transform.position;
+            stopping = true;
+        }
     }
     private void OnTriggerStay2D(Collider2D other)
     {
@@ -160,10 +191,12 @@ public class EnemyNav : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         beingADumbass = true;
+        collisionObject = collision.gameObject.transform;
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
         beingADumbass = false;
+        collisionObject = null;
     }
     IEnumerator Stopping()
     {
@@ -172,10 +205,7 @@ public class EnemyNav : MonoBehaviour
     }
     IEnumerator StartPatrol()
     {
-
         yield return new WaitForSeconds(5);
-
-        //Time For the Patrol Position to find a good point
         stopping = true;
     }
 

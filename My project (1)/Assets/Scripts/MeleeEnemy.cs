@@ -4,6 +4,7 @@ public class MeleeEnemy : MonoBehaviour
 {
     PlayerController Player;
     GameManager gameManager;
+    EnemyNav nav;
     public Transform player;
 
     Rigidbody2D rigidbody;
@@ -19,6 +20,8 @@ public class MeleeEnemy : MonoBehaviour
         Player = player.GetComponent<PlayerController>();
         weapon = transform.GetChild(0).GetComponent<EnemyMeleeWeapon>();
         hitBox = transform.GetChild(1).GetComponent<BoxCollider2D>();
+        nav = GetComponent<EnemyNav>();
+        gameManager = GameObject.Find("gameManager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
@@ -27,8 +30,15 @@ public class MeleeEnemy : MonoBehaviour
         if(enemyHealth <= 0)
         {
             Destroy(transform.gameObject);
-            gameManager.enemiesKilled++;
+            gameManager.enemyCount--;
         }
+
+        if (weapon.firing)
+        {
+            nav.speed /= 2;
+        }
+        else
+            nav.speed = nav.baseSpeed;
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {

@@ -29,7 +29,6 @@ public class AttackHitboxForMeleeEnemy : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             weapon.canFire = true;
-            weapon.StartCoroutine("Attack");
         }
     }
 
@@ -37,6 +36,8 @@ public class AttackHitboxForMeleeEnemy : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            weapon.StopAllCoroutines();
+            weapon.firing = false;
             weapon.canFire = false;
         }
     }
