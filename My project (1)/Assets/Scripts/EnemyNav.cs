@@ -74,32 +74,29 @@ public class EnemyNav : MonoBehaviour
             Vector2 lookDir = destination - transform.position;
             rigidbody.MoveRotation(Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f);
 
-            if(distanceFromStop <= stoppingDistance)
+            if (distanceFromStop <= stoppingDistance)
             {
                 rigidbody.linearVelocity = Vector2.zero;
             }
         }
         else
         {
-            if(stopping && !beingADumbass)
+            if (stopping && !beingADumbass)
             {
                 rigidbody.linearVelocity = speed * transform.up;
 
                 Vector2 lookDir = destination - transform.position;
                 rigidbody.MoveRotation(Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f);
-                if (!patrol)
-                {
-                    StartCoroutine("Stopping");
-                }
+
+                StartCoroutine("Stopping");
+
                 if (distanceFromStop <= stoppingDistance)
                 {
                     rigidbody.linearVelocity = Vector2.zero;
                     stopping = false;
-                    if (!patrol)
-                    {
-                        StopCoroutine("Stopping");
-                    }
-                    else
+
+                    StopCoroutine("Stopping");
+
                     StartCoroutine("StartPatrol");
                 }
             }
@@ -110,19 +107,15 @@ public class EnemyNav : MonoBehaviour
 
                 Vector2 lookDir = destination - transform.position;
                 rigidbody.MoveRotation(Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f);
-                if (!patrol)
-                {
-                    StartCoroutine("Stopping");
-                }
+
+                StartCoroutine("Stopping");
                 if (distanceFromStop <= stoppingDistance)
                 {
                     stopping = false;
-                    if (!patrol)
-                    {
-                        StopCoroutine("Stopping");
-                    }
-                    else
-                        StartCoroutine("StartPatrol");
+
+                    StopCoroutine("Stopping");
+
+                    StartCoroutine("StartPatrol");
                 }
             }
 

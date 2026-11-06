@@ -192,6 +192,10 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.gameObject.CompareTag("EnemyAttackZone"))
+        {
+            health--;
+        }
         if (collision.gameObject.CompareTag("Health") && health < maxHealth)
         {
             health = maxHealth;

@@ -7,7 +7,6 @@ public class MeleeEnemy : MonoBehaviour
     public Transform player;
 
     Rigidbody2D rigidbody;
-    EnemyNav enemyNav;
     Collider2D hitBox;
 
     EnemyMeleeWeapon weapon;
@@ -17,10 +16,9 @@ public class MeleeEnemy : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        hitBox = transform.GetComponent<BoxCollider2D>();
         Player = player.GetComponent<PlayerController>();
         weapon = transform.GetChild(0).GetComponent<EnemyMeleeWeapon>();
-        enemyNav = transform.GetComponent<EnemyNav>();
+        hitBox = transform.GetChild(1).GetComponent<BoxCollider2D>();
     }
 
     // Update is called once per frame
@@ -30,13 +28,6 @@ public class MeleeEnemy : MonoBehaviour
         {
             Destroy(transform.gameObject);
             gameManager.enemiesKilled++;
-        }
-        if (enemyNav.isFollowing)
-        {
-            if (enemyNav.canAttack)
-            {
-                weapon.canFire = true;
-            }
         }
     }
     private void OnCollisionEnter2D(Collision2D collision)
