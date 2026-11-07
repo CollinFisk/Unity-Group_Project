@@ -11,7 +11,7 @@ public class MeleeWeapons : MonoBehaviour
     public bool canFire = false;
     public bool holdToAttack = true;
     public bool reloading = false;
-
+    public bool equipped = false;
     public bool canDmg = true;
     public string weaponName;
     public int maxDmg;
@@ -32,10 +32,12 @@ public class MeleeWeapons : MonoBehaviour
         {
             if (player.playerWeapons[0] != gameObject)
             {
-                gameObject.SetActive(false);
+                equipped = false;
             }
             else
-                gameObject.SetActive(true);
+                equipped = true;
+
+            gameObject.GetComponent<SpriteRenderer>().enabled = equipped;
         }
 
     }

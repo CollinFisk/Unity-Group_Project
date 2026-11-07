@@ -136,25 +136,29 @@ public class PlayerController : MonoBehaviour
 
     public void EquipNextWeapon(InputAction.CallbackContext context)
     {
-        GameObject temp = playerWeapons[0];
-        playerWeapons[0] = null;
-        for (var i = 1; i < playerWeapons.Length; i++)
+        if (context.canceled)
         {
-            if (playerWeapons[i] != null)
+            GameObject temp = playerWeapons[0];
+            playerWeapons[0] = null;
+            for (var i = 1; i < playerWeapons.Length; i++)
             {
-                playerWeapons[i - 1] = playerWeapons[i];
-                playerWeapons[i] = null;
+                if (playerWeapons[i] != null)
+                {
+                    playerWeapons[i - 1] = playerWeapons[i];
+                    playerWeapons[i] = null;
+                }
             }
+            playerWeapons[filledWeaponSlots-1] = temp;
         }
-        playerWeapons[filledWeaponSlots] = temp;
+        
 
         if (currentMeleeWeapon)
         {
-            currentMeleeWeapon.canFire = true;
+            //currentMeleeWeapon.canFire = true;
         }
         if (currentRangedWeapon)
         {
-            currentRangedWeapon.canFire = true;
+            //currentRangedWeapon.canFire = true;
         }
     }
 

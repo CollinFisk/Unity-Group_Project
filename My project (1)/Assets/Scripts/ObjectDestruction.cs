@@ -7,6 +7,8 @@ public class ObjectDestruction : MonoBehaviour
 
     public PlayerController player;
     public GameObject healthBar;
+    public GameObject healthCanvas;
+    public GameObject parent;
     public GameObject[] potentialDrops;
     public int objectHealth;
     public int maxDrops;
@@ -26,12 +28,14 @@ public class ObjectDestruction : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        healthCanvas.GetComponent<Transform>().transform.position = gameObject.transform.position;
+
         healthBar.SetActive(healthbarVisible);
         healthBar.GetComponent<Slider>().value = objectHealth;
 
         if(objectHealth <= 0)
         {
-            Destroy(gameObject);
+            Destroy(parent);
             DropGoodies();
         }
     }
@@ -41,8 +45,8 @@ public class ObjectDestruction : MonoBehaviour
         if (collision.gameObject.tag == "Projectile")
         {
 
-            objectHealth -= (int)(Random.Range(player.currentRangedWeapon.minDmg, player.currentRangedWeapon.maxDmg) * 0.75f);
-            gameObject.GetComponent<Rigidbody2D>().AddForce(collision.gameObject.transform.up * player.currentRangedWeapon.GetComponent<RangedWeapons>().knockbackForce * 0.5f);
+            objectHealth -= (int)(collision.gameObject.GetComponent<BulletDmg>().bulletDmg * 0.75f);
+            gameObject.GetComponent<Rigidbody2D>().AddForce(collision.gameObject.transform.up * collision.gameObject.GetComponent<BulletDmg>().bulletKnockback * 0.5f);
             
             healthbarVisible = true;
             Destroy(collision.gameObject);

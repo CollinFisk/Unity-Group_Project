@@ -12,6 +12,7 @@ public class RangedWeapons : MonoBehaviour
     public bool canFire = false;
     public bool holdToAttack = true;
     public bool reloading = false;
+    public bool equipped = false;
     public string weaponName;
 
     [Header("Weapon Stats")]
@@ -44,12 +45,12 @@ public class RangedWeapons : MonoBehaviour
         {
             if (player.playerWeapons[0] != gameObject)
             {
-                gameObject.SetActive(false);
+                equipped = false;
             }
             else
-            {
-                gameObject.SetActive(true);
-            }
+                equipped = true;
+
+            gameObject.GetComponent<SpriteRenderer>().enabled = equipped;
         }
     }
 
@@ -135,6 +136,8 @@ public class RangedWeapons : MonoBehaviour
         {
             GameObject p = Instantiate(projectile, firePoint.position, transform.rotation);
             p.GetComponent<Rigidbody2D>().AddForce(firePoint.transform.up * projVelocity);
+            p.GetComponent<BulletDmg>().bulletDmg = (int)Random.Range(player.currentRangedWeapon.minDmg, player.currentRangedWeapon.maxDmg);
+            p.GetComponent<BulletDmg>().bulletKnockback = knockbackForce;
             Destroy(p, projLifespan);
             clip--;
             canFire = false;
