@@ -106,7 +106,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "SwitchWeapon",
+                    "name": "EquipNextWeapon",
                     "type": "Button",
                     "id": "05ff7394-a151-4d72-949e-f8011a5f3468",
                     "expectedControlType": "",
@@ -530,7 +530,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "SwitchWeapon",
+                    "action": "EquipNextWeapon",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -29,6 +29,10 @@ public class RangedWeapons : MonoBehaviour
     public int maxAmmo;
     public int knockbackForce;
 
+    private void Awake()
+    {
+        canFire = true;
+    }
     void Start()
     {
         firePoint = transform.GetChild(0);

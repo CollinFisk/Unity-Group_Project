@@ -40,9 +40,11 @@ public class ObjectDestruction : MonoBehaviour
     {
         if (collision.gameObject.tag == "Projectile")
         {
-            healthbarVisible = true;
+
             objectHealth -= (int)(Random.Range(player.currentRangedWeapon.minDmg, player.currentRangedWeapon.maxDmg) * 0.75f);
             gameObject.GetComponent<Rigidbody2D>().AddForce(collision.gameObject.transform.up * player.currentRangedWeapon.GetComponent<RangedWeapons>().knockbackForce * 0.5f);
+            
+            healthbarVisible = true;
             Destroy(collision.gameObject);
 
             if (healthbarVisible == true)
@@ -58,9 +60,10 @@ public class ObjectDestruction : MonoBehaviour
     {
         if (collision.gameObject.name == "AttackZone" && collision.GetComponentInParent<MeleeWeapons>().canDmg == true)
         {
-            healthbarVisible = true;
             objectHealth -= (int)(Random.Range(player.currentMeleeWeapon.minDmg, player.currentMeleeWeapon.maxDmg) * 2);
             gameObject.GetComponent<Rigidbody2D>().AddForce(collision.gameObject.transform.up * collision.GetComponentInParent<MeleeWeapons>().knockbackForce);
+            
+            healthbarVisible = true;
             collision.GetComponentInParent<MeleeWeapons>().canDmg = false;
 
             if(healthbarVisible == true)

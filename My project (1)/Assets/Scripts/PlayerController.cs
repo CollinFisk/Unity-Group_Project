@@ -107,6 +107,7 @@ public class PlayerController : MonoBehaviour
         if (playerWeapons[0] != null)
         {
             Transform activeWeapon = playerWeapons[0].transform;
+            activeWeapon.gameObject.SetActive(true);
             //Debug.Log(activeWeapon.gameObject);
             if (activeWeapon.CompareTag("MeleeWeapon"))
             {
@@ -141,11 +142,20 @@ public class PlayerController : MonoBehaviour
         {
             if (playerWeapons[i] != null)
             {
-                playerWeapons[i - 1] = player.GetComponent<PlayerController>().playerWeapons[i];
+                playerWeapons[i - 1] = playerWeapons[i];
                 playerWeapons[i] = null;
             }
         }
         playerWeapons[filledWeaponSlots] = temp;
+
+        if (currentMeleeWeapon)
+        {
+            currentMeleeWeapon.canFire = true;
+        }
+        if (currentRangedWeapon)
+        {
+            currentRangedWeapon.canFire = true;
+        }
     }
 
     public void Move(InputAction.CallbackContext context)

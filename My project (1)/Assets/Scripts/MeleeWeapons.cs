@@ -23,7 +23,7 @@ public class MeleeWeapons : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        attackZone = transform.GetChild(0).gameObject;
     }
 
     void Update()
