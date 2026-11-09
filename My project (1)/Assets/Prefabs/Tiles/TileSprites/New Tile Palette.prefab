@@ -75,7 +75,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 5407674318356078320}
   m_Father: {fileID: 2549732046803410813}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1839735485 &312688568897892166
@@ -418,7 +419,7 @@ Tilemap:
     m_Data: {r: 0.764151, g: 0.764151, b: 0.764151, a: 1}
   - serializedVersion: 2
     m_RefCount: 1
-    m_Data: {r: 0.8867924, g: 0.79851484, b: 0.10318009, a: 1}
+    m_Data: {r: 0.7327044, g: 1, b: 0.85722566, a: 1}
   - serializedVersion: 2
     m_RefCount: 1
     m_Data: {r: 0.6612569, g: 0, b: 1, a: 1}
@@ -502,7 +503,85 @@ TilemapRenderer:
   m_SortOrder: 0
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
---- !u!114 &3647617497610775993
+--- !u!1001 &1082064361244544397
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 6007995722724153050}
+    m_Modifications:
+    - target: {fileID: 401606863399289454, guid: ac33a025b92072c48b998476d79b5ce2, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 401606863399289454, guid: ac33a025b92072c48b998476d79b5ce2, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1894415031833612140, guid: ac33a025b92072c48b998476d79b5ce2, type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1894415031833612140, guid: ac33a025b92072c48b998476d79b5ce2, type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4904324240100725629, guid: ac33a025b92072c48b998476d79b5ce2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4904324240100725629, guid: ac33a025b92072c48b998476d79b5ce2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4904324240100725629, guid: ac33a025b92072c48b998476d79b5ce2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4904324240100725629, guid: ac33a025b92072c48b998476d79b5ce2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4904324240100725629, guid: ac33a025b92072c48b998476d79b5ce2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4904324240100725629, guid: ac33a025b92072c48b998476d79b5ce2, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4904324240100725629, guid: ac33a025b92072c48b998476d79b5ce2, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4904324240100725629, guid: ac33a025b92072c48b998476d79b5ce2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4904324240100725629, guid: ac33a025b92072c48b998476d79b5ce2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4904324240100725629, guid: ac33a025b92072c48b998476d79b5ce2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7024399782484703647, guid: ac33a025b92072c48b998476d79b5ce2, type: 3}
+      propertyPath: m_Name
+      value: DestroyableWallParent
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ac33a025b92072c48b998476d79b5ce2, type: 3}
+--- !u!4 &5407674318356078320 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4904324240100725629, guid: ac33a025b92072c48b998476d79b5ce2, type: 3}
+  m_PrefabInstance: {fileID: 1082064361244544397}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2302034359035053986
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

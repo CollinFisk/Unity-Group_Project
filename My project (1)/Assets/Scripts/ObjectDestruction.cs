@@ -36,7 +36,7 @@ public class ObjectDestruction : MonoBehaviour
         if(objectHealth <= 0)
         {
             Destroy(parent);
-            DropGoodies();
+            DropGoodies(minDrops, maxDrops);
         }
     }
 
@@ -79,10 +79,9 @@ public class ObjectDestruction : MonoBehaviour
         }
     }
 
-    public void DropGoodies()
+    public void DropGoodies(int dropMin, int dropMax)
     {
-        int amtDropped = (int)Random.Range(minDrops, maxDrops);
-        Debug.Log(amtDropped);
+        int amtDropped = (int)Random.Range(dropMin, dropMax);
         for(var i = 0; i <= amtDropped; i++)
         {
             GameObject drop;
