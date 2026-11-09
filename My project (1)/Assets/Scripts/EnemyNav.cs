@@ -45,7 +45,7 @@ public class EnemyNav : MonoBehaviour
         destinationPoint = transform.GetChild(2);
     }
 
-    // Update is called once per frame
+    // Update is called once per frame adfafasdfa
     void Update()
     {
         Vector2 origin = transform.position;
