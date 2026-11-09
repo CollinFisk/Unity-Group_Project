@@ -12,15 +12,15 @@ public class MeleeWeapons : MonoBehaviour
     public bool holdToAttack = true;
     public bool reloading = false;
     public bool equipped = false;
-    public bool canDmg = true;
     public string weaponName;
     public int maxDmg;
     public int minDmg;
     public int weaponIndex;
     public float rof;
     public float knockbackForce;
+    public float SwingSpeed;
+    public float SwingCooldown;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         attackZone = transform.GetChild(0).gameObject;
@@ -95,7 +95,7 @@ public class MeleeWeapons : MonoBehaviour
         player = null;
 
     }
-
+    /*
     public void hit()
     {
         if (canFire && !reloading)
@@ -109,10 +109,25 @@ public class MeleeWeapons : MonoBehaviour
         attackZone.SetActive(true);
 
         yield return new WaitForSeconds(rof);
-        //player.weaponAnim.SetBool("isFiring", false);
-
         attackZone.SetActive(false);
         canFire = true;
         canDmg = true;
+    }
+    */
+
+    IEnumerator hit()
+    {
+        canFire = false;
+        yield return new WaitForSeconds(SwingSpeed);
+        StartCoroutine("cooldownFire");
+    }
+    IEnumerator cooldownFire()
+    {
+        attackZone.SetActive(true);
+        yield return new WaitForSeconds(1);
+        attackZone.SetActive(false);
+        yield return new WaitForSeconds(SwingCooldown);
+        hit();
+        canFire = true;
     }
 }

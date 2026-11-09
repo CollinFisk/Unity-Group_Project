@@ -212,9 +212,9 @@ public class PlayerController : MonoBehaviour
             else if (context.performed)
                 currentRangedWeapon.fire();
         }
-        else if (currentMeleeWeapon && context.performed)
+        else if (currentMeleeWeapon && context.performed && currentMeleeWeapon.canFire)
         {
-            currentMeleeWeapon.hit();
+            currentMeleeWeapon.StartCoroutine("hit");
         }
     }
 

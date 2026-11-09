@@ -13,10 +13,15 @@ public class MeleeEnemy : MonoBehaviour
     EnemyMeleeWeapon weapon;
 
     public int enemyHealth;
-    public int enemyMaxHealth;
+    [SerializeField] private int enemyMaxHealth;
+
+    public GameObject[] potentialDrops;
+    public int maxDrops;
+    public int minDrops = 1;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        player = GameObject.Find("player").transform;
         Player = player.GetComponent<PlayerController>();
         weapon = transform.GetChild(0).GetComponent<EnemyMeleeWeapon>();
         hitBox = transform.GetChild(1).GetComponent<BoxCollider2D>();
@@ -32,31 +37,56 @@ public class MeleeEnemy : MonoBehaviour
             Destroy(transform.gameObject);
             gameManager.enemyCount--;
         }
+    }
 
-        if (weapon.firing)
+
+    public void DropGoodies(int dropMin, int dropMax)
+    {
+        int amtDropped = (int)Random.Range(dropMin, dropMax);
+        for (var i = 0; i <= amtDropped; i++)
         {
-            nav.speed /= 2;
+            GameObject drop;
+
+            int rollType = (int)Random.Range(0f, 100f);
+            int rollSize = (int)Random.Range(0f, 100f);
+
+            if (rollType <= 20)
+            {
+                drop = Instantiate(potentialDrops[2], gameObject.transform.position, gameObject.transform.rotation);
+            }
+            else if (rollType <= 60)
+            {
+                drop = Instantiate(potentialDrops[0], gameObject.transform.position, gameObject.transform.rotation);
+            }
+            else
+            {
+                drop = Instantiate(potentialDrops[1], gameObject.transform.position, gameObject.transform.rotation);
+            }
+
+            if (rollSize <= 20)
+            {
+                drop.GetComponent<ResourceScript>().dropWorth = (int)(drop.GetComponent<ResourceScript>().dropWorth * 2f);
+                drop.transform.localScale *= 2f;
+            }
+            else if (rollSize <= 70)
+            {
+                drop.GetComponent<ResourceScript>().dropWorth = (int)(drop.GetComponent<ResourceScript>().dropWorth * 1f);
+                drop.transform.localScale *= 1f;
+            }
+            else
+            {
+                drop.GetComponent<ResourceScript>().dropWorth = (int)(drop.GetComponent<ResourceScript>().dropWorth * 0.75f);
+                drop.transform.localScale *= 0.75f;
+            }
         }
-        else
-            nav.speed = nav.baseSpeed;
+
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            Player.health--;
-        }
         if (collision.gameObject.CompareTag("Projectile"))
         {
             Destroy(collision.gameObject);
             enemyHealth--;
-        }
-    }
-    private void OnCollisionStay2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            Player.health--;
         }
     }
 }

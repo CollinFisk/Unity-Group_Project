@@ -4,6 +4,8 @@ public class AttackHitboxForMeleeEnemy : MonoBehaviour
 {
     MeleeEnemy enemy;
     EnemyMeleeWeapon weapon;
+
+    public bool PlayerInCanAttackHitbox;
     void Start()
     {
         enemy = GetComponentInParent<MeleeEnemy>();
@@ -20,15 +22,21 @@ public class AttackHitboxForMeleeEnemy : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Player"))
         {
-            weapon.canFire = true;
+            PlayerInCanAttackHitbox = true;
             weapon.StartCoroutine("Attack");
         }
+        
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            weapon.canFire = true;
+            PlayerInCanAttackHitbox = true;
+            weapon.StartCoroutine("Attack");
+        }
+        else if (collision.gameObject.CompareTag("Player"))
+        {
+            PlayerInCanAttackHitbox = false;
         }
     }
 
@@ -36,9 +44,8 @@ public class AttackHitboxForMeleeEnemy : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            PlayerInCanAttackHitbox = false;
             weapon.StopAllCoroutines();
-            weapon.firing = false;
-            weapon.canFire = false;
         }
     }
 }

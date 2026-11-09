@@ -1,3 +1,4 @@
+using NUnit.Framework;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -39,46 +40,6 @@ public class ObjectDestruction : MonoBehaviour
             DropGoodies(minDrops, maxDrops);
         }
     }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Projectile")
-        {
-
-            objectHealth -= (int)(collision.gameObject.GetComponent<BulletDmg>().bulletDmg * 0.75f);
-            gameObject.GetComponent<Rigidbody2D>().AddForce(collision.gameObject.transform.up * collision.gameObject.GetComponent<BulletDmg>().bulletKnockback * 0.5f);
-            
-            healthbarVisible = true;
-            Destroy(collision.gameObject);
-
-            if (healthbarVisible == true)
-            {
-                StopCoroutine("HealthVisible");
-            }
-
-            StartCoroutine("HealthVisible");
-        }
-    }
-
-    void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.name == "AttackZone" && collision.GetComponentInParent<MeleeWeapons>().canDmg == true)
-        {
-            objectHealth -= (int)(Random.Range(player.currentMeleeWeapon.minDmg, player.currentMeleeWeapon.maxDmg) * 2);
-            gameObject.GetComponent<Rigidbody2D>().AddForce(collision.gameObject.transform.up * collision.GetComponentInParent<MeleeWeapons>().knockbackForce);
-            
-            healthbarVisible = true;
-            collision.GetComponentInParent<MeleeWeapons>().canDmg = false;
-
-            if(healthbarVisible == true)
-            {
-                StopCoroutine("HealthVisible");
-            }
-
-            StartCoroutine("HealthVisible");
-        }
-    }
-
     public void DropGoodies(int dropMin, int dropMax)
     {
         int amtDropped = (int)Random.Range(dropMin, dropMax);
@@ -118,9 +79,7 @@ public class ObjectDestruction : MonoBehaviour
                 drop.transform.localScale *= 0.75f;
             }
         }
-
-
-        
+                
     }
 
     IEnumerator HealthVisible()

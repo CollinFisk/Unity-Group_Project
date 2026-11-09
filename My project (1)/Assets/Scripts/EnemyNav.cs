@@ -12,30 +12,28 @@ public class EnemyNav : MonoBehaviour
     Rigidbody2D rigidbody;
     private CircleCollider2D DetectionRadius;
 
-    public bool canSeePlayer;
-    public bool isFollowing;
-    public bool moving;
-    public bool canAttack;
-    public bool isAttacking;
-    public bool beingADumbass;
-    public float GetAwayFromMeDumbAss;
-    public bool patrol;
-    public bool stopping;
+    [SerializeField] private bool canSeePlayer;
+    [SerializeField] private bool isFollowing;
+    //[SerializeField] private bool moving;
+    [SerializeField] private bool canAttack;
+    [SerializeField] private bool isAttacking;
+    [SerializeField] private bool beingADumbass;
+    [SerializeField] private bool patrol;
+    [SerializeField] private bool stopping;
 
     public float speed;
     public float baseSpeed;
 
-    public float attackSpeed;
-    public float detectionRadius;
-    public float stoppingDistance;
+    [SerializeField] private float attackSpeed;
+    [SerializeField] private float detectionRadius;
+    [SerializeField] private float stoppingDistance;
 
-    public float PatrolRadiusLowX;
-    public float PatrolRadiusLowY;
-    public float PatrolRadiusHighX;
-    public float PatrolRadiusHighY;
+    [SerializeField] private float PatrolRadiusLowX;
+    [SerializeField] private float PatrolRadiusLowY;
+    [SerializeField] private float PatrolRadiusHighX;
+    [SerializeField] private float PatrolRadiusHighY;
 
     public Vector3 destination;
-    Vector2 pushDumbAssAwayStrength;
     public Transform destinationPoint;
     public LayerMask wallLayer;
     void Start()
@@ -44,6 +42,7 @@ public class EnemyNav : MonoBehaviour
         player = GameObject.Find("player").transform;
         rigidbody = transform.GetComponent<Rigidbody2D>();
         DetectionRadius = transform.GetComponent<CircleCollider2D>();
+        destinationPoint = transform.GetChild(2);
     }
 
     // Update is called once per frame
@@ -66,12 +65,14 @@ public class EnemyNav : MonoBehaviour
         {
             canSeePlayer = true;
         }
-
+        /*
         if (rigidbody.linearVelocity.magnitude > 1)
         {
             moving = true;
         }
-
+        else
+            moving = false;
+        */
         if (isFollowing)
         {
             rigidbody.linearVelocity = speed * transform.up;
@@ -95,14 +96,11 @@ public class EnemyNav : MonoBehaviour
                 Vector2 lookDir = destination - transform.position;
                 rigidbody.MoveRotation(Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f);
 
-                StartCoroutine("Stopping");
 
                 if (distanceFromStop <= stoppingDistance)
                 {
                     rigidbody.linearVelocity = Vector2.zero;
                     stopping = false;
-
-                    StopCoroutine("Stopping");
 
                     StartCoroutine("StartPatrol");
                 }
@@ -110,7 +108,6 @@ public class EnemyNav : MonoBehaviour
 
             if (stopping && beingADumbass)
             {
-                pushDumbAssAwayStrength = collisionObject.position - transform.position;
                 if (player.transform.position.y > transform.position.y)
                 {
                     rigidbody.AddForce(speed * transform.up);
@@ -134,12 +131,9 @@ public class EnemyNav : MonoBehaviour
                 Vector2 lookDir = destination - transform.position;
                 rigidbody.MoveRotation(Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f);
 
-                StartCoroutine("Stopping");
                 if (distanceFromStop <= stoppingDistance)
                 {
                     stopping = false;
-
-                    StopCoroutine("Stopping");
 
                     StartCoroutine("StartPatrol");
                 }
@@ -197,11 +191,6 @@ public class EnemyNav : MonoBehaviour
     {
         beingADumbass = false;
         collisionObject = null;
-    }
-    IEnumerator Stopping()
-    {
-        yield return new WaitForSeconds(5);
-        stopping = false;
     }
     IEnumerator StartPatrol()
     {
