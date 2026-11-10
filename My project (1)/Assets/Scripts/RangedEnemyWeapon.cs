@@ -6,6 +6,7 @@ public class RangedEnemyWeapon : MonoBehaviour
     PlayerController player;
     RangedEnemy rangedEnemy;
 
+
     [Header("Object Refrences")]
     public GameObject projectile;
     public Transform firePoint;
@@ -28,8 +29,6 @@ public class RangedEnemyWeapon : MonoBehaviour
     public int minDmg;
     public int clip;
     public int clipSize;
-    public int ammo;
-    public int maxAmmo;
     public int knockbackForce;
 
     void Start()
@@ -57,7 +56,7 @@ public class RangedEnemyWeapon : MonoBehaviour
 
     public void fire()
     {
-        if (clip > 0 && canFire && !reloading && ammo >= 0)
+        if (clip > 0 && canFire && !reloading)
         {
             GameObject p = Instantiate(projectile, firePoint.position, transform.rotation);
             p.GetComponent<Rigidbody2D>().AddForce(firePoint.transform.up * projVelocity);
@@ -68,7 +67,7 @@ public class RangedEnemyWeapon : MonoBehaviour
             canFire = false;
             StartCoroutine("cooldownFire");
         }
-        if (clip == 0)
+        else if (clip == 0)
         {
             reload();
         }
@@ -78,8 +77,7 @@ public class RangedEnemyWeapon : MonoBehaviour
     {
         yield return new WaitForSeconds(rof);
 
-        if (clip > 0)
-            canFire = true;
+        canFire = true;
     }
 
     IEnumerator reloadingCooldown()

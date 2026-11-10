@@ -1,8 +1,5 @@
 using System.Collections;
-using System.Diagnostics;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.UIElements;
 
 public class EnemyNav : MonoBehaviour
 {    
@@ -14,17 +11,23 @@ public class EnemyNav : MonoBehaviour
     private CircleCollider2D DetectionRadius;
 
     [SerializeField] private bool canSeePlayer;
-    [SerializeField] private bool isFollowing;
+    public bool isFollowing;
     //[SerializeField] private bool moving;
     [SerializeField] private bool beingADumbass;
     [SerializeField] private bool patrol;
     [SerializeField] private bool stopping;
+
+    [SerializeField] private float PlayerStopDistance;
+    [SerializeField] private float PatrolStopDistance;
+
 
     public float speed;
     public float baseSpeed;
 
     [SerializeField] private float detectionRadius;
     [SerializeField] private float stoppingDistance;
+    [SerializeField] private float runAwayDistance;
+
 
     [SerializeField] private float PatrolRadiusLowX;
     [SerializeField] private float PatrolRadiusLowY;
@@ -39,7 +42,14 @@ public class EnemyNav : MonoBehaviour
         player = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
         rigidbody = transform.GetComponent<Rigidbody2D>();
         DetectionRadius = transform.GetComponent<CircleCollider2D>();
-        destinationPoint = transform.GetChild(2);
+        if (transform.childCount == 3)
+        {
+            destinationPoint = transform.GetChild(2);
+        }
+        else if (transform.childCount == 2)
+        {
+            destinationPoint = transform.GetChild(1);
+        }
     }
 
     // Update is called once per frame adfafasdfa
@@ -53,6 +63,8 @@ public class EnemyNav : MonoBehaviour
 
         float distanceFromStop = Vector2.Distance(transform.position, destinationPoint.position);
         destinationPoint.position = destination;
+
+        DetectionRadius.radius = detectionRadius;
         if (hit.collider != null)
         {
             canSeePlayer = false;
@@ -72,16 +84,23 @@ public class EnemyNav : MonoBehaviour
         */
         if (isFollowing)
         {
-            rigidbody.linearVelocity = speed * transform.up;
 
             destination = player.transform.position;
             destination.z = 0;
             Vector2 lookDir = destination - transform.position;
             rigidbody.MoveRotation(Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f);
 
-            if (distanceFromStop <= stoppingDistance)
+            if (distanceFromStop > stoppingDistance)
+            {
+                rigidbody.linearVelocity = speed * transform.up;
+            }
+            else if (distanceFromStop <= stoppingDistance && distanceFromStop > runAwayDistance)
             {
                 rigidbody.linearVelocity = Vector2.zero;
+            }
+            else if (distanceFromStop <= runAwayDistance)
+            {
+                rigidbody.linearVelocity = speed/2  * -transform.up;
             }
         }
         else
@@ -152,11 +171,11 @@ public class EnemyNav : MonoBehaviour
         }
         if (!isFollowing)
         {
-            stoppingDistance = 0.1f;
+            stoppingDistance = PatrolStopDistance;
         }
         else
         {
-            stoppingDistance = 1.5f;
+            stoppingDistance = PlayerStopDistance;
         }
     }
 

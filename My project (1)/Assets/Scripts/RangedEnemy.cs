@@ -3,6 +3,8 @@ using UnityEngine;
 public class RangedEnemy : MonoBehaviour
 {
     GameManager gameManager;
+    RangedEnemyWeapon weapon;
+    EnemyNav enemyNav;
 
     public int enemyHealth;
     [SerializeField] private int enemyMaxHealth;
@@ -13,6 +15,8 @@ public class RangedEnemy : MonoBehaviour
     void Start()
     {
         gameManager = GameObject.Find("gameManager").GetComponent<GameManager>();
+        weapon = GetComponentInChildren<RangedEnemyWeapon>();
+        enemyNav = GetComponent<EnemyNav>();
     }
 
     // Update is called once per frame
@@ -22,6 +26,11 @@ public class RangedEnemy : MonoBehaviour
         {
             Destroy(transform.gameObject);
             gameManager.enemyCount--;
+        }
+
+        if (enemyNav.isFollowing && weapon.canFire && !weapon.reloading)
+        {
+            weapon.fire();
         }
     }
 

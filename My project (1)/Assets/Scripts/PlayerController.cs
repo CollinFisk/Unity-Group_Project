@@ -232,6 +232,10 @@ public class PlayerController : MonoBehaviour
         {
             health--;
         }
+        if (collision.gameObject.CompareTag("Projectile"))
+        {
+            health--;
+        }
         if (collision.gameObject.CompareTag("Health") && health < maxHealth)
         {
             health = maxHealth;
