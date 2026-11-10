@@ -1,12 +1,12 @@
 using System.Collections;
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
 public class EnemyNav : MonoBehaviour
 {    
-    PlayerController Player;
-    public Transform player;
+    PlayerController player;
 
     public Transform collisionObject;
 
@@ -36,8 +36,7 @@ public class EnemyNav : MonoBehaviour
     public LayerMask wallLayer;
     void Start()
     {
-        Player = player.GetComponent<PlayerController>();
-        player = GameObject.Find("player").transform;
+        player = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
         rigidbody = transform.GetComponent<Rigidbody2D>();
         DetectionRadius = transform.GetComponent<CircleCollider2D>();
         destinationPoint = transform.GetChild(2);
@@ -47,7 +46,7 @@ public class EnemyNav : MonoBehaviour
     void Update()
     {
         Vector2 origin = transform.position;
-        Vector2 direction = (Vector2)player.position - origin;
+        Vector2 direction = (Vector2)player.transform.position - origin;
         float distance = direction.magnitude;
         direction.Normalize();
         RaycastHit2D hit = Physics2D.Raycast(origin, direction, distance, wallLayer);
@@ -150,6 +149,14 @@ public class EnemyNav : MonoBehaviour
                     destination.z = 0;
                 }
             }
+        }
+        if (!isFollowing)
+        {
+            stoppingDistance = 0.1f;
+        }
+        else
+        {
+            stoppingDistance = 1.5f;
         }
     }
 

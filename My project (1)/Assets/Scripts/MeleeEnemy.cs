@@ -3,15 +3,7 @@ using UnityEngine.InputSystem;
 
 public class MeleeEnemy : MonoBehaviour
 {
-    PlayerController Player;
     GameManager gameManager;
-    EnemyNav nav;
-    public Transform player;
-
-    Rigidbody2D rigidbody;
-    Collider2D hitBox;
-
-    EnemyMeleeWeapon weapon;
 
     public int enemyHealth;
     [SerializeField] private int enemyMaxHealth;
@@ -22,11 +14,6 @@ public class MeleeEnemy : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        player = GameObject.Find("player").transform;
-        Player = player.GetComponent<PlayerController>();
-        weapon = transform.GetChild(0).GetComponent<EnemyMeleeWeapon>();
-        hitBox = transform.GetChild(1).GetComponent<BoxCollider2D>();
-        nav = GetComponent<EnemyNav>();
         gameManager = GameObject.Find("gameManager").GetComponent<GameManager>();
     }
 

@@ -92,25 +92,6 @@ public class MeleeWeapons : MonoBehaviour
         player = null;
 
     }
-    /*
-    public void hit()
-    {
-        if (canFire && !reloading)
-        {
-            StartCoroutine("cooldownFire");
-        }
-    }
-
-    IEnumerator cooldownFire()
-    {
-        attackZone.SetActive(true);
-
-        yield return new WaitForSeconds(rof);
-        attackZone.SetActive(false);
-        canFire = true;
-        canDmg = true;
-    }
-    */
 
     IEnumerator hit()
     {

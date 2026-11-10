@@ -29,12 +29,6 @@ public class BulletDmg : MonoBehaviour
                 other.gameObject.GetComponent<ObjectDestruction>().StartCoroutine("HealthVisible");
             }
         }
-        /*
-        if (other.gameObject.CompareTag(""))
-        {
-            Debug.Log("NoTag");
-        }
-        */
         Destroy(gameObject);
     }
 }
