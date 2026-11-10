@@ -7,37 +7,39 @@ using static UnityEngine.Rendering.DebugUI.Table;
 
 public class EnemyMeleeWeapon : MonoBehaviour
 {
-    public MeleeEnemy enemy;
-    public AttackHitboxForMeleeEnemy hitbox;
-    public GameObject attackZone;
+    private GameObject attackZone;
+    private string weaponName;
+    public bool attacking;
+    public int maxDmg;
+    public int minDmg;
+    public float knockbackForce;
 
-    public string weaponName;
-    public float SwingSpeed;
-    public float SwingCooldown;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start() 
+    [SerializeField] private float SwingSpeed;
+    [SerializeField] private float SwingCooldown;
+    [SerializeField] private float attackLingeringTime;
+
+    private void Start()
     {
-        enemy = GetComponentInParent<MeleeEnemy>();
+        attackZone = transform.GetChild(0).gameObject;
     }
-
+    private void Asleep()
+    {
+        StartCoroutine("Attack");
+    }
     IEnumerator Attack()
     {
+        attacking = true;
         yield return new WaitForSeconds(SwingSpeed);
-        attackZone.SetActive(true);
-        yield return new WaitForSeconds(1);
-        attackZone.SetActive(false);
-
-
+        attackZone.gameObject.SetActive(true);
+        yield return new WaitForSeconds(attackLingeringTime);
+        attackZone.gameObject.SetActive(false);
 
         StartCoroutine("cooldownFire");
     }
     IEnumerator cooldownFire()
     {
         yield return new WaitForSeconds(SwingCooldown);
-        if (hitbox.PlayerInCanAttackHitbox)
-        {
-            StartCoroutine(Attack());
-        }
+        attacking = false;
     }
 }

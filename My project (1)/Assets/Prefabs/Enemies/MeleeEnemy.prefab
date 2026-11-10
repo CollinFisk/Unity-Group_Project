@@ -143,15 +143,11 @@ MonoBehaviour:
   collisionObject: {fileID: 0}
   canSeePlayer: 0
   isFollowing: 0
-  canAttack: 0
-  isAttacking: 0
   beingADumbass: 0
-  GetAwayFromMeDumbAss: 0
   patrol: 1
   stopping: 0
   speed: 2
   baseSpeed: 2
-  attackSpeed: 0
   detectionRadius: 0
   stoppingDistance: 1.5
   PatrolRadiusLowX: -8.7
@@ -212,11 +208,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MeleeEnemy
   player: {fileID: 0}
-  enemyHealth: 50
-  enemyMaxHealth: 5
-  potentialDrops: []
-  maxDrops: 0
-  minDrops: 1
+  enemyHealth: 100
+  enemyMaxHealth: 100
+  potentialDrops:
+  - {fileID: 8570551461361171178, guid: d5ca4f4fbcea2d9408a05302e1f8ebc5, type: 3}
+  - {fileID: 2658523668507854715, guid: 5f8dda60396a21b4f8dfff4f730044d6, type: 3}
+  - {fileID: 2521166659738571829, guid: 8efdbf597d2186f4683bf318c46ec501, type: 3}
+  maxDrops: 5
+  minDrops: 3
 --- !u!70 &4596440255752233004
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -557,12 +556,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1278405be44c01b4499fd7609d028131, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyMeleeWeapon
-  enemy: {fileID: 8272049429600943183}
-  hitbox: {fileID: 4482215587670949532}
-  attackZone: {fileID: 7425547996124334875}
-  weaponName: Bat
-  SwingSpeed: 0
-  SwingCooldown: 0
+  attacking: 0
+  maxDmg: 20
+  minDmg: 10
+  knockbackForce: 5000
+  SwingSpeed: 0.5
+  SwingCooldown: 2
+  attackLingeringTime: 0.05
 --- !u!1 &7425547996124334875
 GameObject:
   m_ObjectHideFlags: 0
@@ -654,7 +654,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37e761aa07a275345969f9911737823c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::enemyMeleeWeaponAttackPoint
-  player: {fileID: 0}
-  maxDmg: 2
-  minDmg: 1
-  knockbackForce: 30

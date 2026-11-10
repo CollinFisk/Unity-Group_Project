@@ -2,40 +2,34 @@ using UnityEngine;
 
 public class enemyMeleeWeaponAttackPoint : MonoBehaviour
 {
-    public PlayerController player;
-
-    public int maxDmg;
-    public int minDmg;
-    public float knockbackForce;
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    EnemyMeleeWeapon weapon;
+    private void Start()
     {
-        player = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+        weapon = GetComponentInParent<EnemyMeleeWeapon>();
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
 
         if (other.gameObject.CompareTag("Player"))
         {
-            player.health -= Random.Range(minDmg, maxDmg);
-            other.gameObject.GetComponent<Rigidbody2D>().AddForce(other.gameObject.transform.up * knockbackForce);
+            other.gameObject.GetComponent<PlayerController>().health -= Random.Range(weapon.minDmg, weapon.maxDmg);
+            other.gameObject.GetComponent<Rigidbody2D>().AddForce(transform.up * weapon.knockbackForce);
         }
         if (other.gameObject.CompareTag("Destroyable"))
         {
             if (other.GetComponent<ObjectDestruction>() != null)
             {
-                other.GetComponent<ObjectDestruction>().objectHealth -= (int)(Random.Range(player.currentMeleeWeapon.minDmg, player.currentMeleeWeapon.maxDmg) * 2);
-                gameObject.GetComponent<Rigidbody2D>().AddForce(other.gameObject.transform.up * other.GetComponentInParent<MeleeWeapons>().knockbackForce);
+                other.GetComponent<ObjectDestruction>().objectHealth -= (int)(Random.Range(weapon.minDmg, weapon.maxDmg) * 2);
+                other.GetComponent<Rigidbody2D>().AddForce(transform.up * weapon.knockbackForce);
 
                 other.GetComponent<ObjectDestruction>().healthbarVisible = true;
 
                 if (other.GetComponent<ObjectDestruction>().healthbarVisible == true)
                 {
-                    StopCoroutine("HealthVisible");
+                    other.GetComponent<ObjectDestruction>().StopCoroutine("HealthVisible");
                 }
 
-                StartCoroutine("HealthVisible");
+                other.GetComponent<ObjectDestruction>().StartCoroutine("HealthVisible");
             }
         }
     }

@@ -9,17 +9,14 @@ public class MeleeWeapons : MonoBehaviour
     public GameObject attackZone;
 
     public bool canFire = false;
-    public bool holdToAttack = true;
-    public bool reloading = false;
     public bool equipped = false;
     public string weaponName;
     public int maxDmg;
     public int minDmg;
-    public int weaponIndex;
-    public float rof;
     public float knockbackForce;
-    public float SwingSpeed;
-    public float SwingCooldown;
+    [SerializeField] private float SwingSpeed;
+    [SerializeField] private float SwingCooldown;
+    [SerializeField] private float attackLingeringTime;
 
     void Start()
     {
@@ -124,7 +121,7 @@ public class MeleeWeapons : MonoBehaviour
     IEnumerator cooldownFire()
     {
         attackZone.SetActive(true);
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(attackLingeringTime);
         attackZone.SetActive(false);
         yield return new WaitForSeconds(SwingCooldown);
         hit();

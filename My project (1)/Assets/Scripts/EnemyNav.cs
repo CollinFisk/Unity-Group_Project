@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
 public class EnemyNav : MonoBehaviour
@@ -15,8 +16,6 @@ public class EnemyNav : MonoBehaviour
     [SerializeField] private bool canSeePlayer;
     [SerializeField] private bool isFollowing;
     //[SerializeField] private bool moving;
-    [SerializeField] private bool canAttack;
-    [SerializeField] private bool isAttacking;
     [SerializeField] private bool beingADumbass;
     [SerializeField] private bool patrol;
     [SerializeField] private bool stopping;
@@ -24,7 +23,6 @@ public class EnemyNav : MonoBehaviour
     public float speed;
     public float baseSpeed;
 
-    [SerializeField] private float attackSpeed;
     [SerializeField] private float detectionRadius;
     [SerializeField] private float stoppingDistance;
 
@@ -197,5 +195,4 @@ public class EnemyNav : MonoBehaviour
         yield return new WaitForSeconds(5);
         stopping = true;
     }
-
 }
