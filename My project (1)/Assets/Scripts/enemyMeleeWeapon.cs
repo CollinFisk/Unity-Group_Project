@@ -8,7 +8,6 @@ using static UnityEngine.Rendering.DebugUI.Table;
 public class EnemyMeleeWeapon : MonoBehaviour
 {
     private GameObject attackZone;
-    private string weaponName;
     public bool attacking;
     public int maxDmg;
     public int minDmg;
@@ -23,7 +22,8 @@ public class EnemyMeleeWeapon : MonoBehaviour
     {
         attackZone = transform.GetChild(0).gameObject;
     }
-    private void Asleep()
+    //This void is supposed to make no sense it is just here to keep Attack from abandoning us
+    private void Afaoigfhpaoigh()
     {
         StartCoroutine("Attack");
     }
