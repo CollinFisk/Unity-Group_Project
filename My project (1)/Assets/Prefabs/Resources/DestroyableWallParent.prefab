@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 401606863399289454}
   - component: {fileID: 8120454164671668691}
   - component: {fileID: 9206271655958415279}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 6683421995355155926}
   - component: {fileID: 6052721570678175038}
   - component: {fileID: 8521971175043354402}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: HealthCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -191,7 +191,8 @@ GameObject:
   - component: {fileID: 3383638800648585975}
   - component: {fileID: 1180709103201445091}
   - component: {fileID: 8168178294125834951}
-  m_Layer: 0
+  - component: {fileID: 7192938426457303899}
+  m_Layer: 3
   m_Name: DestroyableWall
   m_TagString: Destroyable
   m_Icon: {fileID: 0}
@@ -285,7 +286,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b222556bade7df04aae519127b8c63ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectDestruction
-  player: {fileID: 0}
   healthBar: {fileID: 5616713644374080456}
   healthCanvas: {fileID: 3913447611899077256}
   parent: {fileID: 7024399782484703647}
@@ -293,10 +293,10 @@ MonoBehaviour:
   - {fileID: 8570551461361171178, guid: d5ca4f4fbcea2d9408a05302e1f8ebc5, type: 3}
   - {fileID: 2658523668507854715, guid: 5f8dda60396a21b4f8dfff4f730044d6, type: 3}
   - {fileID: 2521166659738571829, guid: 8efdbf597d2186f4683bf318c46ec501, type: 3}
-  objectHealth: 200
   maxDrops: 5
   minDrops: 3
   timeVisible: 1
+  objectHealth: 200
   healthbarVisible: 0
 --- !u!61 &1180709103201445091
 BoxCollider2D:
@@ -371,6 +371,22 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
+--- !u!114 &7192938426457303899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4485081584799755177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: NavMeshPlus::NavMeshPlus.Components.NavMeshModifier
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &5616713644374080456
 GameObject:
   m_ObjectHideFlags: 0
@@ -381,7 +397,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6696311953011780190}
   - component: {fileID: 8739725353847723773}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: ObjHealth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -471,7 +487,7 @@ GameObject:
   - component: {fileID: 552813738084775260}
   - component: {fileID: 3952265588220140248}
   - component: {fileID: 1388916439567298117}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -544,7 +560,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4904324240100725629}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: DestroyableWallParent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -577,7 +593,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7545950572064876676}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}

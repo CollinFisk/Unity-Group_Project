@@ -1,14 +1,16 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 
+[RequireComponent(typeof(CircleCollider2D))]
 public class EnemyNav : MonoBehaviour
-{    
+{
     private PlayerController player;
 
     [SerializeField] private Transform collisionObject;
 
     private Rigidbody2D rigidbody;
-    private CircleCollider2D DetectionRadius;
+    private CircleCollider2D DetectionRadiusCollider;
 
     [SerializeField] private bool canSeePlayer;
     public bool isFollowing;
@@ -36,21 +38,17 @@ public class EnemyNav : MonoBehaviour
     [SerializeField] private float PatrolRadiusHighY;
 
     private Vector3 destination;
-    private Transform destinationPoint;
-    private LayerMask wallLayer;
+    [SerializeField] private LayerMask wallLayer;
+
+
+    private NavMeshPath navPath;
     void Start()
     {
         player = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
         rigidbody = transform.GetComponent<Rigidbody2D>();
-        DetectionRadius = transform.GetComponent<CircleCollider2D>();
-        if (transform.childCount == 3)
-        {
-            destinationPoint = transform.GetChild(2);
-        }
-        else if (transform.childCount == 2)
-        {
-            destinationPoint = transform.GetChild(1);
-        }
+        DetectionRadiusCollider = GetComponent<CircleCollider2D>();
+
+        navPath = new NavMeshPath();
     }
 
     // Update is called once per frame adfafasdfa
@@ -62,10 +60,9 @@ public class EnemyNav : MonoBehaviour
         direction.Normalize();
         RaycastHit2D hit = Physics2D.Raycast(origin, direction, distance, wallLayer);
 
-        float distanceFromStop = Vector2.Distance(transform.position, destinationPoint.position);
-        destinationPoint.position = destination;
+        float distanceFromStop = Vector2.Distance(transform.position, destination);
 
-        DetectionRadius.radius = detectionRadius;
+        DetectionRadiusCollider.radius = detectionRadius;
         if (hit.collider != null)
         {
             canSeePlayer = false;
@@ -75,20 +72,34 @@ public class EnemyNav : MonoBehaviour
         {
             canSeePlayer = true;
         }
-        /*
-        if (rigidbody.linearVelocity.magnitude > 1)
-        {
-            moving = true;
-        }
-        else
-            moving = false;
-        */
+
         if (isFollowing)
         {
-
             destination = player.transform.position;
             destination.z = 0;
-            Vector2 lookDir = destination - transform.position;
+        }
+        else if (patrol && !stopping)
+        {
+            if (distanceFromStop <= 3)
+            {
+                destination.x = Random.Range(PatrolRadiusLowX, PatrolRadiusHighX);
+                destination.y = Random.Range(PatrolRadiusLowY, PatrolRadiusHighY);
+                destination.z = 0;
+            }
+        }
+
+        Vector3 steeringTarget = destination;
+        if (NavMesh.CalculatePath(transform.position, destination, NavMesh.AllAreas, navPath))
+        {
+            if (navPath.corners.Length > 1)
+            {
+                steeringTarget = navPath.corners[1];
+            }
+        }
+
+        if (isFollowing)
+        {
+            Vector2 lookDir = steeringTarget - transform.position;
             rigidbody.MoveRotation(Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f);
 
             if (distanceFromStop > stoppingDistance)
@@ -101,7 +112,7 @@ public class EnemyNav : MonoBehaviour
             }
             else if (distanceFromStop <= runAwayDistance)
             {
-                rigidbody.linearVelocity = speed/2  * -transform.up;
+                rigidbody.linearVelocity = speed / 2 * -transform.up;
             }
         }
         else
@@ -110,7 +121,7 @@ public class EnemyNav : MonoBehaviour
             {
                 rigidbody.linearVelocity = speed * transform.up;
 
-                Vector2 lookDir = destination - transform.position;
+                Vector2 lookDir = steeringTarget - transform.position;
                 rigidbody.MoveRotation(Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f);
 
 
@@ -145,7 +156,7 @@ public class EnemyNav : MonoBehaviour
 
                 rigidbody.linearVelocity = speed * transform.up;
 
-                Vector2 lookDir = destination - transform.position;
+                Vector2 lookDir = steeringTarget - transform.position;
                 rigidbody.MoveRotation(Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f);
 
                 if (distanceFromStop <= stoppingDistance)
@@ -160,16 +171,10 @@ public class EnemyNav : MonoBehaviour
             {
                 rigidbody.linearVelocity = Vector2.zero;
             }
-            if (patrol && !stopping)
-            {
-                if (distanceFromStop <= 3)
-                {
-                    destination.x = Random.Range(PatrolRadiusLowX, PatrolRadiusHighX);
-                    destination.y = Random.Range(PatrolRadiusLowY, PatrolRadiusHighY);
-                    destination.z = 0;
-                }
-            }
+
+            // Note: The patrol generation chunk that was here has safely moved up into our Fix 1 block!
         }
+
         if (!isFollowing)
         {
             stoppingDistance = PatrolStopDistance;
@@ -188,7 +193,9 @@ public class EnemyNav : MonoBehaviour
         }
         if (other.gameObject.CompareTag("Projectile"))
         {
-            destinationPoint.position = other.transform.position;
+            // --- FIX 2: UPDATE THE RAW VECTOR SO PATHFINDING REGISTER IT ---
+            destination = other.transform.position;
+            destination.z = 0;
             stopping = true;
         }
     }
