@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(EnemyNav))]
 public class RangedEnemy : MonoBehaviour
 {
     GameManager gameManager;
@@ -30,7 +31,7 @@ public class RangedEnemy : MonoBehaviour
 
         if (enemyNav.isFollowing && weapon.canFire && !weapon.reloading)
         {
-            weapon.fire();
+            weapon.Fire();
         }
     }
 

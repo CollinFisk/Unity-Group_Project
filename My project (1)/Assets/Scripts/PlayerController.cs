@@ -1,21 +1,22 @@
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
+[RequireComponent(typeof(Rigidbody2D))]
 
+[RequireComponent(typeof(PlayerInput))]
 public class PlayerController : MonoBehaviour
 {
     [Header("Player Settings")]
     public int health = 5;
     public int maxHealth = 5;
     public int filledWeaponSlots = 0;
-    public float speed = 5f;
-    public bool attacking = false;
+    [SerializeField] private float speed = 5f;
+    [SerializeField] private bool attacking = false;
 
     //This variable doesn't do anything right now I haven't finished it.
     public int equippedWeapon;
 
     [Header("References")]
-    public Transform player;
     public MeleeWeapons currentMeleeWeapon;
     public RangedWeapons currentRangedWeapon;
     public GameObject[] playerWeapons;
@@ -41,19 +42,16 @@ public class PlayerController : MonoBehaviour
     public int components;
     public int totalResources;
     public int maxResources;
-    void Awake()
-    {
-        player = transform;
-        rb = GetComponent<Rigidbody2D>();
-        inputComponent = GetComponent<PlayerInput>();
-    }
 
     void Start()
     {
-        if (weaponSlot == null) weaponSlot = player.GetChild(0);
+        if (weaponSlot == null) weaponSlot = transform.GetChild(0);
 
         interactObject = GameObject.Find("PlayerInteractor").transform;
         interactions = interactObject.GetComponent<Interactions>();
+        rb = GetComponent<Rigidbody2D>();
+        inputComponent = GetComponent<PlayerInput>();
+
     }
 
     private void OnEnable()
@@ -101,9 +99,7 @@ public class PlayerController : MonoBehaviour
         Vector2 lookDir = mousePos - transform.position;
         rb.MoveRotation(Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f);
 
-        interactObject.position = transform.position;
-        interactObject.rotation = transform.rotation;
-
+        interactObject.SetPositionAndRotation(transform.position, transform.rotation);
         if (playerWeapons[0] != null)
         {
             Transform activeWeapon = playerWeapons[0].transform;
@@ -123,7 +119,7 @@ public class PlayerController : MonoBehaviour
 
                 if (currentRangedWeapon != null && currentRangedWeapon.holdToAttack && attacking)
                 {
-                    currentRangedWeapon.fire();
+                    currentRangedWeapon.Fire();
                 }
             }
         }
@@ -134,7 +130,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void EquipNextWeapon(InputAction.CallbackContext context)
+    private void EquipNextWeapon(InputAction.CallbackContext context)
     {
         if (context.canceled)
         {
@@ -150,36 +146,24 @@ public class PlayerController : MonoBehaviour
             }
             playerWeapons[filledWeaponSlots-1] = temp;
         }
-        
-
-        if (currentMeleeWeapon)
-        {
-            //currentMeleeWeapon.canFire = true;
-        }
-        if (currentRangedWeapon)
-        {
-            //currentRangedWeapon.canFire = true;
-        }
     }
 
-    public void Move(InputAction.CallbackContext context)
+    private void Move(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
     }
 
-    public void Interact(InputAction.CallbackContext context)
+    private void Interact(InputAction.CallbackContext context)
     {
         if (pickupObj != null && interactions.canInteract)
         {
             if (pickupObj.CompareTag("MeleeWeapon") && playerWeapons.Last() == null)
             {
-                var script = pickupObj.GetComponent<MeleeWeapons>();
-                if (script != null) script.equip(this);
+                if (pickupObj.TryGetComponent<MeleeWeapons>(out var script)) script.Equip(this);
             }
             else if (pickupObj.CompareTag("RangedWeapon"))
             {
-                var script = pickupObj.GetComponent<RangedWeapons>();
-                if (script != null) script.equip(this);
+                if (pickupObj.TryGetComponent<RangedWeapons>(out var script)) script.Equip(this);
             }
             else if (pickupObj.CompareTag("Health"))
             {
@@ -191,38 +175,38 @@ public class PlayerController : MonoBehaviour
             interactions.canInteract = false;
         }
     }
-    public void Drop(InputAction.CallbackContext context)
+    private void Drop(InputAction.CallbackContext context)
     {
         if(currentMeleeWeapon && context.performed)
         {
-            currentMeleeWeapon.unequip();
+            currentMeleeWeapon.Unequip();
         }
         if(currentRangedWeapon && context.performed)
         {
-            currentRangedWeapon.unequip();
+            currentRangedWeapon.Unequip();
         }
     }
 
-    public void Attack(InputAction.CallbackContext context)
+    private void Attack(InputAction.CallbackContext context)
     {
         if (currentRangedWeapon)
         {
             if (currentRangedWeapon.holdToAttack)
                 attacking = context.ReadValueAsButton();
             else if (context.performed)
-                currentRangedWeapon.fire();
+                currentRangedWeapon.Fire();
         }
         else if (currentMeleeWeapon && context.performed && currentMeleeWeapon.canFire)
         {
-            currentMeleeWeapon.StartCoroutine("hit");
+            currentMeleeWeapon.StartCoroutine(currentMeleeWeapon.Hit());
         }
     }
 
-    public void Reload(InputAction.CallbackContext context)
+    private void Reload(InputAction.CallbackContext context)
     {
         if (currentRangedWeapon && !currentRangedWeapon.reloading)
         {
-            currentRangedWeapon.reload();
+            currentRangedWeapon.Reload();
         }
     }
 

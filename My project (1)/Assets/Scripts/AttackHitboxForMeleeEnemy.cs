@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class AttackHitboxForMeleeEnemy : MonoBehaviour
 {
-    MeleeEnemy enemy;
-    EnemyMeleeWeapon weapon;
+    private MeleeEnemy enemy;
+    private EnemyMeleeWeapon weapon;
     void Start()
     {
         enemy = GetComponentInParent<MeleeEnemy>();
@@ -15,7 +15,7 @@ public class AttackHitboxForMeleeEnemy : MonoBehaviour
         {
             if (!weapon.attacking)
             {
-                weapon.StartCoroutine("Attack");
+                weapon.StartCoroutine(weapon.Attack());
             }
         }
         
@@ -26,7 +26,7 @@ public class AttackHitboxForMeleeEnemy : MonoBehaviour
         {
             if (!weapon.attacking)
             {
-                weapon.StartCoroutine("Attack");
+                weapon.StartCoroutine(weapon.Attack());
             }
         }
     }

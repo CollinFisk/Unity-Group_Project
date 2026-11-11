@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class EnemyNav : MonoBehaviour
 {    
-    PlayerController player;
+    private PlayerController player;
 
-    public Transform collisionObject;
+    [SerializeField] private Transform collisionObject;
 
-    Rigidbody2D rigidbody;
+    private Rigidbody2D rigidbody;
     private CircleCollider2D DetectionRadius;
 
     [SerializeField] private bool canSeePlayer;
@@ -19,6 +19,7 @@ public class EnemyNav : MonoBehaviour
 
     [SerializeField] private float PlayerStopDistance;
     [SerializeField] private float PatrolStopDistance;
+    [SerializeField] private float PatrolWaitTime;
 
 
     public float speed;
@@ -34,9 +35,9 @@ public class EnemyNav : MonoBehaviour
     [SerializeField] private float PatrolRadiusHighX;
     [SerializeField] private float PatrolRadiusHighY;
 
-    public Vector3 destination;
-    public Transform destinationPoint;
-    public LayerMask wallLayer;
+    private Vector3 destination;
+    private Transform destinationPoint;
+    private LayerMask wallLayer;
     void Start()
     {
         player = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
@@ -118,7 +119,7 @@ public class EnemyNav : MonoBehaviour
                     rigidbody.linearVelocity = Vector2.zero;
                     stopping = false;
 
-                    StartCoroutine("StartPatrol");
+                    StartCoroutine(StartPatrol());
                 }
             }
 
@@ -151,7 +152,7 @@ public class EnemyNav : MonoBehaviour
                 {
                     stopping = false;
 
-                    StartCoroutine("StartPatrol");
+                    StartCoroutine(StartPatrol());
                 }
             }
 
@@ -218,7 +219,7 @@ public class EnemyNav : MonoBehaviour
     }
     IEnumerator StartPatrol()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(PatrolWaitTime);
         stopping = true;
     }
 }

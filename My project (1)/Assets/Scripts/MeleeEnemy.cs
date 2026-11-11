@@ -1,28 +1,26 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class MeleeEnemy : MonoBehaviour
 {
-    GameManager gameManager;
+    private GameManager gameManager;
 
     public int enemyHealth;
     [SerializeField] private int enemyMaxHealth;
 
-    public GameObject[] potentialDrops;
-    public int maxDrops;
-    public int minDrops = 1;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [SerializeField] private GameObject[] potentialDrops;
+    [SerializeField] private int maxDrops;
+    [SerializeField] private int minDrops = 1;
     void Start()
     {
         gameManager = GameObject.Find("gameManager").GetComponent<GameManager>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if(enemyHealth <= 0)
         {
             Destroy(transform.gameObject);
+            DropGoodies(minDrops, maxDrops);
             gameManager.enemyCount--;
         }
     }

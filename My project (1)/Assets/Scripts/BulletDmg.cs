@@ -11,6 +11,14 @@ public class BulletDmg : MonoBehaviour
         {
             other.gameObject.GetComponent<MeleeEnemy>().enemyHealth -= bulletDmg;
         }
+        if (other.gameObject.CompareTag("RangedEnemy"))
+        {
+            other.gameObject.GetComponent<RangedEnemy>().enemyHealth -= bulletDmg;
+        }
+        if (other.gameObject.CompareTag("Player"))
+        {
+            other.gameObject.GetComponent<PlayerController>().health -= bulletDmg;
+        }
         if (other.gameObject.CompareTag("Destroyable"))
         {
             if (other.gameObject.GetComponent<ObjectDestruction>() != null)
@@ -23,10 +31,10 @@ public class BulletDmg : MonoBehaviour
 
                 if (other.gameObject.GetComponent<ObjectDestruction>().healthbarVisible == true)
                 {
-                    other.gameObject.GetComponent<ObjectDestruction>().StopCoroutine("HealthVisible");
+                    other.gameObject.GetComponent<ObjectDestruction>().StopCoroutine(other.gameObject.GetComponent<ObjectDestruction>().HealthVisible());
                 }
 
-                other.gameObject.GetComponent<ObjectDestruction>().StartCoroutine("HealthVisible");
+                other.gameObject.GetComponent<ObjectDestruction>().StartCoroutine(other.gameObject.GetComponent<ObjectDestruction>().HealthVisible());
             }
         }
         Destroy(gameObject);

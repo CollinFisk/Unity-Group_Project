@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class WallDestroy : ObjectDestruction
 {
+    /*
     public int maxHealth;
     public float healthDivisor = 2f;
 
@@ -30,4 +31,5 @@ public class WallDestroy : ObjectDestruction
         }
 
     }
+    */
 }

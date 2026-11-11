@@ -1,12 +1,9 @@
 using System.Collections;
 using UnityEngine;
 
+[RequireComponent(typeof(Collider2D))]
 public class RangedEnemyWeapon : MonoBehaviour
 {
-    PlayerController player;
-    RangedEnemy rangedEnemy;
-
-
     [Header("Object Refrences")]
     public GameObject projectile;
     public Transform firePoint;
@@ -19,27 +16,26 @@ public class RangedEnemyWeapon : MonoBehaviour
     public string weaponName;
 
     [Header("Weapon Stats")]
-    public float projLifespan;
-    public float projVelocity;
-    public float reloadCooldown;
-    public float rof;
+    [SerializeField] private float projLifespan;
+    [SerializeField] private float projVelocity;
+    [SerializeField] private float reloadCooldown;
+    [SerializeField] private float rof;
+    [SerializeField] private int maxDmg;
+    [SerializeField] private int minDmg;
 
-
-    public int maxDmg;
-    public int minDmg;
+    [Header("Public Weapon Stats")]
     public int clip;
     public int clipSize;
     public int knockbackForce;
 
     void Start()
     {
-        rangedEnemy = GetComponentInParent<RangedEnemy>();
         firePoint = transform.GetChild(0);        
         canFire = true;
         GetComponent<Collider2D>().isTrigger = true;
 
     }
-    public void reload()
+    public void Reload()
     {
         if (clip >= clipSize)
             return;
@@ -51,10 +47,10 @@ public class RangedEnemyWeapon : MonoBehaviour
 
         reloading = true;
         canFire = false;
-        StartCoroutine("reloadingCooldown");
+        StartCoroutine(ReloadingCooldown());
     }
 
-    public void fire()
+    public void Fire()
     {
         if (clip > 0 && canFire && !reloading)
         {
@@ -65,22 +61,22 @@ public class RangedEnemyWeapon : MonoBehaviour
             Destroy(p, projLifespan);
             clip--;
             canFire = false;
-            StartCoroutine("cooldownFire");
+            StartCoroutine(CooldownFire());
         }
         else if (clip == 0)
         {
-            reload();
+            Reload();
         }
     }
 
-    IEnumerator cooldownFire()
+    IEnumerator CooldownFire()
     {
         yield return new WaitForSeconds(rof);
 
         canFire = true;
     }
 
-    IEnumerator reloadingCooldown()
+    IEnumerator ReloadingCooldown()
     {
         yield return new WaitForSeconds(reloadCooldown);
         reloading = false;

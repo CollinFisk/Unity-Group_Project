@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class enemyMeleeWeaponAttackPoint : MonoBehaviour
 {
-    EnemyMeleeWeapon weapon;
+    private EnemyMeleeWeapon weapon;
     private void Start()
     {
         weapon = GetComponentInParent<EnemyMeleeWeapon>();
@@ -26,10 +26,10 @@ public class enemyMeleeWeaponAttackPoint : MonoBehaviour
 
                 if (other.GetComponent<ObjectDestruction>().healthbarVisible == true)
                 {
-                    other.GetComponent<ObjectDestruction>().StopCoroutine("HealthVisible");
+                    other.GetComponent<ObjectDestruction>().StopCoroutine(other.gameObject.GetComponent<ObjectDestruction>().HealthVisible());
                 }
 
-                other.GetComponent<ObjectDestruction>().StartCoroutine("HealthVisible");
+                other.GetComponent<ObjectDestruction>().StartCoroutine(other.gameObject.GetComponent<ObjectDestruction>().HealthVisible());
             }
         }
     }

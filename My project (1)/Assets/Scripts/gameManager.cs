@@ -1,29 +1,30 @@
 using TMPro;
-using Unity.Cinemachine;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
 using Slider = UnityEngine.UI.Slider;
 
 public class GameManager : MonoBehaviour
 {
-    public PlayerController player;
+    private PlayerController player;
 
-    public Slider healthBar;
 
-    public TextMeshProUGUI clipText;
-    public TextMeshProUGUI ammoText;
-    public TextMeshProUGUI weaponText;
-    public TextMeshProUGUI pickupObjText;
-    public TextMeshProUGUI pausedText;
-    public TextMeshProUGUI gameOverText;
+    [Header("TextBoxes")]
+    [SerializeField] private TextMeshProUGUI clipText;
+    [SerializeField] private TextMeshProUGUI ammoText;
+    [SerializeField] private TextMeshProUGUI weaponText;
+    [SerializeField] private TextMeshProUGUI pickupObjText;
+    [SerializeField] private TextMeshProUGUI pausedText;
+    [SerializeField] private TextMeshProUGUI gameOverText;
+    //[SerializeField] private TextMeshProUGUI resourcesTotalText;
+
+
+    [Header("Sliders")]
+    [SerializeField] private Slider healthBar;
+
+
 
     public bool paused = false;
     public bool gameOver = false;
-    public bool bossActive = false;
-    public bool bossDefeated = false;
 
     public int enemyCount = 0;
     public int startEnemyCount = 0;

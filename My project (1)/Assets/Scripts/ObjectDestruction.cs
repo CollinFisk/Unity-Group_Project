@@ -1,32 +1,27 @@
-using NUnit.Framework;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ObjectDestruction : MonoBehaviour
 {
 
-    public PlayerController player;
-    public GameObject healthBar;
-    public GameObject healthCanvas;
-    public GameObject parent;
-    public GameObject[] potentialDrops;
+    [SerializeField] private GameObject healthBar;
+    [SerializeField] private GameObject healthCanvas;
+    [SerializeField] private GameObject parent;
+    [SerializeField] private GameObject[] potentialDrops;
+    [SerializeField] private int maxDrops;
+    [SerializeField] private int minDrops = 1;
+    [SerializeField] private float timeVisible;
+
     public int objectHealth;
-    public int maxDrops;
-    public int minDrops = 1;
-
-    public float timeVisible;
-
     public bool healthbarVisible = false;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         healthBar.GetComponent<Slider>().maxValue = objectHealth;
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         healthCanvas.GetComponent<Transform>().transform.position = gameObject.transform.position;
@@ -81,10 +76,9 @@ public class ObjectDestruction : MonoBehaviour
         }
                 
     }
-
-    IEnumerator HealthVisible()
+    public IEnumerator HealthVisible()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(timeVisible);
 
         healthbarVisible = false;
     }

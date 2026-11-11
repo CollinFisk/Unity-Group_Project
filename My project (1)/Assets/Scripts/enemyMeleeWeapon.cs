@@ -1,9 +1,5 @@
 using System.Collections;
-using System.Diagnostics;
-using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI.Table;
 
 public class EnemyMeleeWeapon : MonoBehaviour
 {
@@ -22,22 +18,18 @@ public class EnemyMeleeWeapon : MonoBehaviour
     {
         attackZone = transform.GetChild(0).gameObject;
     }
-    //This void is supposed to make no sense it is just here to keep Attack from abandoning us
-    private void Afaoigfhpaoigh()
-    {
-        StartCoroutine("Attack");
-    }
-    IEnumerator Attack()
+
+    public IEnumerator Attack()
     {
         attacking = true;
         yield return new WaitForSeconds(SwingSpeed);
-        attackZone.gameObject.SetActive(true);
+        attackZone.SetActive(true);
         yield return new WaitForSeconds(attackLingeringTime);
-        attackZone.gameObject.SetActive(false);
+        attackZone.SetActive(false);
 
-        StartCoroutine("cooldownFire");
+        StartCoroutine(CooldownFire());
     }
-    IEnumerator cooldownFire()
+    IEnumerator CooldownFire()
     {
         yield return new WaitForSeconds(SwingCooldown);
         attacking = false;

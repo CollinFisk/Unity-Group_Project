@@ -1,12 +1,11 @@
 using System.Collections;
-using System.Linq;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI.Table;
 
+[RequireComponent(typeof(Collider2D))]
 public class MeleeWeapons : MonoBehaviour
 {
-    public PlayerController player;
-    public GameObject attackZone;
+    private PlayerController player;
+    private GameObject attackZone;
 
     public bool canFire = false;
     public bool equipped = false;
@@ -14,6 +13,7 @@ public class MeleeWeapons : MonoBehaviour
     public int maxDmg;
     public int minDmg;
     public float knockbackForce;
+
     [SerializeField] private float SwingSpeed;
     [SerializeField] private float SwingCooldown;
     [SerializeField] private float attackLingeringTime;
@@ -39,7 +39,7 @@ public class MeleeWeapons : MonoBehaviour
 
     }
 
-    public void equip(PlayerController p)
+    public void Equip(PlayerController p)
     {
         player = p;
         player.currentMeleeWeapon = this;
@@ -65,7 +65,7 @@ public class MeleeWeapons : MonoBehaviour
         GetComponent<Collider2D>().isTrigger = true;
     }
 
-    public void unequip()
+    public void Unequip()
     {
         player.currentRangedWeapon = null;
         player.GetComponent<PlayerController>().playerWeapons[0] = null;
@@ -93,19 +93,18 @@ public class MeleeWeapons : MonoBehaviour
 
     }
 
-    IEnumerator hit()
+    public IEnumerator Hit()
     {
         canFire = false;
         yield return new WaitForSeconds(SwingSpeed);
-        StartCoroutine("cooldownFire");
+        StartCoroutine(CooldownFire());
     }
-    IEnumerator cooldownFire()
+    IEnumerator CooldownFire()
     {
         attackZone.SetActive(true);
         yield return new WaitForSeconds(attackLingeringTime);
         attackZone.SetActive(false);
         yield return new WaitForSeconds(SwingCooldown);
-        hit();
         canFire = true;
     }
 }
