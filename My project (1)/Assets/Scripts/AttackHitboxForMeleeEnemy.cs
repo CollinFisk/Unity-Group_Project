@@ -17,7 +17,7 @@ public class AttackHitboxForMeleeEnemy : MonoBehaviour
         {
             if (!weapon.attacking && enemyNav.isFollowing)
             {
-                weapon.StartCoroutine(weapon.Attack());
+                weapon.StartAttack();
             }
         }
         
@@ -28,7 +28,7 @@ public class AttackHitboxForMeleeEnemy : MonoBehaviour
         {
             if (!weapon.attacking && enemyNav.isFollowing)
             {
-                weapon.StartCoroutine(weapon.Attack());
+                weapon.StartAttack();
             }
         }
     }

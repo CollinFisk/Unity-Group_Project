@@ -47,7 +47,7 @@ public class RangedEnemyWeapon : MonoBehaviour
 
         reloading = true;
         canFire = false;
-        StartCoroutine(ReloadingCooldown());
+        Invoke(nameof(ReloadingCooldown), reloadCooldown);
     }
 
     public void Fire()
@@ -61,7 +61,7 @@ public class RangedEnemyWeapon : MonoBehaviour
             Destroy(p, projLifespan);
             clip--;
             canFire = false;
-            StartCoroutine(CooldownFire());
+            Invoke(nameof(CooldownFire), rof);
         }
         else if (clip == 0)
         {
@@ -69,16 +69,13 @@ public class RangedEnemyWeapon : MonoBehaviour
         }
     }
 
-    IEnumerator CooldownFire()
+    private void CooldownFire()
     {
-        yield return new WaitForSeconds(rof);
-
         canFire = true;
     }
 
-    IEnumerator ReloadingCooldown()
+    private void ReloadingCooldown()
     {
-        yield return new WaitForSeconds(reloadCooldown);
         reloading = false;
         canFire = true;
     }

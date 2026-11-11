@@ -26,10 +26,25 @@ public class enemyMeleeWeaponAttackPoint : MonoBehaviour
 
                 if (other.GetComponent<ObjectDestruction>().healthbarVisible == true)
                 {
-                    other.GetComponent<ObjectDestruction>().StopCoroutine(other.gameObject.GetComponent<ObjectDestruction>().HealthVisible());
+                    other.GetComponent<ObjectDestruction>().healthbarVisible = false;
                 }
 
-                other.GetComponent<ObjectDestruction>().StartCoroutine(other.gameObject.GetComponent<ObjectDestruction>().HealthVisible());
+                other.GetComponent<ObjectDestruction>().HealthVisible();
+            }
+            if (other.GetComponent<WallDestroy>() != null)
+            {
+                other.GetComponent<WallDestroy>().objectHealth -= (int)(Random.Range(weapon.minDmg, weapon.maxDmg) * 2);
+
+                other.GetComponent<Rigidbody2D>().AddForce(transform.up * weapon.knockbackForce);
+
+                other.GetComponent<WallDestroy>().healthbarVisible = true;
+
+                if (other.GetComponent<WallDestroy>().healthbarVisible == true)
+                {
+                    other.GetComponent<WallDestroy>().healthbarVisible = false;
+                }
+
+                other.GetComponent<WallDestroy>().HealthVisible();
             }
         }
     }

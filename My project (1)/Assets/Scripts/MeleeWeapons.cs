@@ -7,7 +7,7 @@ public class MeleeWeapons : MonoBehaviour
     private PlayerController player;
     private GameObject attackZone;
 
-    public bool canFire = false;
+    public bool canAttack = false;
     public bool equipped = false;
     public string weaponName;
     public int maxDmg;
@@ -60,7 +60,7 @@ public class MeleeWeapons : MonoBehaviour
 
         transform.SetPositionAndRotation(player.weaponSlot.position, player.weaponSlot.rotation);
         transform.SetParent(player.weaponSlot);
-        canFire = true;
+        canAttack = true;
 
         GetComponent<Collider2D>().isTrigger = true;
     }
@@ -93,18 +93,23 @@ public class MeleeWeapons : MonoBehaviour
 
     }
 
-    public IEnumerator Hit()
+    public void StartAttack()
     {
-        canFire = false;
-        yield return new WaitForSeconds(SwingSpeed);
-        StartCoroutine(CooldownFire());
+        canAttack = false;
+        Invoke(nameof(StopSwing), SwingSpeed);
     }
-    IEnumerator CooldownFire()
+    private void StopSwing()
     {
         attackZone.SetActive(true);
-        yield return new WaitForSeconds(attackLingeringTime);
+        Invoke(nameof(AttackCooldown), attackLingeringTime);
+    }
+    private void AttackCooldown()
+    {
         attackZone.SetActive(false);
-        yield return new WaitForSeconds(SwingCooldown);
-        canFire = true;
+        Invoke(nameof(ResetCanAttack), SwingCooldown);
+    }
+    private void ResetCanAttack()
+    {
+        canAttack = true;
     }
 }

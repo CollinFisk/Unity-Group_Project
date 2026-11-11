@@ -19,19 +19,23 @@ public class EnemyMeleeWeapon : MonoBehaviour
         attackZone = transform.GetChild(0).gameObject;
     }
 
-    public IEnumerator Attack()
+    public void StartAttack()
     {
         attacking = true;
-        yield return new WaitForSeconds(SwingSpeed);
-        attackZone.SetActive(true);
-        yield return new WaitForSeconds(attackLingeringTime);
-        attackZone.SetActive(false);
-
-        StartCoroutine(CooldownFire());
+        Invoke(nameof(StopSwing), SwingSpeed);
     }
-    IEnumerator CooldownFire()
+    private void StopSwing()
     {
-        yield return new WaitForSeconds(SwingCooldown);
+        attackZone.SetActive(true);
+        Invoke(nameof(AttackCooldown), attackLingeringTime);
+    }
+    private void AttackCooldown()
+    {
+        attackZone.SetActive(false);
+        Invoke(nameof(ResetCanAttack), SwingCooldown);
+    }
+    private void ResetCanAttack()
+    {
         attacking = false;
     }
 }

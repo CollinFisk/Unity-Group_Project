@@ -113,7 +113,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1609584393
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
@@ -234,7 +234,7 @@ GameObject:
   - component: {fileID: 7732968484214581423}
   - component: {fileID: 3955275366371459791}
   - component: {fileID: 175672076947845091}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: RangedEnemy
   m_TagString: RangedEnemy
   m_Icon: {fileID: 0}
@@ -303,7 +303,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 1883664317
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
@@ -356,24 +356,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fd6a73e1ff57874a9d3ae467dc61435, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyNav
-  collisionObject: {fileID: 0}
   canSeePlayer: 0
+  patrolling: 0
+  MovingToDestination: 1
+  choosingPoint: 0
+  baseSpeed: 2
   isFollowing: 0
-  beingADumbass: 0
-  patrol: 1
-  stopping: 0
+  speed: 2
   PlayerStopDistance: 4
   PatrolStopDistance: 0.2
   PatrolWaitTime: 5
-  speed: 2
-  baseSpeed: 2
   detectionRadius: 5
-  stoppingDistance: 1.5
   runAwayDistance: 3
   PatrolRadiusLowX: -8.7
   PatrolRadiusLowY: -2.7
   PatrolRadiusHighX: 11
   PatrolRadiusHighY: 1
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  avoidanceRadius: 1.5
+  avoidanceStrength: 2.5
+  destination: {x: 0, y: 0, z: 0}
   wallLayer:
     serializedVersion: 2
     m_Bits: 8

@@ -76,10 +76,14 @@ public class ObjectDestruction : MonoBehaviour
         }
                 
     }
-    public IEnumerator HealthVisible()
-    {
-        yield return new WaitForSeconds(timeVisible);
 
+    public void HealthVisible()
+    {
+        healthbarVisible = true;
+        Invoke(nameof(HealthInvisible), timeVisible);
+    }
+    private void HealthInvisible()
+    {
         healthbarVisible = false;
     }
 }

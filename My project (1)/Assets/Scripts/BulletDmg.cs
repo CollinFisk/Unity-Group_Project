@@ -31,10 +31,26 @@ public class BulletDmg : MonoBehaviour
 
                 if (other.gameObject.GetComponent<ObjectDestruction>().healthbarVisible == true)
                 {
-                    other.gameObject.GetComponent<ObjectDestruction>().StopCoroutine(other.gameObject.GetComponent<ObjectDestruction>().HealthVisible());
+                    other.gameObject.GetComponent<ObjectDestruction>().healthbarVisible = false;
                 }
 
-                other.gameObject.GetComponent<ObjectDestruction>().StartCoroutine(other.gameObject.GetComponent<ObjectDestruction>().HealthVisible());
+                other.gameObject.GetComponent<ObjectDestruction>().HealthVisible();
+            }
+
+            if (other.gameObject.GetComponent<WallDestroy>() != null)
+            {
+                other.gameObject.GetComponent<WallDestroy>().objectHealth -= bulletDmg;
+
+                other.gameObject.GetComponent<Rigidbody2D>().AddForce(transform.up * bulletKnockback);
+
+                other.gameObject.GetComponent<WallDestroy>().healthbarVisible = true;
+
+                if (other.gameObject.GetComponent<WallDestroy>().healthbarVisible == true)
+                {
+                    other.gameObject.GetComponent<WallDestroy>().healthbarVisible = false;
+                }
+
+                other.gameObject.GetComponent<WallDestroy>().HealthVisible();
             }
         }
         Destroy(gameObject);

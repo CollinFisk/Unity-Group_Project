@@ -3,6 +3,7 @@ using UnityEngine;
 public class MeleeWeaponAttackPoint : MonoBehaviour
 {    
     private MeleeWeapons meleeWeapon;
+
     private void Start()
     {
         meleeWeapon = GetComponentInParent<MeleeWeapons>();
@@ -25,17 +26,33 @@ public class MeleeWeaponAttackPoint : MonoBehaviour
             if (other.GetComponent<ObjectDestruction>() != null)
             {
                 other.GetComponent<ObjectDestruction>().objectHealth -= (int)(Random.Range(meleeWeapon.minDmg, meleeWeapon.maxDmg) * 2);
-                
+
                 other.GetComponent<Rigidbody2D>().AddForce(transform.up * meleeWeapon.knockbackForce);
 
                 other.GetComponent<ObjectDestruction>().healthbarVisible = true;
 
                 if (other.GetComponent<ObjectDestruction>().healthbarVisible == true)
                 {
-                    other.GetComponent<ObjectDestruction>().StopCoroutine(other.GetComponent<ObjectDestruction>().HealthVisible());
+                    other.GetComponent<ObjectDestruction>().healthbarVisible = false;
                 }
 
-                other.GetComponent<ObjectDestruction>().StartCoroutine(other.GetComponent<ObjectDestruction>().HealthVisible());
+                other.GetComponent<ObjectDestruction>().HealthVisible();
+            }
+
+            if (other.GetComponent<WallDestroy>() != null)
+            {
+                other.GetComponent<WallDestroy>().objectHealth -= (int)(Random.Range(meleeWeapon.minDmg, meleeWeapon.maxDmg) * 2);
+
+                other.GetComponent<Rigidbody2D>().AddForce(transform.up * meleeWeapon.knockbackForce);
+
+                other.GetComponent<WallDestroy>().healthbarVisible = true;
+
+                if (other.GetComponent<WallDestroy>().healthbarVisible == true)
+                {
+                    other.GetComponent<WallDestroy>().healthbarVisible = false;
+                }
+
+                other.GetComponent<WallDestroy>().HealthVisible();
             }
         }
     }

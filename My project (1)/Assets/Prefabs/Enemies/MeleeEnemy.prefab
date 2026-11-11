@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 9153836686766661284}
   - component: {fileID: 8272049429600943183}
   - component: {fileID: 4596440255752233004}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: MeleeEnemy
   m_TagString: MeleeEnemy
   m_Icon: {fileID: 0}
@@ -33,7 +33,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
   m_LocalPosition: {x: 8.01, y: 3.54, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1726687540801016953}
   - {fileID: 3365170429535502711}
@@ -85,7 +85,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 1883664317
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
@@ -138,24 +138,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fd6a73e1ff57874a9d3ae467dc61435, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyNav
-  collisionObject: {fileID: 0}
   canSeePlayer: 0
+  patrolling: 0
+  MovingToDestination: 1
+  choosingPoint: 0
+  baseSpeed: 2
   isFollowing: 0
-  beingADumbass: 0
-  patrol: 1
-  stopping: 0
+  speed: 2
   PlayerStopDistance: 1.5
   PatrolStopDistance: 0.2
   PatrolWaitTime: 5
-  speed: 2
-  baseSpeed: 2
   detectionRadius: 5
-  stoppingDistance: 1.5
   runAwayDistance: 0.5
   PatrolRadiusLowX: -8.7
   PatrolRadiusLowY: -2.7
   PatrolRadiusHighX: 11
   PatrolRadiusHighY: 1
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  avoidanceRadius: 1.5
+  avoidanceStrength: 2.5
+  destination: {x: 0, y: 0, z: 0}
   wallLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -213,7 +217,7 @@ MonoBehaviour:
   - {fileID: 8570551461361171178, guid: d5ca4f4fbcea2d9408a05302e1f8ebc5, type: 3}
   - {fileID: 2658523668507854715, guid: 5f8dda60396a21b4f8dfff4f730044d6, type: 3}
   - {fileID: 2521166659738571829, guid: 8efdbf597d2186f4683bf318c46ec501, type: 3}
-  maxDrops: 5
+  maxDrops: 3
   minDrops: 3
 --- !u!70 &4596440255752233004
 CapsuleCollider2D:
@@ -462,7 +466,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1609584393
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}

@@ -132,7 +132,7 @@ public class PlayerController : MonoBehaviour
 
     private void EquipNextWeapon(InputAction.CallbackContext context)
     {
-        if (context.canceled)
+        if (context.canceled && playerWeapons[0])
         {
             GameObject temp = playerWeapons[0];
             playerWeapons[0] = null;
@@ -196,9 +196,9 @@ public class PlayerController : MonoBehaviour
             else if (context.performed)
                 currentRangedWeapon.Fire();
         }
-        else if (currentMeleeWeapon && context.performed && currentMeleeWeapon.canFire)
+        else if (currentMeleeWeapon && context.performed && currentMeleeWeapon.canAttack)
         {
-            currentMeleeWeapon.StartCoroutine(currentMeleeWeapon.Hit());
+            currentMeleeWeapon.StartAttack();
         }
     }
 

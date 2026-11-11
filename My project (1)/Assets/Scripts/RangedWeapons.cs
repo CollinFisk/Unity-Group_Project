@@ -131,7 +131,7 @@ public class RangedWeapons : MonoBehaviour
 
         reloading = true;
         canFire = false;
-        StartCoroutine(ReloadingCooldown());
+        Invoke(nameof(ReloadingCooldown), reloadCooldown);
     }
 
     public void Fire()
@@ -145,23 +145,18 @@ public class RangedWeapons : MonoBehaviour
             Destroy(p, projLifespan);
             clip--;
             canFire = false;
-            //player.attackingAnim = true;
-            StartCoroutine(CooldownFire());
+            Invoke(nameof(CooldownFire), rof);
         }
     }
 
-    IEnumerator CooldownFire()
+    private void CooldownFire()
     {
-        yield return new WaitForSeconds(rof);
-        //player.weaponAnim.SetBool("isFiring", false);
-
         if (clip > 0)
             canFire = true;
     }
 
-    IEnumerator ReloadingCooldown()
+    private void  ReloadingCooldown()
     {
-        yield return new WaitForSeconds(reloadCooldown);
         reloading = false;
         canFire = true;
     }

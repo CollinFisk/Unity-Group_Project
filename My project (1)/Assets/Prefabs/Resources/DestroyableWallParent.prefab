@@ -188,10 +188,10 @@ GameObject:
   m_Component:
   - component: {fileID: 275569451793149576}
   - component: {fileID: 1894415031833612140}
-  - component: {fileID: 3383638800648585975}
   - component: {fileID: 1180709103201445091}
   - component: {fileID: 8168178294125834951}
-  - component: {fileID: 7192938426457303899}
+  - component: {fileID: 4369887255937506069}
+  - component: {fileID: 972018328877208833}
   m_Layer: 3
   m_Name: DestroyableWall
   m_TagString: Destroyable
@@ -274,30 +274,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
   m_BlendShapeWeights: []
---- !u!114 &3383638800648585975
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4485081584799755177}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b222556bade7df04aae519127b8c63ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ObjectDestruction
-  healthBar: {fileID: 5616713644374080456}
-  healthCanvas: {fileID: 3913447611899077256}
-  parent: {fileID: 7024399782484703647}
-  potentialDrops:
-  - {fileID: 8570551461361171178, guid: d5ca4f4fbcea2d9408a05302e1f8ebc5, type: 3}
-  - {fileID: 2658523668507854715, guid: 5f8dda60396a21b4f8dfff4f730044d6, type: 3}
-  - {fileID: 2521166659738571829, guid: 8efdbf597d2186f4683bf318c46ec501, type: 3}
-  maxDrops: 5
-  minDrops: 3
-  timeVisible: 1
-  objectHealth: 200
-  healthbarVisible: 0
 --- !u!61 &1180709103201445091
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -371,7 +347,23 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
---- !u!114 &7192938426457303899
+--- !u!208 &4369887255937506069
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4485081584799755177}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!114 &972018328877208833
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -380,13 +372,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 4485081584799755177}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Script: {fileID: 11500000, guid: 18cb1a8d28fe77d47b01bbcf9eacbd45, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: NavMeshPlus::NavMeshPlus.Components.NavMeshModifier
-  m_OverrideArea: 1
-  m_Area: 1
-  m_IgnoreFromBuild: 0
-  m_AffectedAgents: ffffffff
+  m_EditorClassIdentifier: Assembly-CSharp::WallDestroy
+  healthBar: {fileID: 5616713644374080456}
+  healthCanvas: {fileID: 3913447611899077256}
+  parent: {fileID: 7024399782484703647}
+  potentialDrops:
+  - {fileID: 8570551461361171178, guid: d5ca4f4fbcea2d9408a05302e1f8ebc5, type: 3}
+  - {fileID: 2658523668507854715, guid: 5f8dda60396a21b4f8dfff4f730044d6, type: 3}
+  - {fileID: 2521166659738571829, guid: 8efdbf597d2186f4683bf318c46ec501, type: 3}
+  maxDestroyDrops: 3
+  minDestroyDrops: 3
+  maxHurtDrops: 2
+  minHurtDrops: 1
+  HealthDepletedThird: 0
+  HealthDepletedTwoThirds: 0
+  objectHealth: 200
+  objectMaxHealth: 200
+  healthbarVisible: 0
+  timeVisible: 1
 --- !u!1 &5616713644374080456
 GameObject:
   m_ObjectHideFlags: 0

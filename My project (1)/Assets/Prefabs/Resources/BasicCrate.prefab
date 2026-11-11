@@ -241,6 +241,7 @@ GameObject:
   - component: {fileID: 716763430067203880}
   - component: {fileID: 2112389250750868087}
   - component: {fileID: 8941760798324549783}
+  - component: {fileID: 8928277026498057312}
   m_Layer: 0
   m_Name: Crate
   m_TagString: Destroyable
@@ -313,7 +314,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1609584393
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: -8544228340000747461, guid: 6be3247e9ee384444a0778066bfe2d9c, type: 3}
@@ -392,7 +393,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.64, y: 0.64}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -412,7 +413,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b222556bade7df04aae519127b8c63ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectDestruction
-  player: {fileID: 0}
   healthBar: {fileID: 2490939979201984195}
   healthCanvas: {fileID: 1778823675752243264}
   parent: {fileID: 3679436850887401865}
@@ -420,11 +420,27 @@ MonoBehaviour:
   - {fileID: 2521166659738571829, guid: 8efdbf597d2186f4683bf318c46ec501, type: 3}
   - {fileID: 8570551461361171178, guid: d5ca4f4fbcea2d9408a05302e1f8ebc5, type: 3}
   - {fileID: 2658523668507854715, guid: 5f8dda60396a21b4f8dfff4f730044d6, type: 3}
-  objectHealth: 100
   maxDrops: 3
   minDrops: 1
   timeVisible: 1
+  objectHealth: 100
   healthbarVisible: 0
+--- !u!208 &8928277026498057312
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3584598870758233191}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.05, y: 0.05, z: 0.1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &3679436850887401865
 GameObject:
   m_ObjectHideFlags: 0
