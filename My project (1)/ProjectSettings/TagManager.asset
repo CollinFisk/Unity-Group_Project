@@ -17,6 +17,7 @@ TagManager:
   - Resource
   - EnemyWeapon
   - EnemyAttackZone
+  - NPC
   layers:
   - Default
   - TransparentFX
@@ -26,7 +27,7 @@ TagManager:
   - UI
   - Floors
   - Enemy Layer
-  - 
+  - NPC Layer
   - 
   - 
   - 
