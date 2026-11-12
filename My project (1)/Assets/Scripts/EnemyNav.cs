@@ -19,7 +19,9 @@ public class EnemyNav : MonoBehaviour
 
     [SerializeField] private bool choosingPoint = false;
     Vector3 steeringTarget;
-
+    Vector2 pathDir;
+    Vector2 avoidDir;
+    Vector2 finalMoveDir;
     public bool isFollowing;
 
     [Space]
@@ -44,9 +46,7 @@ public class EnemyNav : MonoBehaviour
     [SerializeField] private LayerMask enemyLayer;
     [SerializeField] private float avoidanceRadius = 1.5f;
     [SerializeField] private float avoidanceStrength = 2.5f;
-    Vector2 pathDir;
-    Vector2 avoidDir;
-    Vector2 finalMoveDir;
+
 
     [Space]
     [Header("Pathing")]
