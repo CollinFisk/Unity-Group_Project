@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 [RequireComponent(typeof(CircleCollider2D))]
@@ -32,7 +33,7 @@ public class NpcNav : MonoBehaviour
     [SerializeField] private float PatrolStopDistance;
     [SerializeField] private float PatrolWaitTime;
     [SerializeField] private float detectionRadius;
-    [SerializeField] private float runAwayDistance;
+    [SerializeField] private float BackAway;
 
     [Space]
     [Header("Patrol Bounds")]
@@ -48,6 +49,8 @@ public class NpcNav : MonoBehaviour
     [SerializeField] private Vector3 destination;
     [SerializeField] private LayerMask wallLayer;
     [SerializeField] private LayerMask NpcLayer;
+    [SerializeField] private LayerMask enemyLayer;
+
 
     [Space]
     [Header("RunAwayFromEnemy")]
@@ -123,12 +126,23 @@ public class NpcNav : MonoBehaviour
             RotateTowardsDestination();
             MoveToDestination();
         }
-        else if (RunAwayFromEnemy)
+        else if (RunAwayFromEnemy && !isFollowing)
         {
-
+            SetRunAwayDestination();
+            RotateTowardsDestination();
+            MoveToDestination();
         }
     }
     #region Rotation and Movement
+    private void SetRunAwayDestination()
+    {
+        Collider2D[] EnemiesInRange = Physics2D.OverlapCircleAll(transform.position, avoidanceRadius, NpcLayer);
+        foreach (Collider2D other in EnemiesInRange)
+        {
+            if (other.isTrigger)
+                continue;
+        }
+    }
     private void RotateTowardsDestination()
     {
         rigidbody.MoveRotation(Mathf.Atan2(finalMoveDir.y, finalMoveDir.x) * Mathf.Rad2Deg - 90f);
@@ -139,21 +153,16 @@ public class NpcNav : MonoBehaviour
         {
             rigidbody.linearVelocity = speed * transform.up;
         }
-        else if (distanceFromStop <= stoppingDistance && distanceFromStop > runAwayDistance)
+        else if (distanceFromStop <= stoppingDistance)
         {
             rigidbody.linearVelocity = Vector2.zero;
         }
-        else if (distanceFromStop <= runAwayDistance)
-        {
-            rigidbody.linearVelocity = speed / 2 * -transform.up;
-        }
+
     }
     #endregion  
     
-    #region AvoidanceVector, Triggers, and Patrol
+    #region AvoidanceVector and Triggers
 
-    
-  
     private Vector2 GetAvoidanceVector()
     {
         Collider2D[] nearbyNPCs = Physics2D.OverlapCircleAll(transform.position, avoidanceRadius, NpcLayer);

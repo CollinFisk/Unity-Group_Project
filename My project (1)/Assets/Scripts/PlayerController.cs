@@ -13,9 +13,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float speed = 5f;
     [SerializeField] private bool attacking = false;
 
-    //This variable doesn't do anything right now I haven't finished it.
-    public int equippedWeapon;
-
     [Header("References")]
     public MeleeWeapons currentMeleeWeapon;
     public RangedWeapons currentRangedWeapon;
@@ -98,7 +95,7 @@ public class PlayerController : MonoBehaviour
         mousePos.z = transform.position.z;
         Vector2 lookDir = mousePos - transform.position;
         rb.MoveRotation(Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f);
-
+        totalResources = wood + metal + components; //When adding new resources add them to this
         interactObject.SetPositionAndRotation(transform.position, transform.rotation);
         if (playerWeapons[0] != null)
         {
@@ -230,7 +227,7 @@ public class PlayerController : MonoBehaviour
             health = maxHealth;
             Destroy(collision.gameObject);
         }
-        if (collision.gameObject.CompareTag("Resource"))
+        if (collision.gameObject.CompareTag("Resource") && totalResources < maxResources)
         {
             if(collision.gameObject.GetComponent<ResourceScript>().givesWood)
             {

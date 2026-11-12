@@ -7819,7 +7819,6 @@ MonoBehaviour:
   filledWeaponSlots: 0
   speed: 5
   attacking: 0
-  equippedWeapon: 0
   currentMeleeWeapon: {fileID: 0}
   currentRangedWeapon: {fileID: 0}
   playerWeapons:
@@ -25898,11 +25897,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1389074247929904278, guid: f6fa04308364e7642a0d0c5691883822, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.8695664
+      value: -10.66
       objectReference: {fileID: 0}
     - target: {fileID: 1389074247929904278, guid: f6fa04308364e7642a0d0c5691883822, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8.440591
+      value: 4.76
       objectReference: {fileID: 0}
     - target: {fileID: 1389074247929904278, guid: f6fa04308364e7642a0d0c5691883822, type: 3}
       propertyPath: m_LocalPosition.z
