@@ -145,6 +145,7 @@ public class RangedWeapons : MonoBehaviour
             Destroy(p, projLifespan);
             clip--;
             canFire = false;
+            //player.attackingAnim = true;
             Invoke(nameof(CooldownFire), rof);
         }
     }

@@ -1,37 +1,36 @@
 using UnityEngine;
 using UnityEngine.AI;
-
 [RequireComponent(typeof(CircleCollider2D))]
+[RequireComponent(typeof(Rigidbody2D))]
 public class EnemyNav : MonoBehaviour
 {
+    #region All Controls/References + OnStart
     private PlayerController player;
     private NavMeshPath navPath;
     private Rigidbody2D rigidbody;
     private CircleCollider2D DetectionRadiusCollider;
-    private float stoppingDistance;
 
     [Header("Meta")]
     [SerializeField] private bool canSeePlayer;
     [SerializeField] private bool patrolling;
     [SerializeField] private bool MovingToDestination;
+    [SerializeField] private float stoppingDistance;
+    [SerializeField] private float distanceFromStop;
+
     [SerializeField] private bool choosingPoint = false;
-    [SerializeField] private float baseSpeed;
+    Vector3 steeringTarget;
+
     public bool isFollowing;
 
     [Space]
     [Header("Changable Stats")]
+    public float baseSpeed;
     public float speed;
     [SerializeField] private float PlayerStopDistance;
     [SerializeField] private float PatrolStopDistance;
     [SerializeField] private float PatrolWaitTime;
     [SerializeField] private float detectionRadius;
     [SerializeField] private float runAwayDistance;
-
-    [Space]
-    [Header("Turning")]
-    [SerializeField] private float turnSpeed;
-    [SerializeField] private float targetAngle;
-    [SerializeField] private float smoothAngle;
 
     [Space]
     [Header("Patrol Bounds")]
@@ -45,36 +44,45 @@ public class EnemyNav : MonoBehaviour
     [SerializeField] private LayerMask enemyLayer;
     [SerializeField] private float avoidanceRadius = 1.5f;
     [SerializeField] private float avoidanceStrength = 2.5f;
+    Vector2 pathDir;
+    Vector2 avoidDir;
+    Vector2 finalMoveDir;
 
     [Space]
     [Header("Pathing")]
     [SerializeField] private Vector3 destination;
     [SerializeField] private LayerMask wallLayer;
 
-
     void Start()
     {
         player = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
-        rigidbody = transform.GetComponent<Rigidbody2D>();
+        rigidbody = GetComponent<Rigidbody2D>();
         DetectionRadiusCollider = GetComponent<CircleCollider2D>();
         destination = transform.position;
         navPath = new NavMeshPath();
         baseSpeed = speed;
         StartPatrol();
     }
-    void Update()
+    #endregion
+
+    //DO NOT CHANGE THE ORDER OF ANYTHING IN THE VOID UPDATE!!! IT WILL BREAK EVERYTHING AND TAKE FOREVER TO FIX!!!
+    private void Update()
     {
+        //Settings
+        DetectionRadiusCollider.radius = detectionRadius;
+        if (!isFollowing)
+        {
+            stoppingDistance = PatrolStopDistance;
+        }
+        else
+        {
+            stoppingDistance = PlayerStopDistance;
+        }
         Vector2 origin = transform.position;
         Vector2 direction = (Vector2)player.transform.position - origin;
         float distance = direction.magnitude;
         direction.Normalize();
         RaycastHit2D hit = Physics2D.Raycast(origin, direction, distance, wallLayer);
-
-        float distanceFromStop = Vector2.Distance(transform.position, destination);
-
-        DetectionRadiusCollider.radius = detectionRadius;
-
-
         if (hit.collider != null)
         {
             canSeePlayer = false;
@@ -85,6 +93,7 @@ public class EnemyNav : MonoBehaviour
             canSeePlayer = true;
         }
 
+        //Picking Destination/Measuring Distance
         if (isFollowing)
         {
             destination = player.transform.position;
@@ -94,40 +103,13 @@ public class EnemyNav : MonoBehaviour
         {
             if (distanceFromStop <= stoppingDistance && choosingPoint)
             {
-                int maxAttempts = 20;
-                int attempts = 0;
-                bool validPointFound = false;
-                Vector3 proposedDestination = Vector3.zero;
-
-                while (!validPointFound && attempts < maxAttempts)
-                {
-                    attempts++;
-                    proposedDestination.x = Random.Range(PatrolRadiusLowX, PatrolRadiusHighX);
-                    proposedDestination.y = Random.Range(PatrolRadiusLowY, PatrolRadiusHighY);
-                    proposedDestination.z = 0;
-
-                    float checkRadius = 0.5f;
-                    Collider2D hitTile = Physics2D.OverlapCircle(proposedDestination, checkRadius, wallLayer);
-
-                    if (hitTile == null)
-                    {
-                        validPointFound = true;
-                    }
-                }
-                if (validPointFound)
-                {
-                    destination = proposedDestination;
-                    Debug.Log($"Successfully found clear patrol point at {destination} after {attempts} attempts.");
-                    choosingPoint = false;
-                }
-                else
-                {
-                    Debug.LogWarning("Could not find a valid patrol point after max attempts. Trying again next frame.");
-                }
+                PickPatrolDestination();
             }
         }
 
-        Vector3 steeringTarget = destination;
+        //Setting Up NavMesh and Steering
+        distanceFromStop = Vector2.Distance(transform.position, destination); 
+        steeringTarget = destination;
         if (NavMesh.CalculatePath(transform.position, destination, NavMesh.AllAreas, navPath))
         {
             if (navPath.corners.Length > 1)
@@ -135,11 +117,11 @@ public class EnemyNav : MonoBehaviour
                 steeringTarget = navPath.corners[1];
             }
         }
+        pathDir = ((Vector2)steeringTarget - (Vector2)transform.position).normalized;
+        avoidDir = GetAvoidanceVector() * avoidanceStrength;
+        finalMoveDir = (pathDir + avoidDir).normalized;
 
-        Vector2 pathDir = ((Vector2)steeringTarget - (Vector2)transform.position).normalized;
-        Vector2 avoidDir = GetAvoidanceVector() * avoidanceStrength;
-        Vector2 finalMoveDir = (pathDir + avoidDir).normalized;
-
+        //Movement and Rotation
         if (isFollowing)
         {
             if (IsInvoking(nameof(StartPatrol)))
@@ -147,54 +129,60 @@ public class EnemyNav : MonoBehaviour
                 CancelStartPatrol();
             }
             patrolling = false;
-
-            rigidbody.MoveRotation(Mathf.Atan2(finalMoveDir.y, finalMoveDir.x) * Mathf.Rad2Deg - 90f);
-
-            if (distanceFromStop > stoppingDistance)
-            {
-                rigidbody.linearVelocity = speed * transform.up;
-            }
-            else if (distanceFromStop <= stoppingDistance && distanceFromStop > runAwayDistance)
-            {
-                rigidbody.linearVelocity = Vector2.zero;
-            }
-            else if (distanceFromStop <= runAwayDistance)
-            {
-                rigidbody.linearVelocity = speed / 2 * -transform.up;
-            }
+            RotateTowardsDestination();
+            MoveToDestination();
         }
         else
         {
             if (MovingToDestination)
             {
-                rigidbody.MoveRotation(Mathf.Atan2(finalMoveDir.y, finalMoveDir.x) * Mathf.Rad2Deg - 90f);
-                rigidbody.linearVelocity = speed * transform.up;
-
-                if (distanceFromStop <= stoppingDistance)
-                {
-                    rigidbody.linearVelocity = Vector2.zero;
-                    StartPatrol();
-
-                    MovingToDestination = false;
-                }
-            }
-
-            if (!patrolling && !MovingToDestination)
-            {
-                rigidbody.linearVelocity = Vector2.zero;
+                patrolling = true;
+                RotateTowardsDestination();
+                MoveToPatrolDestination();
             }
         }
+    }
+    #region Rotation and Movement
+    private void RotateTowardsDestination()
+    {
+        rigidbody.MoveRotation(Mathf.Atan2(finalMoveDir.y, finalMoveDir.x) * Mathf.Rad2Deg - 90f);
 
-        if (!isFollowing)
-        {
-            stoppingDistance = PatrolStopDistance;
-        }
-        else
-        {
-            stoppingDistance = PlayerStopDistance;
-        }
 
     }
+    private void MoveToDestination()
+    {
+        if (distanceFromStop > stoppingDistance)
+        {
+            rigidbody.linearVelocity = speed * transform.up;
+        }
+        else if (distanceFromStop <= stoppingDistance && distanceFromStop > runAwayDistance)
+        {
+            rigidbody.linearVelocity = Vector2.zero;
+        }
+        else if (distanceFromStop <= runAwayDistance)
+        {
+            rigidbody.linearVelocity = speed / 2 * -transform.up;
+        }
+    }
+    private void MoveToPatrolDestination()
+    {
+        if (distanceFromStop > stoppingDistance)
+        {
+            rigidbody.linearVelocity = speed * transform.up;
+        }
+        if (distanceFromStop <= stoppingDistance)
+        {
+            rigidbody.linearVelocity = Vector2.zero;
+            StartPatrol();
+            MovingToDestination = false;
+        }
+    }  
+    #endregion  
+    
+    #region AvoidanceVector, Triggers, and Patrol
+
+    
+  
     private Vector2 GetAvoidanceVector()
     {
         Collider2D[] nearbyEnemies = Physics2D.OverlapCircleAll(transform.position, avoidanceRadius, enemyLayer);
@@ -257,6 +245,34 @@ public class EnemyNav : MonoBehaviour
         choosingPoint = true;
         Invoke(nameof(Patrol), PatrolWaitTime);
     }
+    private void PickPatrolDestination()
+    {
+        int maxAttempts = 20;
+        int attempts = 0;
+        bool validPointFound = false;
+        Vector3 proposedDestination = Vector3.zero;
+
+        while (!validPointFound && attempts < maxAttempts)
+        {
+            attempts++;
+            proposedDestination.x = Random.Range(PatrolRadiusLowX, PatrolRadiusHighX);
+            proposedDestination.y = Random.Range(PatrolRadiusLowY, PatrolRadiusHighY);
+            proposedDestination.z = 0;
+
+            float checkRadius = 0.5f;
+            Collider2D hitTile = Physics2D.OverlapCircle(proposedDestination, checkRadius, wallLayer);
+
+            if (hitTile == null)
+            {
+                validPointFound = true;
+            }
+        }
+        if (validPointFound)
+        {
+            destination = proposedDestination;
+            choosingPoint = false;
+        }
+    }
     private void Patrol()
     {
         if (!choosingPoint)
@@ -274,33 +290,26 @@ public class EnemyNav : MonoBehaviour
         choosingPoint = false;
         CancelInvoke(nameof(Patrol));
     }
-
-    ///////////////////////////////////*////////////////////////////////////////
+    #endregion
     private void OnDrawGizmos()
     {
-        // Only run this while the game is actively playing and a path exists
-        if (!Application.isPlaying || navPath == null || navPath.corners == null || navPath.corners.Length == 0)
+        if (navPath == null || navPath.corners == null || navPath.corners.Length == 0)
             return;
 
-        // 1. Draw the FINAL DESTINATION as a Red Wire Sphere so you know where they are trying to go
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(destination, 0.4f);
 
-        // 2. Draw a line directly from the enemy to their current immediate steering target
         Gizmos.color = Color.cyan;
         if (navPath.corners.Length > 1)
         {
             Gizmos.DrawLine(transform.position, navPath.corners[1]);
         }
 
-        // 3. Draw EVERY CORNER of the path as a yellow dot, connected by green lines
         for (int i = 0; i < navPath.corners.Length; i++)
         {
-            // Draw a small solid yellow sphere at the corner so you can see where turns happen
             Gizmos.color = Color.yellow;
             Gizmos.DrawSphere(navPath.corners[i], 0.15f);
 
-            // Connect this corner to the next corner in the array
             if (i < navPath.corners.Length - 1)
             {
                 Gizmos.color = Color.magenta;
@@ -308,5 +317,4 @@ public class EnemyNav : MonoBehaviour
             }
         }
     }
-    ////////////////////////////////////////////*///////////////////////////////////////////
 }
