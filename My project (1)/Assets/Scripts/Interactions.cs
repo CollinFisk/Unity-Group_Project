@@ -37,6 +37,7 @@ public class Interactions : MonoBehaviour
             canInteract = true;
             player.pickupObj = other.gameObject;
         }
+
         if (other.CompareTag("Health"))
         {
             player.pickupObj = other.gameObject;
@@ -50,11 +51,17 @@ public class Interactions : MonoBehaviour
                 canInteract = false;
             }
         }
+
+        if (other.CompareTag("Shop"))
+        {
+            canInteract = true;
+            player.pickupObj = other.gameObject;
+        }
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag( "MeleeWeapon") || other.CompareTag( "RangedWeapon") || other.CompareTag( "Ammo") || other.CompareTag( "Health"))
+        if (other.CompareTag( "MeleeWeapon") || other.CompareTag( "RangedWeapon") || other.CompareTag( "Ammo") || other.CompareTag( "Health") || other.CompareTag("Shop"))
         {
             canInteract = false;
             player.pickupObj = null;

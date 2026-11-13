@@ -18,6 +18,7 @@ TagManager:
   - EnemyWeapon
   - EnemyAttackZone
   - NPC
+  - Shop
   layers:
   - Default
   - TransparentFX

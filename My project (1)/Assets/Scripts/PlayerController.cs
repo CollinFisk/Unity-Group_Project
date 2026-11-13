@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
     public Transform weaponSlot;
     public Transform interactObject;
     public GameObject pickupObj;
+    public GameObject gameManager;
 
     private Rigidbody2D rb;
     private PlayerInput inputComponent;
@@ -44,6 +45,7 @@ public class PlayerController : MonoBehaviour
     {
         if (weaponSlot == null) weaponSlot = transform.GetChild(0);
 
+        gameManager = GameObject.Find("gameManager");
         interactObject = GameObject.Find("PlayerInteractor").transform;
         interactions = interactObject.GetComponent<Interactions>();
         rb = GetComponent<Rigidbody2D>();
@@ -167,8 +169,15 @@ public class PlayerController : MonoBehaviour
                 Destroy(pickupObj);
                 health = maxHealth;
             }
+            else if (pickupObj.CompareTag("Shop"))
+            {
+                if (pickupObj.TryGetComponent<ShopTemplate>(out var script))
+                {
+                    gameManager.GetComponent<GameManager>().OpenMenu(script.menuIndex);
+                }
+            }
 
-            pickupObj = null;
+                pickupObj = null;
             interactions.canInteract = false;
         }
     }

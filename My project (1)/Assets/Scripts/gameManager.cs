@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
 {
     private PlayerController player;
 
+    [Header("UI Menus")]
+    [SerializeField] private GameObject[] menus;
 
     [Header("TextBoxes")]
     [SerializeField] private TextMeshProUGUI clipText;
@@ -22,7 +24,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Slider healthBar;
 
 
-
+    public bool menuOpen = false;
     public bool paused = false;
     public bool gameOver = false;
 
@@ -52,6 +54,12 @@ public class GameManager : MonoBehaviour
         startEnemyCount = GameObject.FindGameObjectsWithTag("MeleeEnemy").Length + GameObject.FindGameObjectsWithTag("RangedEnemy").Length;
 
         enemyCount = startEnemyCount;
+
+        //Clears all the menus off the screen incase some are active.
+        for (var i = 0; i < menus.Length; i++)
+        {
+            menus[i].SetActive(false);
+        }
     }
 
     // Update is called once per frame
@@ -144,6 +152,13 @@ public class GameManager : MonoBehaviour
     public void MainMenu()
     {
         LoadLevel(0);
+    }
+
+    public void OpenMenu(int menuOpening)
+    {
+        menuOpen = !menuOpen;
+
+        menus[menuOpening].SetActive(menuOpen);
     }
 
     public void Quit()
