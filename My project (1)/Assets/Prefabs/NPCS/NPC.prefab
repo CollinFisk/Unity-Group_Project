@@ -11,10 +11,9 @@ GameObject:
   - component: {fileID: 1389074247929904278}
   - component: {fileID: 6596691787784017386}
   - component: {fileID: 5450886144347836543}
-  - component: {fileID: 4793143524772839964}
   - component: {fileID: 2290432273488366570}
   - component: {fileID: 2047773955123366499}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: NPC
   m_TagString: NPC
   m_Icon: {fileID: 0}
@@ -123,45 +122,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
---- !u!114 &4793143524772839964
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5103958278313176293}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fd6a73e1ff57874a9d3ae467dc61435, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyNav
-  canSeePlayer: 0
-  patrolling: 0
-  MovingToDestination: 1
-  stoppingDistance: 0
-  distanceFromStop: 0
-  choosingPoint: 0
-  isFollowing: 0
-  baseSpeed: 2
-  speed: 2
-  PlayerStopDistance: 1.5
-  PatrolStopDistance: 0.2
-  PatrolWaitTime: 5
-  detectionRadius: 5
-  runAwayDistance: 0.5
-  PatrolRadiusLowX: -8.7
-  PatrolRadiusLowY: -2.7
-  PatrolRadiusHighX: 11
-  PatrolRadiusHighY: 1
-  enemyLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  avoidanceRadius: 1.5
-  avoidanceStrength: 2.5
-  destination: {x: 0, y: 0, z: 0}
-  wallLayer:
-    serializedVersion: 2
-    m_Bits: 8
 --- !u!58 &2290432273488366570
 CircleCollider2D:
   m_ObjectHideFlags: 0

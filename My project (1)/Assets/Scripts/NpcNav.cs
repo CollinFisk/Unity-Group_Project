@@ -13,34 +13,26 @@ public class NpcNav : MonoBehaviour
 
     [Header("Meta")]
     [SerializeField] private bool canSeePlayer;
-    [SerializeField] private bool patrolling;
     [SerializeField] private float stoppingDistance;
     [SerializeField] private float distanceFromStop;
+    [SerializeField] private Transform followingEnemy;
 
-    [SerializeField] private bool choosingRunAwayPoint = false;
 
     Vector3 steeringTarget;
+    Vector3 runAwayPoint;
     Vector2 pathDir;
     Vector2 avoidDir;
     Vector2 finalMoveDir;
     public bool isFollowing;
+    [SerializeField] private bool RunAwayFromEnemy = false;
 
     [Space]
     [Header("Changable Stats")]
     public float baseSpeed;
     public float speed;
     [SerializeField] private float PlayerStopDistance;
-    [SerializeField] private float PatrolStopDistance;
-    [SerializeField] private float PatrolWaitTime;
+    [SerializeField] private float NormalStopDistance;
     [SerializeField] private float detectionRadius;
-    [SerializeField] private float BackAway;
-
-    [Space]
-    [Header("Patrol Bounds")]
-    [SerializeField] private float PatrolRadiusLowX;
-    [SerializeField] private float PatrolRadiusLowY;
-    [SerializeField] private float PatrolRadiusHighX;
-    [SerializeField] private float PatrolRadiusHighY;
 
     [Space]
     [Header("NPC Avoidance and Pathing")]
@@ -51,17 +43,12 @@ public class NpcNav : MonoBehaviour
     [SerializeField] private LayerMask NpcLayer;
     [SerializeField] private LayerMask enemyLayer;
 
-
-    [Space]
-    [Header("RunAwayFromEnemy")]
-    [SerializeField] private bool RunAwayFromEnemy = false;
-
     void Start()
     {
         player = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
         rigidbody = GetComponent<Rigidbody2D>();
         DetectionRadiusCollider = GetComponent<CircleCollider2D>();
-        destination = transform.position;
+        destination = transform.localToWorldMatrix * transform.localScale;
         navPath = new NavMeshPath();
         baseSpeed = speed;
     }
@@ -74,7 +61,7 @@ public class NpcNav : MonoBehaviour
         DetectionRadiusCollider.radius = detectionRadius;
         if (!isFollowing)
         {
-            stoppingDistance = PatrolStopDistance;
+            stoppingDistance = NormalStopDistance;
         }
         else
         {
@@ -88,7 +75,6 @@ public class NpcNav : MonoBehaviour
         if (hit.collider != null)
         {
             canSeePlayer = false;
-            isFollowing = false;
         }
         else
         {
@@ -103,11 +89,18 @@ public class NpcNav : MonoBehaviour
         }
         else
         {
-            rigidbody.linearVelocity = Vector3.zero;
+            if (RunAwayFromEnemy)
+            {
+                GetRunAwayPoint();
+            }
+            else
+            {
+                rigidbody.linearVelocity = Vector3.zero;
+            }
         }
 
         //Setting Up NavMesh and Steering
-        distanceFromStop = Vector2.Distance(transform.position, destination); 
+        distanceFromStop = Vector2.Distance(transform.position, destination);
         steeringTarget = destination;
         if (NavMesh.CalculatePath(transform.position, destination, NavMesh.AllAreas, navPath))
         {
@@ -121,28 +114,11 @@ public class NpcNav : MonoBehaviour
         finalMoveDir = (pathDir + avoidDir).normalized;
 
         //Movement and Rotation
-        if (isFollowing)
-        {
-            RotateTowardsDestination();
-            MoveToDestination();
-        }
-        else if (RunAwayFromEnemy && !isFollowing)
-        {
-            SetRunAwayDestination();
-            RotateTowardsDestination();
-            MoveToDestination();
-        }
+        RotateTowardsDestination();
+        MoveToDestination();
     }
     #region Rotation and Movement
-    private void SetRunAwayDestination()
-    {
-        Collider2D[] EnemiesInRange = Physics2D.OverlapCircleAll(transform.position, avoidanceRadius, NpcLayer);
-        foreach (Collider2D other in EnemiesInRange)
-        {
-            if (other.isTrigger)
-                continue;
-        }
-    }
+  
     private void RotateTowardsDestination()
     {
         rigidbody.MoveRotation(Mathf.Atan2(finalMoveDir.y, finalMoveDir.x) * Mathf.Rad2Deg - 90f);
@@ -158,6 +134,11 @@ public class NpcNav : MonoBehaviour
             rigidbody.linearVelocity = Vector2.zero;
         }
 
+    }
+
+    private void GetRunAwayPoint()
+    {
+            runAwayPoint = -(followingEnemy.transform.position - transform.position).normalized;
     }
     #endregion  
     
@@ -200,12 +181,23 @@ public class NpcNav : MonoBehaviour
         if ((other.gameObject.CompareTag("MeleeEnemy") || other.gameObject.CompareTag("RangedEnemy")) && !isFollowing)
         {
             RunAwayFromEnemy = true;
+            followingEnemy = other.transform;
         }
         if (other.gameObject.CompareTag("Projectile") && !isFollowing)
         {
             destination = other.transform.position;
             destination.z = 0;
             RunAwayFromEnemy = true;
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if ((other.gameObject.CompareTag("MeleeEnemy") || other.gameObject.CompareTag("RangedEnemy")) && !isFollowing)
+        {
+            RunAwayFromEnemy = false;
+            followingEnemy = null;
+            RotateTowardsDestination();
+            MoveToDestination();
         }
     }
 

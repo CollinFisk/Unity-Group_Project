@@ -12,6 +12,8 @@ public class EnemyNav : MonoBehaviour
 
     [Header("Meta")]
     [SerializeField] private bool canSeePlayer;
+    [SerializeField] private bool seesNpc;
+    [SerializeField] private Transform seenNpc;
     [SerializeField] private bool patrolling;
     [SerializeField] private bool MovingToDestination;
     [SerializeField] private float stoppingDistance;
@@ -23,6 +25,7 @@ public class EnemyNav : MonoBehaviour
     Vector2 avoidDir;
     Vector2 finalMoveDir;
     public bool isFollowing;
+    public bool isFollowingNpc;
 
     [Space]
     [Header("Changable Stats")]
@@ -57,10 +60,11 @@ public class EnemyNav : MonoBehaviour
     {
         player = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
         rigidbody = GetComponent<Rigidbody2D>();
-        DetectionRadiusCollider = GetComponent<CircleCollider2D>();
         destination = transform.position;
+        DetectionRadiusCollider = GetComponent<CircleCollider2D>();
         navPath = new NavMeshPath();
         baseSpeed = speed;
+        
         StartPatrol();
     }
     #endregion
@@ -93,11 +97,44 @@ public class EnemyNav : MonoBehaviour
             canSeePlayer = true;
         }
 
+        if (seenNpc)
+        {
+            RaycastHit2D hitNpc = Physics2D.Raycast(transform.position, (seenNpc.position - transform.position), (seenNpc.position - transform.position).magnitude, wallLayer);
+            if (hitNpc.collider != null)
+            {
+                seesNpc = false;
+                isFollowingNpc = false;
+            }
+            else
+            {
+                seesNpc = true;
+            }
+        }
+
+
         //Picking Destination/Measuring Distance
         if (isFollowing)
         {
+            patrolling = false;
+            isFollowingNpc = false;
             destination = player.transform.position;
             destination.z = 0;
+        }
+        else if (isFollowingNpc)
+        {
+            patrolling = false;
+            if(seenNpc = null)
+            {
+                MovingToDestination = true;
+            }
+            if (seenNpc)
+            {
+                destination = seenNpc.position;
+            }
+        }
+        else if(!isFollowing && !isFollowingNpc)
+        {
+            StartPatrol();
         }
         else if (patrolling && !MovingToDestination)
         {
@@ -107,8 +144,9 @@ public class EnemyNav : MonoBehaviour
             }
         }
 
+
         //Setting Up NavMesh and Steering
-        distanceFromStop = Vector2.Distance(transform.position, destination); 
+        distanceFromStop = Vector2.Distance(transform.position, destination);
         steeringTarget = destination;
         if (NavMesh.CalculatePath(transform.position, destination, NavMesh.AllAreas, navPath))
         {
@@ -128,28 +166,55 @@ public class EnemyNav : MonoBehaviour
             {
                 CancelStartPatrol();
             }
-            patrolling = false;
             RotateTowardsDestination();
             MoveToDestination();
         }
-        else
+        else if (MovingToDestination)
         {
-            if (MovingToDestination)
+            patrolling = true;
+            RotateTowardsDestination();
+            MoveToPatrolDestination();
+        }
+        else if (isFollowingNpc)
+        {
+            if (IsInvoking(nameof(StartPatrol)))
             {
-                patrolling = true;
-                RotateTowardsDestination();
-                MoveToPatrolDestination();
+                CancelStartPatrol();
             }
+            if(seenNpc = null)
+            {
+                MovingToDestination = true;
+            }
+            if(seenNpc)
+            {
+                destination = seenNpc.position;
+                RotateTowardsDestination();
+                MoveToNpcDestination();
+            }
+
         }
     }
     #region Rotation and Movement
     private void RotateTowardsDestination()
     {
         rigidbody.MoveRotation(Mathf.Atan2(finalMoveDir.y, finalMoveDir.x) * Mathf.Rad2Deg - 90f);
-
-
     }
     private void MoveToDestination()
+    {
+        if (distanceFromStop > stoppingDistance)
+        {
+            rigidbody.linearVelocity = speed * transform.up;
+        }
+        else if (distanceFromStop <= stoppingDistance && distanceFromStop > runAwayDistance)
+        {
+            rigidbody.linearVelocity = Vector2.zero;
+        }
+        else if (distanceFromStop <= runAwayDistance)
+        {
+            rigidbody.linearVelocity = speed / 2 * -transform.up;
+        }
+    }
+    private void MoveToNpcDestination()
     {
         if (distanceFromStop > stoppingDistance)
         {
@@ -181,8 +246,6 @@ public class EnemyNav : MonoBehaviour
     
     #region AvoidanceVector, Triggers, and Patrol
 
-    
-  
     private Vector2 GetAvoidanceVector()
     {
         Collider2D[] nearbyEnemies = Physics2D.OverlapCircleAll(transform.position, avoidanceRadius, enemyLayer);
@@ -223,6 +286,12 @@ public class EnemyNav : MonoBehaviour
             destination.z = 0;
             MovingToDestination = true;
         }
+        if (other.gameObject.CompareTag("NPC") && seesNpc)
+        {
+            isFollowingNpc = true;
+            seenNpc = other.transform;
+        }
+        else seenNpc = null;
     }
     private void OnTriggerStay2D(Collider2D other)
     {
@@ -230,12 +299,23 @@ public class EnemyNav : MonoBehaviour
         {
             isFollowing = true;
         }
+        if (other.gameObject.CompareTag("NPC"))
+        {
+            isFollowingNpc = true;
+            seenNpc = other.transform;
+        }
     }
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
             isFollowing = false;
+            MovingToDestination = true;
+        }
+        if (other.gameObject == seenNpc)
+        {
+            isFollowingNpc = false;
+            seenNpc = null;
             MovingToDestination = true;
         }
     }
@@ -247,6 +327,7 @@ public class EnemyNav : MonoBehaviour
     }
     private void PickPatrolDestination()
     {
+        Debug.Log("Tried to change position");
         int maxAttempts = 20;
         int attempts = 0;
         bool validPointFound = false;
