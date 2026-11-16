@@ -1,9 +1,16 @@
 fileFormatVersion: 2
-guid: 9c5b78ac5956a614699cd690050a877c
+guid: 4d79f333fa64f324884118db2c0d5365
+AssetOrigin:
+  serializedVersion: 1
+  productId: 259218
+  packageName: Happy Harvest - 2D Sample Project
+  packageVersion: 1.03
+  assetPath: Assets/HappyHarvest/Art/Tiles/Walkway/Sprites/Sprite_Tiles_Stone_walkway.png
+  uploadId: 678010
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 12
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -67,7 +74,7 @@ TextureImporter:
   swizzle: 50462976
   cookieLightType: 0
   platformSettings:
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -80,7 +87,7 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -93,7 +100,7 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: Server
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -110,7 +117,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: dirt_tiles_v1_0
+      name: stone_walkway_tiles_0
       rect:
         serializedVersion: 2
         x: 0
@@ -120,18 +127,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4b151d64dc186f44b91ae8e0c5fda30f
-      internalID: -1958977238
+      spriteID: b0b9b6ae8b4c6f04aaaaefa3a4a33ed9
+      internalID: 914201895
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dirt_tiles_v1_1
+      name: stone_walkway_tiles_1
       rect:
         serializedVersion: 2
         x: 64
@@ -141,18 +149,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bca9a65bd5dbea54b8714bbb885e64df
-      internalID: 1512497509
+      spriteID: a3a3968b37ff84e48ac989afa3b1b0c4
+      internalID: -293882661
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dirt_tiles_v1_2
+      name: stone_walkway_tiles_2
       rect:
         serializedVersion: 2
         x: 128
@@ -162,18 +171,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ef5ce35f67aaaa349abcd45318d8e1a4
-      internalID: -1695372380
+      spriteID: a9307fa736784e14a8b2ec38c5b08470
+      internalID: 135061847
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dirt_tiles_v1_3
+      name: stone_walkway_tiles_3
       rect:
         serializedVersion: 2
         x: 192
@@ -183,18 +193,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1a1d7ef38fc9dcf4d892645fd5b03bb6
-      internalID: 587416049
+      spriteID: 1d361a5715cd70c42b6ad44c2a4e95cc
+      internalID: 1581030452
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dirt_tiles_v1_4
+      name: stone_walkway_tiles_4
       rect:
         serializedVersion: 2
         x: 256
@@ -204,18 +215,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fc6f9c5d743c86d4294169bcfefc1a3f
-      internalID: -1970151871
+      spriteID: b9eee633730a7cf45bfdfff2d4269949
+      internalID: 1433369108
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dirt_tiles_v1_5
+      name: stone_walkway_tiles_5
       rect:
         serializedVersion: 2
         x: 320
@@ -225,18 +237,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: eef590e45d95c904abea1bedcbfeb862
-      internalID: -1187470331
+      spriteID: 7feced46418753e4586289b560f8f391
+      internalID: -1579232104
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dirt_tiles_v1_6
+      name: stone_walkway_tiles_6
       rect:
         serializedVersion: 2
         x: 384
@@ -246,18 +259,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3d96e93640a35854b87f36edfb86862b
-      internalID: -1048880301
+      spriteID: 5a8fca3c37e8ff9499b2b6da8ead5e69
+      internalID: 970542655
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dirt_tiles_v1_7
+      name: stone_walkway_tiles_7
       rect:
         serializedVersion: 2
         x: 448
@@ -267,18 +281,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f7f10a3aefb191440bb9d77590ab114d
-      internalID: 370730572
+      spriteID: 0730a0e64a792fc419162f506851d40d
+      internalID: -1338165353
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dirt_tiles_v1_8
+      name: stone_walkway_tiles_8
       rect:
         serializedVersion: 2
         x: 0
@@ -288,18 +303,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 82f75aecc778fde49a7a51cf0324978a
-      internalID: -128018599
+      spriteID: 92609a1fe22e66c42b6bab15760e18fd
+      internalID: -571793138
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dirt_tiles_v1_9
+      name: stone_walkway_tiles_9
       rect:
         serializedVersion: 2
         x: 64
@@ -309,18 +325,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3ff5dc0728063b14b93b25ad69dd5b33
-      internalID: -645979564
+      spriteID: 7484952381d05bd4e94ccd80cb0b4da6
+      internalID: 716792793
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dirt_tiles_v1_10
+      name: stone_walkway_tiles_10
       rect:
         serializedVersion: 2
         x: 128
@@ -330,18 +347,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8715d5b2abb5044429bd89f38a8aabcc
-      internalID: -1845606368
+      spriteID: ed23b161eb2194e4abb067a16eb9dbb4
+      internalID: -148330404
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dirt_tiles_v1_11
+      name: stone_walkway_tiles_11
       rect:
         serializedVersion: 2
         x: 192
@@ -351,18 +369,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4afba1fe9a3ad584d83e4e2d1171cc83
-      internalID: -746540331
+      spriteID: 31cb396e59e80e24a965a84b26b3c83f
+      internalID: 1376527618
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dirt_tiles_v1_12
+      name: stone_walkway_tiles_12
       rect:
         serializedVersion: 2
         x: 256
@@ -372,18 +391,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 42a25a8df8f12154982feb34c7b2a1a8
-      internalID: -1326770462
+      spriteID: e0a85663237f2fd4ab2f953c78fa1fb5
+      internalID: -591530959
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dirt_tiles_v1_13
+      name: stone_walkway_tiles_13
       rect:
         serializedVersion: 2
         x: 320
@@ -393,18 +413,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2dc042b7c12a6ee4fb8380935ddba1f3
-      internalID: 1428525272
+      spriteID: c951905e7e0e07a43bd629c2044d788c
+      internalID: 828671436
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dirt_tiles_v1_14
+      name: stone_walkway_tiles_14
       rect:
         serializedVersion: 2
         x: 384
@@ -414,18 +435,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f3cec4dddb2100940b9b3aaed79c0688
-      internalID: -928579789
+      spriteID: aec70c6063e51d745a1a363636f63c91
+      internalID: -106529778
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dirt_tiles_v1_15
+      name: stone_walkway_tiles_15
       rect:
         serializedVersion: 2
         x: 448
@@ -435,18 +457,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6202f478dba24bd43b9ef3d5fa32bd9f
-      internalID: -251516773
+      spriteID: 2ee7b54e736b05547a1dca4fecd9ef74
+      internalID: -276163912
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dirt_tiles_v1_16
+      name: stone_walkway_tiles_16
       rect:
         serializedVersion: 2
         x: 0
@@ -456,18 +479,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 92de33233b91c854d9654c2956685f82
-      internalID: 686405938
+      spriteID: 9fbfb44900508c24987b0e850d95997a
+      internalID: 238837784
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dirt_tiles_v1_17
+      name: stone_walkway_tiles_17
       rect:
         serializedVersion: 2
         x: 64
@@ -477,18 +501,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0627b80e294676740add4c29081693f6
-      internalID: 1528559330
+      spriteID: 6fd439cef6596ea4594dde96a8df74ed
+      internalID: 503638690
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dirt_tiles_v1_18
+      name: stone_walkway_tiles_18
       rect:
         serializedVersion: 2
         x: 128
@@ -498,18 +523,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6e1c0d474c4efd74ab2e4721d968d045
-      internalID: 1507065701
+      spriteID: 73fe7d7231f62cd42889e6302ee50320
+      internalID: 487287888
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dirt_tiles_v1_19
+      name: stone_walkway_tiles_19
       rect:
         serializedVersion: 2
         x: 192
@@ -519,18 +545,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 898e60d6071ba854f84013b99ed25f45
-      internalID: -2025493742
+      spriteID: 3447075d7bccb5544b2a0ac0e5c3db13
+      internalID: 20402954
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dirt_tiles_v1_20
+      name: stone_walkway_tiles_20
       rect:
         serializedVersion: 2
         x: 256
@@ -540,18 +567,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a09511be9bfeb224ca64da5d424f0f2b
-      internalID: 1321371411
+      spriteID: d296207f2ac4c0a48b64c3b97087f5ee
+      internalID: 541196268
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dirt_tiles_v1_21
+      name: stone_walkway_tiles_21
       rect:
         serializedVersion: 2
         x: 320
@@ -561,18 +589,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: efee3b5a89a5c904095a8dc5b5173a1d
-      internalID: -1944184027
+      spriteID: 1effaec773efd794db0fe955f5ed3087
+      internalID: 934845500
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dirt_tiles_v1_22
+      name: stone_walkway_tiles_22
       rect:
         serializedVersion: 2
         x: 384
@@ -582,18 +611,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d146c50c0ca6015498ecbe7cc211e1bf
-      internalID: 1353547984
+      spriteID: 0eb4c97243b7c844f9f949bb0902cd77
+      internalID: 1205498639
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dirt_tiles_v1_23
+      name: stone_walkway_tiles_23
       rect:
         serializedVersion: 2
         x: 448
@@ -603,18 +633,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d0cba02d3a0fb434885c3beb50e46337
-      internalID: 1213354759
+      spriteID: e617a8ea52e98004bb445a0534ba7c73
+      internalID: 1635352959
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dirt_tiles_v1_24
+      name: stone_walkway_tiles_24
       rect:
         serializedVersion: 2
         x: 0
@@ -624,18 +655,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 154ad1c45e1d37149b07ada85ecedd96
-      internalID: -133310648
+      spriteID: abd54d1ab89f6d94899c479fd75e6cd8
+      internalID: 1563292004
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dirt_tiles_v1_25
+      name: stone_walkway_tiles_25
       rect:
         serializedVersion: 2
         x: 64
@@ -645,18 +677,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fe1e34889f51d5345bac7bddf4d5add9
-      internalID: 1273481780
+      spriteID: 6d8b45033e8eeff4397a7de8c6a790d0
+      internalID: 1188293614
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dirt_tiles_v1_26
+      name: stone_walkway_tiles_26
       rect:
         serializedVersion: 2
         x: 128
@@ -666,18 +699,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a9abcca06dbe57b4093f0a5fc602f16d
-      internalID: 2100104248
+      spriteID: 951bc2d1199fd2c4c86511c34595ffa3
+      internalID: 33283132
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dirt_tiles_v1_27
+      name: stone_walkway_tiles_27
       rect:
         serializedVersion: 2
         x: 192
@@ -687,18 +721,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: edc0c9167a4f4004b82ee53c55f8d158
-      internalID: -760165509
+      spriteID: 2e0aed1581d58ce45a8101e0377d2c4b
+      internalID: -1223526880
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dirt_tiles_v1_28
+      name: stone_walkway_tiles_28
       rect:
         serializedVersion: 2
         x: 256
@@ -708,18 +743,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 584ad92be46877a4fbafba0dd01c7989
-      internalID: -11296063
+      spriteID: 4532c121068ede9428a23f2601e19d7b
+      internalID: 1755538766
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dirt_tiles_v1_29
+      name: stone_walkway_tiles_29
       rect:
         serializedVersion: 2
         x: 320
@@ -729,18 +765,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b2d3f233ddb232f4ba05619b8afd9285
-      internalID: 1677744581
+      spriteID: a89b672af85c19a4b83dfb0be77faba6
+      internalID: -879895356
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dirt_tiles_v1_30
+      name: stone_walkway_tiles_30
       rect:
         serializedVersion: 2
         x: 384
@@ -750,18 +787,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fcb8487184f2c384bb049bbba0384c6c
-      internalID: 1411053166
+      spriteID: 63bef05d7dc4a3041b71d08f2a39ae80
+      internalID: 407571894
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dirt_tiles_v1_31
+      name: stone_walkway_tiles_31
       rect:
         serializedVersion: 2
         x: 448
@@ -771,18 +809,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 02249b969549ce647a154fcf71d0a5fd
-      internalID: -764235635
+      spriteID: 1363fd4139d00d7498fc65dc87f19271
+      internalID: -199454101
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dirt_tiles_v1_32
+      name: stone_walkway_tiles_32
       rect:
         serializedVersion: 2
         x: 0
@@ -792,18 +831,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d57f327d7d94b0343bcb1497b9852c7b
-      internalID: 914530938
+      spriteID: a3f9919213b903d43a3d28c0289573a0
+      internalID: 1959839862
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dirt_tiles_v1_33
+      name: stone_walkway_tiles_33
       rect:
         serializedVersion: 2
         x: 64
@@ -813,18 +853,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a60c7820d930dea4582140b75ba65765
-      internalID: 41528267
+      spriteID: 83b63e4861b4efa49b151e7bdcb39422
+      internalID: 544386766
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dirt_tiles_v1_34
+      name: stone_walkway_tiles_34
       rect:
         serializedVersion: 2
         x: 128
@@ -834,18 +875,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a4aae7d27bb328740bc20cd1131b8998
-      internalID: -1849557380
+      spriteID: 093a4e80aff5a2d4f9643107889df20d
+      internalID: 1202592017
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dirt_tiles_v1_35
+      name: stone_walkway_tiles_35
       rect:
         serializedVersion: 2
         x: 192
@@ -855,18 +897,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1bb693b8450df7141804bd694bb343db
-      internalID: -1805668176
+      spriteID: 5f84f6045cff8664dacbf3a3e556613e
+      internalID: 481929387
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dirt_tiles_v1_36
+      name: stone_walkway_tiles_36
       rect:
         serializedVersion: 2
         x: 256
@@ -876,18 +919,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 75420b56af4267449bda0ca15fcfd6c9
-      internalID: 1863439969
+      spriteID: 538d063320358e5438a83727d489629c
+      internalID: -2141948983
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dirt_tiles_v1_37
+      name: stone_walkway_tiles_37
       rect:
         serializedVersion: 2
         x: 320
@@ -897,18 +941,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ed037e9d33c641c4dae76c5bab87905c
-      internalID: 974493846
+      spriteID: 25a8941de04a2f4419f9d25155ede259
+      internalID: -1286825900
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dirt_tiles_v1_38
+      name: stone_walkway_tiles_38
       rect:
         serializedVersion: 2
         x: 384
@@ -918,18 +963,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9541f989ff28c0c4a9c5a0441d818086
-      internalID: -850379303
+      spriteID: 0c867cda0e37a8e44b7e255d406db5ca
+      internalID: 346885376
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dirt_tiles_v1_39
+      name: stone_walkway_tiles_39
       rect:
         serializedVersion: 2
         x: 448
@@ -939,18 +985,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 060466b021d96de4eb8031e014e0f0a3
-      internalID: -1895120859
+      spriteID: be14f408077d1be419a7e0279355eee2
+      internalID: 393642147
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dirt_tiles_v1_40
+      name: stone_walkway_tiles_40
       rect:
         serializedVersion: 2
         x: 0
@@ -960,18 +1007,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 382adfaa72cc5f547bd0c9a77fea8c85
-      internalID: 1948638524
+      spriteID: ec3e438c7d4bfc042aa2a30895863f33
+      internalID: -1328446438
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dirt_tiles_v1_41
+      name: stone_walkway_tiles_41
       rect:
         serializedVersion: 2
         x: 64
@@ -981,18 +1029,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c5596b6b3dce0c0419e9b56050a03624
-      internalID: 1995625215
+      spriteID: e5205a12b7d4cf4408e197a3d9656f0d
+      internalID: 1982103768
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dirt_tiles_v1_42
+      name: stone_walkway_tiles_42
       rect:
         serializedVersion: 2
         x: 128
@@ -1002,18 +1051,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 068e4dffdf9d5ba4eaa22b8744a114e5
-      internalID: 1499118511
+      spriteID: 953965e57bbec944083144b88fc9787c
+      internalID: -1735922694
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dirt_tiles_v1_43
+      name: stone_walkway_tiles_43
       rect:
         serializedVersion: 2
         x: 192
@@ -1023,18 +1073,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 529475f05d332814289e8bdd267f929b
-      internalID: 644550924
+      spriteID: 3a0680bf13a3913468693dc8f0ee7fa2
+      internalID: -464750697
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dirt_tiles_v1_44
+      name: stone_walkway_tiles_44
       rect:
         serializedVersion: 2
         x: 256
@@ -1044,18 +1095,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3c4a89b0b0a988c43ab57679262f20fd
-      internalID: -150732879
+      spriteID: 5651ec14168aaec4a9aae980abc99ed4
+      internalID: -1694378200
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dirt_tiles_v1_45
+      name: stone_walkway_tiles_45
       rect:
         serializedVersion: 2
         x: 320
@@ -1065,18 +1117,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8ef14c962db6cea4c988e037fecfe9f8
-      internalID: 1878824089
+      spriteID: 1e9dd7c1d35b8aa49af1011733096d84
+      internalID: 801115478
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dirt_tiles_v1_46
+      name: stone_walkway_tiles_46
       rect:
         serializedVersion: 2
         x: 384
@@ -1086,18 +1139,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3a3e9a7c04b3ffb449a5e0d41ed9708b
-      internalID: -95189534
+      spriteID: 8017caba50b8140478c53cd0c9ce7d7c
+      internalID: -1197390934
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dirt_tiles_v1_47
+      name: stone_walkway_tiles_47
       rect:
         serializedVersion: 2
         x: 448
@@ -1107,17 +1161,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5e963b55ecb62af45830d16b1b6a2d1f
-      internalID: 1216477791
+      spriteID: 7dae2ac3281e2044691bedcaa6f9057b
+      internalID: 1228757773
       vertices: []
       indices: 
       edges: []
       weights: []
     outline: []
+    customData: 
     physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
@@ -1127,68 +1183,63 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures:
-    - texture: {fileID: 2800000, guid: 299e9ee7bdbac5e45b03e5ae40944c47, type: 3}
+    - texture: {fileID: 2800000, guid: 7c2969d91376daf41868aaf74a76214c, type: 3}
       name: _NormalMap
-    - texture: {fileID: 2800000, guid: 02b833c22c1d58047bd35f3d42da9673, type: 3}
+    - texture: {fileID: 2800000, guid: 077024ef9839da8459e5c78c430e80d3, type: 3}
       name: _MaskTex
+    spriteCustomMetadata:
+      entries: []
     nameFileIdTable:
-      dirt_tiles_v1_0: -1958977238
-      dirt_tiles_v1_1: 1512497509
-      dirt_tiles_v1_10: -1845606368
-      dirt_tiles_v1_11: -746540331
-      dirt_tiles_v1_12: -1326770462
-      dirt_tiles_v1_13: 1428525272
-      dirt_tiles_v1_14: -928579789
-      dirt_tiles_v1_15: -251516773
-      dirt_tiles_v1_16: 686405938
-      dirt_tiles_v1_17: 1528559330
-      dirt_tiles_v1_18: 1507065701
-      dirt_tiles_v1_19: -2025493742
-      dirt_tiles_v1_2: -1695372380
-      dirt_tiles_v1_20: 1321371411
-      dirt_tiles_v1_21: -1944184027
-      dirt_tiles_v1_22: 1353547984
-      dirt_tiles_v1_23: 1213354759
-      dirt_tiles_v1_24: -133310648
-      dirt_tiles_v1_25: 1273481780
-      dirt_tiles_v1_26: 2100104248
-      dirt_tiles_v1_27: -760165509
-      dirt_tiles_v1_28: -11296063
-      dirt_tiles_v1_29: 1677744581
-      dirt_tiles_v1_3: 587416049
-      dirt_tiles_v1_30: 1411053166
-      dirt_tiles_v1_31: -764235635
-      dirt_tiles_v1_32: 914530938
-      dirt_tiles_v1_33: 41528267
-      dirt_tiles_v1_34: -1849557380
-      dirt_tiles_v1_35: -1805668176
-      dirt_tiles_v1_36: 1863439969
-      dirt_tiles_v1_37: 974493846
-      dirt_tiles_v1_38: -850379303
-      dirt_tiles_v1_39: -1895120859
-      dirt_tiles_v1_4: -1970151871
-      dirt_tiles_v1_40: 1948638524
-      dirt_tiles_v1_41: 1995625215
-      dirt_tiles_v1_42: 1499118511
-      dirt_tiles_v1_43: 644550924
-      dirt_tiles_v1_44: -150732879
-      dirt_tiles_v1_45: 1878824089
-      dirt_tiles_v1_46: -95189534
-      dirt_tiles_v1_47: 1216477791
-      dirt_tiles_v1_5: -1187470331
-      dirt_tiles_v1_6: -1048880301
-      dirt_tiles_v1_7: 370730572
-      dirt_tiles_v1_8: -128018599
-      dirt_tiles_v1_9: -645979564
+      stone_walkway_tiles_0: 914201895
+      stone_walkway_tiles_1: -293882661
+      stone_walkway_tiles_10: -148330404
+      stone_walkway_tiles_11: 1376527618
+      stone_walkway_tiles_12: -591530959
+      stone_walkway_tiles_13: 828671436
+      stone_walkway_tiles_14: -106529778
+      stone_walkway_tiles_15: -276163912
+      stone_walkway_tiles_16: 238837784
+      stone_walkway_tiles_17: 503638690
+      stone_walkway_tiles_18: 487287888
+      stone_walkway_tiles_19: 20402954
+      stone_walkway_tiles_2: 135061847
+      stone_walkway_tiles_20: 541196268
+      stone_walkway_tiles_21: 934845500
+      stone_walkway_tiles_22: 1205498639
+      stone_walkway_tiles_23: 1635352959
+      stone_walkway_tiles_24: 1563292004
+      stone_walkway_tiles_25: 1188293614
+      stone_walkway_tiles_26: 33283132
+      stone_walkway_tiles_27: -1223526880
+      stone_walkway_tiles_28: 1755538766
+      stone_walkway_tiles_29: -879895356
+      stone_walkway_tiles_3: 1581030452
+      stone_walkway_tiles_30: 407571894
+      stone_walkway_tiles_31: -199454101
+      stone_walkway_tiles_32: 1959839862
+      stone_walkway_tiles_33: 544386766
+      stone_walkway_tiles_34: 1202592017
+      stone_walkway_tiles_35: 481929387
+      stone_walkway_tiles_36: -2141948983
+      stone_walkway_tiles_37: -1286825900
+      stone_walkway_tiles_38: 346885376
+      stone_walkway_tiles_39: 393642147
+      stone_walkway_tiles_4: 1433369108
+      stone_walkway_tiles_40: -1328446438
+      stone_walkway_tiles_41: 1982103768
+      stone_walkway_tiles_42: -1735922694
+      stone_walkway_tiles_43: -464750697
+      stone_walkway_tiles_44: -1694378200
+      stone_walkway_tiles_45: 801115478
+      stone_walkway_tiles_46: -1197390934
+      stone_walkway_tiles_47: 1228757773
+      stone_walkway_tiles_5: -1579232104
+      stone_walkway_tiles_6: 970542655
+      stone_walkway_tiles_7: -1338165353
+      stone_walkway_tiles_8: -571793138
+      stone_walkway_tiles_9: 716792793
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 259218
-  packageName: Happy Harvest - 2D Sample Project
-  packageVersion: 1.03
-  assetPath: Assets/HappyHarvest/Art/Tiles/Dirt/Sprites/Sprite_Tiles_Dirt.png
-  uploadId: 678010
