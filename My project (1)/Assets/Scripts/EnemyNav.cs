@@ -132,7 +132,6 @@ public class EnemyNav : MonoBehaviour
         }
         else if(!isFollowing && !isFollowingNpc && !patrolling)
         {
-            Debug.Log("StartPatrol");
             StartPatrol();
         }
 
@@ -321,14 +320,12 @@ public class EnemyNav : MonoBehaviour
     }
     public void StartPatrol()
     {
-        Debug.Log("StartedPatrol");
         patrolling = true;
         choosingPoint = true;
         Invoke(nameof(Patrol), PatrolWaitTime);
     }
     private void PickPatrolDestination()
     {
-        Debug.Log("Tried to change position");
         int maxAttempts = 20;
         int attempts = 0;
         bool validPointFound = false;
