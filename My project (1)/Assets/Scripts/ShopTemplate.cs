@@ -5,6 +5,8 @@ using Unity.Mathematics;
 using System.Collections;
 using System;
 using System.Linq;
+using UnityEngine.Rendering;
+using UnityEngine.UIElements;
 
 public class ShopTemplate : MonoBehaviour
 {
@@ -13,6 +15,7 @@ public class ShopTemplate : MonoBehaviour
     public GameObject infoPanel;
     //public GameObject itemSpawn;
     public GameObject itemOpen;
+    public GameObject contentBound;
 
     [Serializable]
     public class shopTabs
@@ -30,19 +33,26 @@ public class ShopTemplate : MonoBehaviour
     public bool infoActive;
     public bool printing;
 
-    void Start()
+    void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         infoPanel = GameObject.Find("PurchaseInfo");
 
-        foreach (var item in tabs[0].tabItems)
+        for (var i = 0; i < tabs.Length; i++)
         {
-            GameObject p = Instantiate(itemWindow, tabs[0].tab.transform);
-        }
+            float itemY = itemWindow.GetComponent<RectTransform>().rect.top - 50f;
 
+            foreach (var item in tabs[i].tabItems)
+            {
+                GameObject p = Instantiate(itemWindow, tabs[i].tab.gameObject.transform);
+                p.transform.Translate(0, itemY, 0);
+                itemY -= p.GetComponent<RectTransform>().rect.height + 75f /*+ p.GetComponent<RectTransform>().rect.height/2f*/;
+            }
+        }
+        
         for (int i = 0; i < tabs.Length; i++)
         {
-            //tabs[i].gameObject.SetActive(false);
+            tabs[i].tab.gameObject.SetActive(false);
         }
 
         infoPanel.SetActive(infoActive);
@@ -66,10 +76,14 @@ public class ShopTemplate : MonoBehaviour
     {
         for(int i = 0; i < tabs.Length; i++)
         {
-            //tabs[i].gameObject.SetActive(false);
+            tabs[i].tab.gameObject.SetActive(false);
         }
-        
-        //tabs[tab].gameObject.SetActive(true);
+
+        if (tabs[tab].tabItems.Length >= 3)
+        {
+            //contentBound.GetComponent<RectTransform>().rect.height+;
+        }
+        tabs[tab].tab.gameObject.SetActive(true);
     }
 
     public void ShowInfo(int item)
