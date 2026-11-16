@@ -139,21 +139,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyNav
   canSeePlayer: 0
+  seesNpc: 0
+  seenNpc: {fileID: 0}
   patrolling: 0
   MovingToDestination: 1
+  stoppingDistance: 0
+  distanceFromStop: 0
   choosingPoint: 0
-  baseSpeed: 2
   isFollowing: 0
+  isFollowingNpc: 0
+  baseSpeed: 2
   speed: 2
   PlayerStopDistance: 1.5
   PatrolStopDistance: 0.2
   PatrolWaitTime: 5
   detectionRadius: 5
   runAwayDistance: 0.5
-  PatrolRadiusLowX: -8.7
-  PatrolRadiusLowY: -2.7
-  PatrolRadiusHighX: 11
-  PatrolRadiusHighY: 1
+  PatrolRadiusLowX: 0
+  PatrolRadiusLowY: 0
+  PatrolRadiusHighX: 0
+  PatrolRadiusHighY: 0
   enemyLayer:
     serializedVersion: 2
     m_Bits: 128

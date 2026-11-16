@@ -63,9 +63,7 @@ public class EnemyNav : MonoBehaviour
         destination = transform.position;
         DetectionRadiusCollider = GetComponent<CircleCollider2D>();
         navPath = new NavMeshPath();
-        baseSpeed = speed;
-        
-        StartPatrol();
+        baseSpeed = speed;  
     }
     #endregion
 
@@ -132,11 +130,13 @@ public class EnemyNav : MonoBehaviour
                 destination = seenNpc.position;
             }
         }
-        else if(!isFollowing && !isFollowingNpc)
+        else if(!isFollowing && !isFollowingNpc && !patrolling)
         {
+            Debug.Log("StartPatrol");
             StartPatrol();
         }
-        else if (patrolling && !MovingToDestination)
+
+        if (patrolling && !MovingToDestination)
         {
             if (distanceFromStop <= stoppingDistance && choosingPoint)
             {
@@ -299,7 +299,7 @@ public class EnemyNav : MonoBehaviour
         {
             isFollowing = true;
         }
-        if (other.gameObject.CompareTag("NPC"))
+        if (other.gameObject.CompareTag("NPC") && seesNpc)
         {
             isFollowingNpc = true;
             seenNpc = other.transform;
@@ -321,6 +321,7 @@ public class EnemyNav : MonoBehaviour
     }
     public void StartPatrol()
     {
+        Debug.Log("StartedPatrol");
         patrolling = true;
         choosingPoint = true;
         Invoke(nameof(Patrol), PatrolWaitTime);
