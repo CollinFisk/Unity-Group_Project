@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     [Header("UI Menus")]
     [SerializeField] private GameObject[] menus;
 
+
     [Header("TextBoxes")]
     [SerializeField] private TextMeshProUGUI clipText;
     [SerializeField] private TextMeshProUGUI ammoText;
@@ -47,11 +48,13 @@ public class GameManager : MonoBehaviour
         pickupObjText = GameObject.Find("PickupObjText").GetComponent<TextMeshProUGUI>();
 
         pausedText = GameObject.Find("pausedText").GetComponent<TextMeshProUGUI>();
+        
 
         gameOverText = GameObject.Find("gameOverText").GetComponent<TextMeshProUGUI>();
 
 
         startEnemyCount = GameObject.FindGameObjectsWithTag("MeleeEnemy").Length + GameObject.FindGameObjectsWithTag("RangedEnemy").Length;
+
 
         enemyCount = startEnemyCount;
 
@@ -67,6 +70,7 @@ public class GameManager : MonoBehaviour
     {
         if (!gameOver)
         {
+            
             healthBar.value = player.health;
 
             if (player.currentMeleeWeapon)
@@ -98,7 +102,10 @@ public class GameManager : MonoBehaviour
         }
         if (paused)
         {
+            
             pausedText.text = "Paused";
+            
+
         }
         else
             pausedText.text = " ";
@@ -124,6 +131,7 @@ public class GameManager : MonoBehaviour
         if (!gameOver)
         {
             paused = !paused;
+
 
             if (paused)
             {
