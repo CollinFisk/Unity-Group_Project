@@ -7,6 +7,8 @@ using System;
 using System.Linq;
 using UnityEngine.Rendering;
 using UnityEngine.UIElements;
+using UnityEngine.UI;
+using UnityEditor.UI;
 
 public class ShopTemplate : MonoBehaviour
 {
@@ -16,10 +18,13 @@ public class ShopTemplate : MonoBehaviour
     //public GameObject itemSpawn;
     public GameObject itemOpen;
     public GameObject contentBound;
+    public GameObject button;
+    public GameObject tabContent;
 
     [Serializable]
     public class shopTabs
     {
+        public string tabName;
         public GameObject tab;
         public GameObject[] tabItems;
     }
@@ -40,13 +45,13 @@ public class ShopTemplate : MonoBehaviour
 
         for (var i = 0; i < tabs.Length; i++)
         {
-            float itemY = itemWindow.GetComponent<RectTransform>().rect.top - 50f;
-
+            GameObject b = Instantiate(button, GameObject.Find("TabButtons").transform);
+            b.GetComponentInChildren<TextMeshProUGUI>().text = tabs[i].tabName;
+            //b.GetComponent<Butt>().;
             foreach (var item in tabs[i].tabItems)
             {
-                GameObject p = Instantiate(itemWindow, tabs[i].tab.gameObject.transform);
-                p.transform.Translate(0, itemY, 0);
-                itemY -= p.GetComponent<RectTransform>().rect.height + 75f /*+ p.GetComponent<RectTransform>().rect.height/2f*/;
+                GameObject p = Instantiate(itemWindow, tabs[i].tab.transform);
+                p.GetComponentInChildren<TextMeshProUGUI>().text = item.name;
             }
         }
         
@@ -83,6 +88,7 @@ public class ShopTemplate : MonoBehaviour
         {
             //contentBound.GetComponent<RectTransform>().rect.height+;
         }
+        contentBound.GetComponent<ScrollRect>().content = tabs[tab].tab.GetComponent<RectTransform>();
         tabs[tab].tab.gameObject.SetActive(true);
     }
 
