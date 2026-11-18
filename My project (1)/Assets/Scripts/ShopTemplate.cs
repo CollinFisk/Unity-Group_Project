@@ -8,7 +8,7 @@ using System.Linq;
 using UnityEngine.Rendering;
 using UnityEngine.UIElements;
 using UnityEngine.UI;
-using UnityEditor.UI;
+using Button = UnityEngine.UI.Button;
 
 public class ShopTemplate : MonoBehaviour
 {
@@ -16,6 +16,7 @@ public class ShopTemplate : MonoBehaviour
 
     public GameObject infoPanel;
     //public GameObject itemSpawn;
+    public GameObject itemScrollView;
     public GameObject itemOpen;
     public GameObject contentBound;
     public GameObject button;
@@ -25,6 +26,7 @@ public class ShopTemplate : MonoBehaviour
     public class shopTabs
     {
         public string tabName;
+        public int tabIndex;
         public GameObject tab;
         public GameObject[] tabItems;
     }
@@ -44,17 +46,24 @@ public class ShopTemplate : MonoBehaviour
         infoPanel = GameObject.Find("PurchaseInfo");
 
         for (var i = 0; i < tabs.Length; i++)
-        {
+        {   
+            GameObject t = Instantiate(tabContent, contentBound.GetComponentInChildren<Transform>().GetChild(0).transform);
+            t.name = tabs[i].tabName + "Tab";
+            tabs[i].tab = t;
+            
             GameObject b = Instantiate(button, GameObject.Find("TabButtons").transform);
             b.GetComponentInChildren<TextMeshProUGUI>().text = tabs[i].tabName;
-            //b.GetComponent<Butt>().;
+            b.GetComponent<Button>().onClick.AddListener(() => TabClick(tabs[i-1].tabName));
+
+            
             foreach (var item in tabs[i].tabItems)
             {
                 GameObject p = Instantiate(itemWindow, tabs[i].tab.transform);
                 p.GetComponentInChildren<TextMeshProUGUI>().text = item.name;
             }
         }
-        
+
+
         for (int i = 0; i < tabs.Length; i++)
         {
             tabs[i].tab.gameObject.SetActive(false);
@@ -77,19 +86,34 @@ public class ShopTemplate : MonoBehaviour
         }
     }
 
+    void Test(string message)
+    {
+        Debug.Log(message);
+    }
+
     public void TabClick(int tab)
     {
-        for(int i = 0; i < tabs.Length; i++)
+        Debug.Log(tab);
+        foreach(var item in tabs)
+        {
+            if (item. == tab)
+            {
+                contentBound.GetComponent<ScrollRect>().content = tabs[tab].tab.GetComponent<RectTransform>();
+                item.tab.gameObject.SetActive(true);
+            }
+            else
+            {
+                item.tab.gameObject.SetActive(false);
+            }
+
+        }
+        /*for(int i = 0; i < tabs.Length; i++)
         {
             tabs[i].tab.gameObject.SetActive(false);
         }
 
-        if (tabs[tab].tabItems.Length >= 3)
-        {
-            //contentBound.GetComponent<RectTransform>().rect.height+;
-        }
         contentBound.GetComponent<ScrollRect>().content = tabs[tab].tab.GetComponent<RectTransform>();
-        tabs[tab].tab.gameObject.SetActive(true);
+        tabs[tab].tab.gameObject.SetActive(true);*/
     }
 
     public void ShowInfo(int item)

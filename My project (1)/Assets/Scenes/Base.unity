@@ -8740,15 +8740,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ShopTemplate
   player: {fileID: 0}
   infoPanel: {fileID: 0}
+  itemScrollView: {fileID: 0}
   itemOpen: {fileID: 0}
   contentBound: {fileID: 755589500}
   button: {fileID: 2871884540118445133, guid: 06912042cb3715b45b29b6cccc3d0e4f, type: 3}
   tabContent: {fileID: 6763885644114418767, guid: 97804e2bff1600b488834d87a70094ae, type: 3}
   tabs:
   - tabName: Melee
-    tab: {fileID: 1821352605}
+    tab: {fileID: 0}
     tabItems:
     - {fileID: 8604126676776944149, guid: 20c2259c6d8d8104fbcef886434c8139, type: 3}
+    - {fileID: 2496114055267411552, guid: 7374d613de1fe0f44b18eab40dbe2ae7, type: 3}
+    - {fileID: 8604126676776944149, guid: 20c2259c6d8d8104fbcef886434c8139, type: 3}
+  - tabName: Ranged
+    tab: {fileID: 0}
+    tabItems:
+    - {fileID: 2496114055267411552, guid: 7374d613de1fe0f44b18eab40dbe2ae7, type: 3}
+    - {fileID: 2496114055267411552, guid: 7374d613de1fe0f44b18eab40dbe2ae7, type: 3}
+    - {fileID: 8604126676776944149, guid: 20c2259c6d8d8104fbcef886434c8139, type: 3}
+    - {fileID: 2496114055267411552, guid: 7374d613de1fe0f44b18eab40dbe2ae7, type: 3}
   purchasables: []
   itemWindow: {fileID: 903292611158656604, guid: de77210a6d93a8f40875ee0eec014d8d, type: 3}
   menuIndex: 0
@@ -25728,11 +25738,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1664170182}
   m_CullTransparentMesh: 1
---- !u!1 &1821352605 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7838190190128466712, guid: 133d5a3632b878a4ba3a06892ac6ad80, type: 3}
-  m_PrefabInstance: {fileID: 4311870632355785862}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1892998722
 GameObject:
   m_ObjectHideFlags: 0
@@ -26255,6 +26260,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 9160436076857729049, guid: 133d5a3632b878a4ba3a06892ac6ad80, type: 3}
+    - {fileID: 7838190190128466712, guid: 133d5a3632b878a4ba3a06892ac6ad80, type: 3}
+    - {fileID: 5728448543085086167, guid: 133d5a3632b878a4ba3a06892ac6ad80, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 133d5a3632b878a4ba3a06892ac6ad80, type: 3}
