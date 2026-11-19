@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class FirstBoss : MonoBehaviour
@@ -16,6 +17,7 @@ public class FirstBoss : MonoBehaviour
     [SerializeField] private bool TvAttackEnabled = false;
     [SerializeField] private float TvEnabledTime;
     [SerializeField] private GameObject[] Tvs;
+    [SerializeField] private GameObject laser;
 
     [Space]
     [SerializeField] private bool summoningEnemies = false;
@@ -29,6 +31,7 @@ public class FirstBoss : MonoBehaviour
     [SerializeField] private float tossingTime;
     [SerializeField] private int tossJunkCount;
     [SerializeField] private GameObject junkGameObject;
+    [SerializeField] private GameObject junkTarget;
 
     [Space]
     [Header("Meta")]
@@ -91,14 +94,14 @@ public class FirstBoss : MonoBehaviour
         {
             if (!TvAttackEnabled)
             {
-                TvAttackStart();
+                StartCoroutine("TvAttack");
             }
         }
         if (chooseAttack == 2)
         {
             if (!summoningEnemies)
             {
-                SummonEnemiesStart();
+                StartCoroutine("JunkAttack");
             }
         }
         if (chooseAttack == 3)
@@ -111,48 +114,37 @@ public class FirstBoss : MonoBehaviour
     }
 
     #region Attacks
-    private void TvAttackStart()
+  
+    IEnumerator TvAttack()
     {
         TvAttackEnabled = true;
-        Invoke(nameof(TvAttack), attackCooldown);
-    }    
-    private void TvAttack()
-    {
-        Invoke(nameof(TvAttackStop), TvEnabledTime);
-    }    
-    private void TvAttackStop()
-    {
+        yield return new WaitForSeconds(attackCooldown);
+        GameObject Laser = GameObject.Instantiate(laser, transform.position, transform.rotation);
+        yield return new WaitForSeconds(TvEnabledTime);
+        Destroy(Laser);
+
         TvAttackEnabled = false;
     }  
-    
 
-    private void SummonEnemiesStart()
+    IEnumerator SummonEnemies()
     {
         summoningEnemies = true;
-        Invoke(nameof(SummonEnemies), attackCooldown);
-    }
-    private void SummonEnemies()
-    {
-        Invoke(nameof(SummonEnemiesStop), summonTime);
-    }
-    private void SummonEnemiesStop()
-    {
+        yield return new WaitForSeconds(attackCooldown);
+        GameObject.Instantiate(summonedEnemy, transform.position, transform.rotation);
+        yield return new WaitForSeconds(summonTime);
         summoningEnemies = false;
     }
 
-
-    private void JunkAttackStart()
+    IEnumerator JunkAttack()
     {
-        TossingJunk = true;
-        Invoke(nameof(JunkAttack), attackCooldown);
-    }
-    private void JunkAttack()
-    {
-        Invoke(nameof(JunkAttackStop), tossingTime);
-    }
-    private void JunkAttackStop()
-    {
-        TossingJunk = false;
+        Transform player = GameObject.FindGameObjectWithTag("Player").transform;
+        summoningEnemies = true;
+        yield return new WaitForSeconds(attackCooldown);
+        GameObject.Instantiate(junkTarget, player.position, transform.rotation);
+        yield return new WaitForSeconds(attackCooldown);
+        GameObject.Instantiate(junkGameObject, junkTarget.transform.position, transform.rotation);
+        yield return new WaitForSeconds(summonTime);
+        summoningEnemies = false;
     }
     #endregion
 }
