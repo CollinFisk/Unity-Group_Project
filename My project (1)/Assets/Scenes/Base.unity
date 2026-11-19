@@ -8747,19 +8747,21 @@ MonoBehaviour:
   tabContent: {fileID: 6763885644114418767, guid: 97804e2bff1600b488834d87a70094ae, type: 3}
   tabs:
   - tabName: Melee
+    tabIndex: 0
     tab: {fileID: 0}
-    tabItems:
-    - {fileID: 8604126676776944149, guid: 20c2259c6d8d8104fbcef886434c8139, type: 3}
-    - {fileID: 2496114055267411552, guid: 7374d613de1fe0f44b18eab40dbe2ae7, type: 3}
-    - {fileID: 8604126676776944149, guid: 20c2259c6d8d8104fbcef886434c8139, type: 3}
-  - tabName: Ranged
-    tab: {fileID: 0}
-    tabItems:
-    - {fileID: 2496114055267411552, guid: 7374d613de1fe0f44b18eab40dbe2ae7, type: 3}
-    - {fileID: 2496114055267411552, guid: 7374d613de1fe0f44b18eab40dbe2ae7, type: 3}
-    - {fileID: 8604126676776944149, guid: 20c2259c6d8d8104fbcef886434c8139, type: 3}
-    - {fileID: 2496114055267411552, guid: 7374d613de1fe0f44b18eab40dbe2ae7, type: 3}
-  purchasables: []
+    items:
+    - item: {fileID: 8604126676776944149, guid: 20c2259c6d8d8104fbcef886434c8139, type: 3}
+      woodCost: 0
+      metalCost: 0
+      componentCost: 0
+    - item: {fileID: 2496114055267411552, guid: 7374d613de1fe0f44b18eab40dbe2ae7, type: 3}
+      woodCost: 0
+      metalCost: 0
+      componentCost: 0
+  purchasables:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   itemWindow: {fileID: 903292611158656604, guid: de77210a6d93a8f40875ee0eec014d8d, type: 3}
   menuIndex: 0
   infoActive: 0

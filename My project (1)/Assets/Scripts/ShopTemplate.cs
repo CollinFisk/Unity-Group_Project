@@ -23,15 +23,24 @@ public class ShopTemplate : MonoBehaviour
     public GameObject tabContent;
 
     [Serializable]
-    public class shopTabs
+    public class TabItems
+    {
+        public GameObject item;
+        public int woodCost;
+        public int metalCost;
+        public int componentCost;
+    }//*/
+
+    [Serializable]
+    public class ShopTabs
     {
         public string tabName;
         public int tabIndex;
         public GameObject tab;
-        public GameObject[] tabItems;
+        public TabItems[] items;
     }
 
-    public shopTabs[] tabs;
+    public ShopTabs[] tabs;
     public GameObject[] purchasables;
 
     public GameObject itemWindow;
@@ -45,24 +54,22 @@ public class ShopTemplate : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         infoPanel = GameObject.Find("PurchaseInfo");
 
-        for (var i = 0; i < tabs.Length; i++)
-        {   
+        foreach(var tab in tabs)
+        {
             GameObject t = Instantiate(tabContent, contentBound.GetComponentInChildren<Transform>().GetChild(0).transform);
-            t.name = tabs[i].tabName + "Tab";
-            tabs[i].tab = t;
-            
+            t.name = tab.tabName + "Tab";
+            tab.tab = t;
+
             GameObject b = Instantiate(button, GameObject.Find("TabButtons").transform);
-            b.GetComponentInChildren<TextMeshProUGUI>().text = tabs[i].tabName;
-            b.GetComponent<Button>().onClick.AddListener(() => TabClick(tabs[i-1].tabName));
+            b.GetComponentInChildren<TextMeshProUGUI>().text = tab.tabName;
+            b.GetComponent<Button>().onClick.AddListener(() => TabClick(tab.tabIndex));
 
-            
-            foreach (var item in tabs[i].tabItems)
+            foreach (var item in tab.items)
             {
-                GameObject p = Instantiate(itemWindow, tabs[i].tab.transform);
-                p.GetComponentInChildren<TextMeshProUGUI>().text = item.name;
-            }
+                GameObject p = Instantiate(itemWindow, tab.tab.transform);
+                p.GetComponentInChildren<TextMeshProUGUI>().text = item.item.name;
+            }//*/
         }
-
 
         for (int i = 0; i < tabs.Length; i++)
         {
@@ -93,10 +100,9 @@ public class ShopTemplate : MonoBehaviour
 
     public void TabClick(int tab)
     {
-        Debug.Log(tab);
         foreach(var item in tabs)
         {
-            if (item. == tab)
+            if (item.tabIndex == tab)
             {
                 contentBound.GetComponent<ScrollRect>().content = tabs[tab].tab.GetComponent<RectTransform>();
                 item.tab.gameObject.SetActive(true);
@@ -105,15 +111,7 @@ public class ShopTemplate : MonoBehaviour
             {
                 item.tab.gameObject.SetActive(false);
             }
-
         }
-        /*for(int i = 0; i < tabs.Length; i++)
-        {
-            tabs[i].tab.gameObject.SetActive(false);
-        }
-
-        contentBound.GetComponent<ScrollRect>().content = tabs[tab].tab.GetComponent<RectTransform>();
-        tabs[tab].tab.gameObject.SetActive(true);*/
     }
 
     public void ShowInfo(int item)
