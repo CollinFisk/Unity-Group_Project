@@ -41,6 +41,7 @@ public class FirstBoss : MonoBehaviour
     private bool secondPhase;
     public bool isSecondPhase;
     public bool bossDefeated;
+    public float testVariable;
 
     [Header("Phase 2 Values")]
     [SerializeField] private float TvEnabledTimePhase2;
@@ -49,7 +50,7 @@ public class FirstBoss : MonoBehaviour
     [SerializeField] private float tossJunkCountPhase2;
 
     void Update()
-    {        
+    {
         if (health <= 0)
         {
             Destroy(transform.gameObject);
@@ -57,7 +58,7 @@ public class FirstBoss : MonoBehaviour
         //Check if Can Attack, Check What Phase, Choose Attack, Attack
 
         //Check if Can Attack
-        if(!TvAttackEnabled && !summoningEnemies && !TossingJunk)
+        if (!TvAttackEnabled && !summoningEnemies && !TossingJunk)
         {
             canAttack = true;
         }
@@ -122,11 +123,18 @@ public class FirstBoss : MonoBehaviour
         TvAttackEnabled = true;
         yield return new WaitForSeconds(attackCooldown);
         GameObject[] spawnedLasers = new GameObject[SpawnedLasersCount];
+
+        float[] spawnPositions = { -1.4f, 0f, 1.4f };
+        Vector3 spawnpos;
+        spawnpos.x = spawnPositions[Random.Range(0, spawnPositions.Length)];
+        spawnpos.y = -3.6f;
+        spawnpos.z = 0f;
+
         for (int i = 0; i < SpawnedLasersCount; i++)
         {
-            spawnedLasers[i] = GameObject.Instantiate(laser, transform.position, transform.rotation);
+            spawnedLasers[i] = GameObject.Instantiate(laser, spawnpos, transform.rotation);
         }
-            yield return new WaitForSeconds(TvEnabledTime);
+        yield return new WaitForSeconds(TvEnabledTime);
         for (int i = 0; i < SpawnedLasersCount; i++)
         {
             if (spawnedLasers[i] != null)
@@ -150,6 +158,14 @@ public class FirstBoss : MonoBehaviour
     {
         Transform player = GameObject.FindGameObjectWithTag("Player").transform;
         summoningEnemies = true;
+        float choosePositionX = Random.Range(-2f, 2f);
+        float choosePositionY = Random.Range(-2f, 2f);
+        testVariable = choosePositionX;
+        Vector3 chosenPosition;
+        chosenPosition.x = player.position.x + choosePositionX;
+        chosenPosition.y = player.position.y + choosePositionY;
+        chosenPosition.z = 0;
+
         yield return new WaitForSeconds(attackCooldown);
         GameObject.Instantiate(junkTarget, player.position, transform.rotation);
         yield return new WaitForSeconds(attackCooldown);
