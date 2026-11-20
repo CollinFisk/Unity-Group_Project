@@ -1,4 +1,5 @@
 using System.Linq;
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody2D))]
@@ -9,8 +10,11 @@ public class PlayerController : MonoBehaviour
     [Header("Player Settings")]
     public int health = 5;
     public int maxHealth = 5;
-    public int filledWeaponSlots = 0;
     [SerializeField] private float speed = 5f;
+
+    [Header("Meta")]
+    public int lostHealthCheck;
+    public int filledWeaponSlots = 0;
     [SerializeField] private bool attacking = false;
 
     [Header("References")]
@@ -22,6 +26,7 @@ public class PlayerController : MonoBehaviour
     public Transform interactObject;
     public GameObject pickupObj;
     public GameObject gameManager;
+    public CameraShake cameraShake;
 
     private Rigidbody2D rb;
     private PlayerInput inputComponent;
@@ -50,6 +55,7 @@ public class PlayerController : MonoBehaviour
         interactions = interactObject.GetComponent<Interactions>();
         rb = GetComponent<Rigidbody2D>();
         inputComponent = GetComponent<PlayerInput>();
+        lostHealthCheck = health;
 
     }
 
@@ -93,6 +99,13 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if (lostHealthCheck > health)
+        {
+            cameraShake.intensity = 3f;
+            cameraShake.shakeTimer = 1f;
+            cameraShake.StartShakeCamera();
+
+        }
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePos.z = transform.position.z;
         Vector2 lookDir = mousePos - transform.position;
@@ -127,6 +140,7 @@ public class PlayerController : MonoBehaviour
             currentMeleeWeapon = null;
             currentRangedWeapon = null;
         }
+        
     }
 
     private void EquipNextWeapon(InputAction.CallbackContext context)
