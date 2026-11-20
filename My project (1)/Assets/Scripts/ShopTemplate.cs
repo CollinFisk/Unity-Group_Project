@@ -12,15 +12,23 @@ using Button = UnityEngine.UI.Button;
 
 public class ShopTemplate : MonoBehaviour
 {
+    [Header("Context")]
     public PlayerController player;
-
+    public GameObject shopUI;
     public GameObject infoPanel;
+    public TextMeshProUGUI costText;
     //public GameObject itemSpawn;
+
+    [Header("Shop Functioning")]
     public GameObject itemScrollView;
     public GameObject itemOpen;
-    public GameObject contentBound;
+    public Transform contentBound;
+    public GameObject openTab;
+
+    [Header("Prefabs")]
     public GameObject button;
     public GameObject tabContent;
+    public GameObject itemWindow;
 
     [Serializable]
     public class TabItems
@@ -41,9 +49,8 @@ public class ShopTemplate : MonoBehaviour
     }
 
     public ShopTabs[] tabs;
-    public GameObject[] purchasables;
 
-    public GameObject itemWindow;
+    
 
     public int menuIndex;
     public bool infoActive;
@@ -53,21 +60,26 @@ public class ShopTemplate : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         infoPanel = GameObject.Find("PurchaseInfo");
+        contentBound = shopUI.GetComponentInChildren<Transform>().GetChild(2);
+        costText = shopUI.GetComponentInChildren<Transform>().GetChild(4).GetChild(2).GetChild(3).GetComponentInChildren<TextMeshProUGUI>();
 
-        foreach(var tab in tabs)
+        foreach (var tab in tabs)
         {
+            tab.tabIndex = System.Array.IndexOf(tabs, tab);
+
             GameObject t = Instantiate(tabContent, contentBound.GetComponentInChildren<Transform>().GetChild(0).transform);
             t.name = tab.tabName + "Tab";
             tab.tab = t;
 
-            GameObject b = Instantiate(button, GameObject.Find("TabButtons").transform);
+            GameObject b = Instantiate(button, shopUI.GetComponentInChildren<Transform>().GetChild(3).GetChild(0).GetChild(0).transform);
             b.GetComponentInChildren<TextMeshProUGUI>().text = tab.tabName;
-            b.GetComponent<Button>().onClick.AddListener(() => TabClick(tab.tabIndex));
+            b.GetComponent<Button>().onClick.AddListener(() => TabClick(System.Array.IndexOf(tabs, tab)) );
 
             foreach (var item in tab.items)
             {
                 GameObject p = Instantiate(itemWindow, tab.tab.transform);
                 p.GetComponentInChildren<TextMeshProUGUI>().text = item.item.name;
+                p.GetComponent<Button>().onClick.AddListener(() => ShowInfo(System.Array.IndexOf(tab.items, item)) );
             }//*/
         }
 
@@ -93,43 +105,48 @@ public class ShopTemplate : MonoBehaviour
         }
     }
 
-    void Test(string message)
-    {
-        Debug.Log(message);
-    }
-
     public void TabClick(int tab)
     {
         foreach(var item in tabs)
         {
-            if (item.tabIndex == tab)
+            if (item.tabIndex == tab && item.tab != openTab)
             {
                 contentBound.GetComponent<ScrollRect>().content = tabs[tab].tab.GetComponent<RectTransform>();
                 item.tab.gameObject.SetActive(true);
+                openTab = item.tab;
             }
             else
             {
                 item.tab.gameObject.SetActive(false);
+                if(item.tab == openTab)
+                {
+                    openTab = null;
+                }
             }
         }
     }
 
-    public void ShowInfo(int item)
+    public void ShowInfo(int product)
     {
-        if(!itemOpen || purchasables[item] != itemOpen)
+        foreach (var element in tabs)
         {
-            itemOpen = purchasables[item];
-            infoActive = true;
-        }
-        else
-        {
-            infoActive = false;
-            itemOpen = null;
+            if (element.tab == openTab)
+            {
+                if (element.items[product].item != itemOpen || !itemOpen)
+                {
+                    itemOpen = element.items[product].item;
+                    costText.text = "Wood: " + player.wood + "/" + element.items[product].woodCost + "\nMetal: " + player.metal + "/" + element.items[product].metalCost + "\nComponents: " + player.components + "/" + element.items[product].componentCost;
+                    infoActive = true;
+                }
+                else
+                {
+                    infoActive = false;
+                    itemOpen = null;
+                }
+            }
         }
 
         infoPanel.SetActive(infoActive);
-
-        
     }
 
     /*
