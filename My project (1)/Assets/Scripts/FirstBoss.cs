@@ -41,7 +41,6 @@ public class FirstBoss : MonoBehaviour
     private bool secondPhase;
     public bool isSecondPhase;
     public bool bossDefeated;
-    public float testVariable;
 
     [Header("Phase 2 Values")]
     [SerializeField] private float TvEnabledTimePhase2;
@@ -126,7 +125,7 @@ public class FirstBoss : MonoBehaviour
 
         float[] spawnPositions = { -1.4f, 0f, 1.4f };
         Vector3 spawnpos;
-        spawnpos.x = spawnPositions[Random.Range(0, spawnPositions.Length)];
+        spawnpos.x = transform.position.x + spawnPositions[Random.Range(0, spawnPositions.Length)];
         spawnpos.y = -3.6f;
         spawnpos.z = 0f;
 
@@ -158,12 +157,11 @@ public class FirstBoss : MonoBehaviour
     {
         Transform player = GameObject.FindGameObjectWithTag("Player").transform;
         summoningEnemies = true;
-        float choosePositionX = Random.Range(-2f, 2f);
-        float choosePositionY = Random.Range(-2f, 2f);
-        testVariable = choosePositionX;
+        float choosePositionX = player.position.x + Random.Range(-2f, 2f);
+        float choosePositionY = player.position.y + Random.Range(-2f, 2f);
         Vector3 chosenPosition;
-        chosenPosition.x = player.position.x + choosePositionX;
-        chosenPosition.y = player.position.y + choosePositionY;
+        chosenPosition.x = choosePositionX;
+        chosenPosition.y = choosePositionY;
         chosenPosition.z = 0;
 
         yield return new WaitForSeconds(attackCooldown);
