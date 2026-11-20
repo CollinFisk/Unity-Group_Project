@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class FirstBoss : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class FirstBoss : MonoBehaviour
     [Space]
     [SerializeField] private bool TvAttackEnabled = false;
     [SerializeField] private float TvEnabledTime;
+    [SerializeField] private int SpawnedLasersCount;
     [SerializeField] private GameObject[] Tvs;
     [SerializeField] private GameObject laser;
 
@@ -94,37 +96,46 @@ public class FirstBoss : MonoBehaviour
         {
             if (!TvAttackEnabled)
             {
-                StartCoroutine("TvAttack");
+                StartCoroutine(nameof(TvAttack));
             }
         }
         if (chooseAttack == 2)
         {
             if (!summoningEnemies)
             {
-                StartCoroutine("JunkAttack");
+                StartCoroutine(nameof(SummonEnemies));
             }
         }
         if (chooseAttack == 3)
         {
             if (!TossingJunk)
             {
-                JunkAttackStart();
+                StartCoroutine(nameof(JunkAttack));
             }
         }
     }
 
     #region Attacks
-  
+
     IEnumerator TvAttack()
     {
         TvAttackEnabled = true;
         yield return new WaitForSeconds(attackCooldown);
-        GameObject Laser = GameObject.Instantiate(laser, transform.position, transform.rotation);
-        yield return new WaitForSeconds(TvEnabledTime);
-        Destroy(Laser);
-
+        GameObject[] spawnedLasers = new GameObject[SpawnedLasersCount];
+        for (int i = 0; i < SpawnedLasersCount; i++)
+        {
+            spawnedLasers[i] = GameObject.Instantiate(laser, transform.position, transform.rotation);
+        }
+            yield return new WaitForSeconds(TvEnabledTime);
+        for (int i = 0; i < SpawnedLasersCount; i++)
+        {
+            if (spawnedLasers[i] != null)
+            {
+                Destroy(spawnedLasers[i]);
+            }
+        }
         TvAttackEnabled = false;
-    }  
+    }
 
     IEnumerator SummonEnemies()
     {
