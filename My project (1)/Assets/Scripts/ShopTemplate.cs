@@ -172,9 +172,6 @@ public class ShopTemplate : MonoBehaviour
         {
             if (element.tab == openTab)
             {
-                Debug.Log(element.items[itemIndex].woodCost < player.wood);
-                Debug.Log(element.items[itemIndex].metalCost < player.metal);
-                Debug.Log(element.items[itemIndex].componentCost < player.components);
                 if (element.items[itemIndex].woodCost < player.wood && element.items[itemIndex].metalCost < player.metal && element.items[itemIndex].componentCost < player.components)
                 {
                     GameObject g = Instantiate(itemOpen, itemSpawn.GetComponent<Transform>().position, itemSpawn.GetComponent<Transform>().rotation);

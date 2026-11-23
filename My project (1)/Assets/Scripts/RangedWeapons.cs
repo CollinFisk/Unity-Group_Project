@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
@@ -62,6 +63,7 @@ public class RangedWeapons : MonoBehaviour
     {
         player = p;
         transform.gameObject.SetActive(true);
+        gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
         player.currentRangedWeapon = this;
         if (player.GetComponent<PlayerController>().playerWeapons[0] != null)
         {
