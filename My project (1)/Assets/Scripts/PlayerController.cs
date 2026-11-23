@@ -102,7 +102,7 @@ public class PlayerController : MonoBehaviour
         if (lostHealthCheck > health)
         {
             cameraShake.intensity = 3f;
-            cameraShake.shakeTimer = 1f;
+            cameraShake.shakeTimer = 10f;
             cameraShake.StartShakeCamera();
 
         }

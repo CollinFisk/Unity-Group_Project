@@ -17,11 +17,13 @@ public class CameraShake : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         cinemachineCamera = GetComponent<CinemachineCamera>(); 
         ShakeController = cinemachineCamera.transform.GetComponent<CinemachineBasicMultiChannelPerlin>();
+        ShakeController.AmplitudeGain = intensity;
+        ShakeController.FrequencyGain = shakeTimer;
     }
 
     public void StartShakeCamera()
     {
-        ShakeController.AmplitudeGain = intensity;
+        
         Invoke(nameof(StopShakeCamera), shakeTimer);
 
     }
