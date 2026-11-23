@@ -14,8 +14,8 @@ public class MeleeWeapons : MonoBehaviour
     public int minDmg;
     public float knockbackForce;
 
-    [SerializeField] private float SwingSpeed;
-    [SerializeField] private float SwingCooldown;
+    public float SwingSpeed;
+    public float SwingCooldown;
     [SerializeField] private float attackLingeringTime;
 
     void Start()
