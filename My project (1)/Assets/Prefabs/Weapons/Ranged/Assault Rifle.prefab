@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5899764387779398973}
   - component: {fileID: 5848772451485515300}
   m_Layer: 0
-  m_Name: Gun
+  m_Name: Assault Rifle
   m_TagString: RangedWeapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,10 +28,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2496114055267411552}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.02, y: 2, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
-  m_ConstrainProportionsScale: 1
+  m_LocalScale: {x: 0.3, y: 0.6, z: 0.3}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4979808112588198081}
   m_Father: {fileID: 0}
@@ -82,7 +82,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1609584393
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
@@ -109,10 +109,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RangedWeapons
   projectile: {fileID: 3252397241089564035, guid: def7fe29726af174487d23c66b344c36, type: 3}
-  firePoint: {fileID: 4979808112588198081}
   canFire: 0
   holdToAttack: 1
   reloading: 0
+  equipped: 0
   weaponName: 
   projLifespan: 4
   projVelocity: 150

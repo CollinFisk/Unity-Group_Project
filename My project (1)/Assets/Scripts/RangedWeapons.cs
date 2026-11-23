@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
@@ -20,12 +21,12 @@ public class RangedWeapons : MonoBehaviour
     [Header("Weapon Stats")]
     [SerializeField] private float projLifespan;
     [SerializeField] private float projVelocity;
-    [SerializeField] private float reloadCooldown;
-    [SerializeField] private float rof;
+    public float reloadCooldown;
+    public float rof;
 
 
-    [SerializeField] private int maxDmg;
-    [SerializeField] private int minDmg;
+    public int maxDmg;
+    public int minDmg;
 
     [Header("Public Weapon Stats")]
 
@@ -62,6 +63,7 @@ public class RangedWeapons : MonoBehaviour
     {
         player = p;
         transform.gameObject.SetActive(true);
+        gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
         player.currentRangedWeapon = this;
         if (player.GetComponent<PlayerController>().playerWeapons[0] != null)
         {
