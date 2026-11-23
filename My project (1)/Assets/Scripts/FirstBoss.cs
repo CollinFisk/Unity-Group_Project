@@ -1,15 +1,22 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class FirstBoss : MonoBehaviour
 {
     //TV HEAD BOSS
+    [Header("References")]
+    private Transform player;
+    public bool bossStart = false;
+    private BoxCollider2D bossCollider;
 
+    [Space]
     [Header("Stats")]
     [SerializeField] private int maxHealth;
     [SerializeField] private int health;
     [SerializeField] private float attackCooldown;
+    [SerializeField] private float moveColliderCooldown;
 
     [Space]
     [Header("Attacks")]
@@ -38,8 +45,7 @@ public class FirstBoss : MonoBehaviour
     [Space]
     [Header("Meta")]
     [SerializeField] private bool canAttack;
-    private bool secondPhase;
-    public bool isSecondPhase;
+    public bool secondPhase;
     public bool bossDefeated;
 
     [Header("Phase 2 Values")]
@@ -47,47 +53,46 @@ public class FirstBoss : MonoBehaviour
     [SerializeField] private int summonCountPhase2;
     [SerializeField] private float tossingTimePhase2;
     [SerializeField] private float tossJunkCountPhase2;
-
+    private void Start()
+    {
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+    }
     void Update()
     {
-        if (health <= 0)
+        if (bossStart)
         {
-            Destroy(transform.gameObject);
-        }
-        //Check if Can Attack, Check What Phase, Choose Attack, Attack
+            if (health <= 0)
+            {
+                Destroy(transform.gameObject);
+            }
+            //Check if Boss Started Check if Can Attack, Check What Phase, Choose Attack, Attack
 
-        //Check if Can Attack
-        if (!TvAttackEnabled && !summoningEnemies && !TossingJunk)
-        {
-            canAttack = true;
+            //Check if Can Attack
+            if (!TvAttackEnabled && !summoningEnemies && !TossingJunk)
+            {
+                canAttack = true;
+            }
+            else
+            {
+                canAttack = false;
+            }
+
+            //Check What Phase
+            if (health * 4 <= maxHealth * 2 && !secondPhase && canAttack)
+            {
+                secondPhase = true;
+            }
+
+            //Choose Attack
+            if (canAttack)
+            {
+                ChooseAttack();
+            }
         }
         else
-        {
             canAttack = false;
-        }
-
-        //Check What Phase
-        if (health * 4 <= maxHealth * 2)
-        {
-            secondPhase = true;
-        }
-
-        if (secondPhase && !isSecondPhase && canAttack)
-        {
-            SecondPhase();
-        }
-
-        //Choose Attack
-        if (canAttack)
-        {
-            ChooseAttack();
-        }
-
     }
-    private void SecondPhase()
-    {
-        isSecondPhase = true;
-    }
+
     private void ChooseAttack()
     {
         int chooseAttack = Random.Range(1, 4);
@@ -117,10 +122,9 @@ public class FirstBoss : MonoBehaviour
 
     #region Attacks
 
-    IEnumerator TvAttack()
+    IEnumerator TvAttack() //Not Fully Working Yet
     {
         TvAttackEnabled = true;
-        yield return new WaitForSeconds(attackCooldown);
         GameObject[] spawnedLasers = new GameObject[SpawnedLasersCount];
 
         float[] spawnPositions = { -1.4f, 0f, 1.4f };
@@ -128,6 +132,8 @@ public class FirstBoss : MonoBehaviour
         spawnpos.x = transform.position.x + spawnPositions[Random.Range(0, spawnPositions.Length)];
         spawnpos.y = -3.6f;
         spawnpos.z = 0f;
+        yield return new WaitForSeconds(attackCooldown);
+        yield return new WaitForSeconds(moveColliderCooldown);
 
         for (int i = 0; i < SpawnedLasersCount; i++)
         {
@@ -144,18 +150,20 @@ public class FirstBoss : MonoBehaviour
         TvAttackEnabled = false;
     }
 
-    IEnumerator SummonEnemies()
+    IEnumerator SummonEnemies() //Works But enemies need to be readjusted
     {
+        Vector2 SummonPos;
+        SummonPos.x = transform.position.x;
+        SummonPos.y = transform.position.y - 3;
         summoningEnemies = true;
         yield return new WaitForSeconds(attackCooldown);
-        GameObject.Instantiate(summonedEnemy, transform.position, transform.rotation);
+        GameObject.Instantiate(summonedEnemy, SummonPos, transform.rotation);
         yield return new WaitForSeconds(summonTime);
         summoningEnemies = false;
     }
 
     IEnumerator JunkAttack()
     {
-        Transform player = GameObject.FindGameObjectWithTag("Player").transform;
         summoningEnemies = true;
         float choosePositionX = player.position.x + Random.Range(-2f, 2f);
         float choosePositionY = player.position.y + Random.Range(-2f, 2f);
@@ -165,10 +173,13 @@ public class FirstBoss : MonoBehaviour
         chosenPosition.z = 0;
 
         yield return new WaitForSeconds(attackCooldown);
-        GameObject.Instantiate(junkTarget, player.position, transform.rotation);
+
+        GameObject summonedTarget = GameObject.Instantiate(junkTarget, player.position, transform.rotation);
         yield return new WaitForSeconds(attackCooldown);
-        GameObject.Instantiate(junkGameObject, junkTarget.transform.position, transform.rotation);
+        GameObject summonedJunk = GameObject.Instantiate(junkGameObject, summonedTarget.transform.position, transform.rotation);
+        Destroy(summonedTarget);
         yield return new WaitForSeconds(summonTime);
+        Destroy(summonedJunk);
         summoningEnemies = false;
     }
     #endregion
